@@ -1,0 +1,25 @@
+name: Verify orientation shell
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: TypeScript and Rust checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - run: npm ci --include=dev
+      - run: npm run check
+      - run: npm run build
+      - run: cargo check --manifest-path src-tauri/Cargo.toml

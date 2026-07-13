@@ -1,0 +1,22 @@
+{
+  "name": "exocore-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A public orientation shell for Exocore Platform.",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 1420",
+    "build": "tsc && vite build",
+    "check": "tsc --noEmit",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  }
+}
