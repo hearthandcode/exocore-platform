@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hearthandcode.github.io/exocore-platform/contracts/profile-evaluation/v1/worker-result.schema.json",
+  "title": "Exocore worker result envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "adapter_id", "status", "normalized_output", "input_tokens", "output_tokens", "measurement_source"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "request_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "adapter_id": { "const": "python-mock-v1" },
+    "status": { "enum": ["completed", "rejected"] },
+    "normalized_output": { "type": "string", "maxLength": 4096 },
+    "input_tokens": { "type": "integer", "minimum": 0 },
+    "output_tokens": { "type": "integer", "minimum": 0 },
+    "measurement_source": { "const": "derived-estimate" },
+    "error": { "type": ["string", "null"] }
+  }
+}

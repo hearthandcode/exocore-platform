@@ -1,0 +1,11 @@
+[project]
+name = "exocore-profile-evaluation-worker"
+version = "0.0.1"
+description = "Development-only protocol conformance worker for Exocore Platform"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.exocore]
+runtime = "development-only"
+network = "deny"
+credentials = "deny"

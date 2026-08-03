@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "id": "profile-contract-smoke",
+  "title": "Profile contract and receipt boundary",
+  "profile": {
+    "id": "exocore-evaluator-smoke",
+    "version": "0.0.1",
+    "instructions": "Answer with the fixed public-safe statement. Do not claim authority beyond the fixture."
+  },
+  "prompt": "State the distinction between a versioned profile contract and an evaluation run receipt.",
+  "expected": {
+    "exact_output": "A profile is a versioned contract. A run is evidence, not authority.",
+    "required_terms": ["profile", "versioned contract", "run", "evidence", "not authority"]
+  },
+  "policy": {
+    "network": "deny",
+    "credentials": "deny",
+    "max_attempts": 1
+  }
+}
