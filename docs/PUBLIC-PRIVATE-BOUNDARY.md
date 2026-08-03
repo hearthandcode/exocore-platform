@@ -4,7 +4,9 @@ This repository is intentionally public-safe.
 
 ## May be published here
 
-- source code written for the orientation shell
+- source code written for the public-safe desktop workroom
+- versioned schemas and entirely synthetic fixtures
+- synthetic run-bundle examples after a path and metadata redaction check
 - public design posture and bounded roadmap material
 - reproducible build instructions
 - contributor and security guidance
@@ -17,6 +19,7 @@ This repository is intentionally public-safe.
 - private workspace paths, session logs, or agent memory
 - proprietary or sensitive source material
 - unreviewed artifacts copied from a private knowledge base
+- local application-data receipts containing host paths, even when their fixture content is synthetic
 
 The public project may describe a design boundary in its own words. It must not copy a private record simply because the record helped shape that boundary.
 

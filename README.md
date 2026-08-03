@@ -1,14 +1,23 @@
 # Exocore Platform
 
-> **Pre-alpha orientation shell.** This repository is the first visible public artifact for Exocore Platform. It launches a local desktop window that holds the project's direction in view. It is not yet a working agent harness or knowledge-management product.
+> **v0.0.1 pre-alpha.** Exocore Platform now contains one bounded, working agentic-harness slice: a local desktop profile-evaluation workroom with a deterministic mock adapter, task-scoped scoring, and receipts checked for internal consistency.
 
 Exocore Platform is exploring a local-first cognitive workbench for people who want durable context, visible agency, and a calmer route back into complex work.
 
 ## What runs today
 
-A minimal [Tauri v2](https://v2.tauri.app/) desktop shell renders a static orientation screen. It makes no custom Rust commands and has no database, filesystem integration, model provider, telemetry, adapter, ContextPack, or network service.
+A [Tauri v2](https://v2.tauri.app/) desktop application renders a TypeScript profile-evaluation workroom and invokes a Rust Harness module through typed commands. The application can:
 
-The boundary is deliberate. The platform's governance, persistence, adapter, and recovery contracts need separate reviewable design records and proof criteria before they become code.
+- load a bundled public-safe profile fixture;
+- preview its exact adapter, endpoint, network, credential, and attempt policy;
+- run a deterministic in-process Rust mock adapter;
+- compute a deterministic 1000-point fixture score;
+- normalize estimated token evidence;
+- write an append-only application JSON receipt with SHA-256 identities;
+- reopen the latest receipt after restart; and
+- verify output, score, token, reproducibility, and full-receipt internal consistency.
+
+A standard-library Python worker provides a development-only protocol-conformance proof. It is not required by the packaged desktop path and has no policy or release authority.
 
 ## Run it locally
 
@@ -19,7 +28,7 @@ The boundary is deliberate. The platform's governance, persistence, adapter, and
 - Linux desktop prerequisites for Tauri, if you are on Linux. See the [Tauri prerequisites guide](https://v2.tauri.app/start/prerequisites/).
 
 ```bash
-npm install --include=dev
+npm ci
 npm run tauri dev
 ```
 
@@ -32,22 +41,26 @@ npm run tauri build -- --debug --bundles deb
 
 ## Current boundaries
 
-This seed intentionally does **not** implement:
+This pre-alpha intentionally does **not** implement:
 
-- stored work items, receipts, or a CoreStore
+- general work items, a CoreStore, or a database
 - access to local Library files or Hub material
-- agent execution, adapters, tool calls, models, or provider accounts
+- live agents, tool calls, models, provider accounts, or network adapters
 - automatic classification, adaptation, workflow changes, or telemetry
 - ContextPack indexing, semantic retrieval, networking, or cloud sync
+- credential entry, keychain access, OAuth, signing, updates, or release automation
 
-A successful window launch is evidence only of this small desktop orientation surface. It is not evidence that the future platform's governance or persistence architecture has been implemented.
+A successful fixture run is evidence that this mock-only contract, scoring, persistence, and receipt-verification path executed. It is not evidence of model quality, truth, safety, cognitive benefit, or the future platform's full governance architecture.
 
 ## Repository map
 
 ```text
-src/        Browser-compatible TypeScript orientation screen
+contracts/  Versioned public JSON Schema interchange contracts
+fixtures/   Synthetic public-safe evaluation fixtures
+src/        Browser-compatible TypeScript workroom
+src-tauri/  Rust Harness, Tauri commands, scoring, hashing, and receipts
+workers/    Optional development-only Python protocol worker
 docs/       Public project posture, boundaries, and roadmap
-src-tauri/  Minimal native Tauri host with no custom commands
 ```
 
 - [Architecture posture](docs/ARCHITECTURE.md)

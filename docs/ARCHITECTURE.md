@@ -2,9 +2,9 @@
 
 ## Status
 
-Exocore Platform is at a pre-alpha orientation-shell stage. The source in this repository currently consists of a static browser-compatible TypeScript interface hosted by a minimal Tauri v2 application.
+Exocore Platform is at version `0.0.1` pre-alpha. The repository contains one complete profile-evaluation path in a Tauri v2 desktop application. It uses a browser-compatible TypeScript workroom, Rust control plane, and optional development-only Python worker protocol.
 
-The window is intentionally not a miniature version of a future product. It does not store records, make decisions, or receive authority over a person's files or workflow.
+The app stores only synthetic run receipts in its operating-system application-data directory. It has no authority over a person's Library, Hub, provider accounts, credentials, profiles, or workflow.
 
 ## Direction
 
@@ -16,12 +16,28 @@ The project is exploring a local-first cognitive workbench with five connected c
 4. **Class-specific authority:** user-facing Library work should remain where people can inspect and version it, while dynamic operational facts require a separately designed local authority and recovery contract.
 5. **Rebuildable views:** indexes and interfaces should not silently become the authority they render.
 
+## Executing boundary
+
+| Layer | Owns | Does not own |
+|---|---|---|
+| Rust Harness | policy, fixture validation, deterministic adapter, scoring, token normalization, SHA-256 identities, append-only application receipt writing, internal consistency verification, Tauri commands | private sources, live-provider authority, profile promotion, public release decisions |
+| TypeScript workroom | visible fixture selection, policy preview, progress, score and receipt projections | filesystem, process, network, scoring, policy, or secret effects |
+| Python worker | a versioned development protocol-conformance response | desktop lifecycle, receipt acceptance, policy, credentials, baseline changes, or release state |
+
+The default desktop execution path uses the Rust mock adapter. Python is not required to run the app.
+
+## Contract and receipt model
+
+Public JSON Schemas define the fixture and worker interchange boundary. Rust structs reject unknown fields for executing fixture and receipt records. The current canonical JSON subset accepts nulls, booleans, integers, strings, arrays, and sorted-key objects; floating-point values fail closed. SHA-256 hashes identify fixture, profile, output, reproducibility inputs, and the full receipt.
+
+Run IDs and timestamps are runtime metadata. The reproducibility hash excludes runtime path and time so two equivalent mock runs can be compared without pretending they are the same event.
+
 ## What is not decided here
 
-This repository does not select a database, define a runtime CoreStore schema, establish an adapter protocol, publish a provider policy, or authorize background automation. Those are future design and proof tasks.
+This repository does not select a database, define a runtime CoreStore schema, publish a live-provider policy, admit credentials, or authorize background automation. Those remain future design and proof tasks.
 
-A future native proof must demonstrate at least a denied capability path, governed state changes, explicit human gates, and recoverable close/reopen behaviour. A static window cannot supply that evidence.
+The current native proof demonstrates a denied external-capability policy, bounded local receipt creation, integrity verification, and recoverable close/reopen behavior for one synthetic fixture. It does not prove provider isolation or general agent behavior because no live provider or agent runtime is present.
 
 ## Technology boundary
 
-Tauri v2 is the current shell candidate because it can pair a browser-compatible TypeScript interface with a Rust host. If its named capability or packaging criteria fail, the presentation shell can change without turning the host process into an unchecked authority. Any alternative shell would need its own threat model and enforcement proof.
+Tauri v2 pairs the browser-compatible TypeScript interface with the Rust control plane. Custom commands expose only the five profile-evaluation operations used by the workroom. The current capability file grants Tauri core defaults but no filesystem, shell, HTTP, updater, or credential plugin permission. Any future plugin or sidecar requires an explicit capability and threat-model amendment.

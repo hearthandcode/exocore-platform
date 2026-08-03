@@ -2,23 +2,29 @@
 
 This is a direction of travel, not a delivery promise.
 
-## Now: public orientation shell
+## Completed: v0.0.1 profile-evaluation workroom
 
-- [x] A local Tauri v2 window renders the public project posture.
-- [x] The seed contains no application data, agents, adapters, providers, or local-file integration.
-- [x] Build and source checks establish a reproducible starting point.
+- [x] A Tauri v2 desktop app presents one keyboard-operable profile-evaluation flow.
+- [x] Rust owns fixture validation, policy, deterministic mock execution, scoring, hashing, and append-only application receipts.
+- [x] TypeScript presents the contract and receipt without direct native effects.
+- [x] A standard-library Python worker proves the versioned development protocol independently.
+- [x] The first slice uses no network, provider, model, credential, private source, database, telemetry, or cloud service.
 
-## Next: reviewed foundation design
+## Next: harden the local proof
 
-- [ ] Define the record classes and explicit authority boundary for user-facing artifacts and dynamic operational facts.
-- [ ] Define the human-gate, consent, proposal, and rollback contracts.
-- [ ] Establish a narrow native proof with explicit acceptance and recovery criteria.
+- [ ] Add browser-level interaction and accessibility tests.
+- [ ] Prove interruption and cancellation on a deliberately long local adapter.
+- [ ] Validate every public schema through a reviewed Rust JSON Schema implementation.
+- [ ] Package the Python worker only if a measured use case justifies the added lifecycle surface.
+- [ ] Add a human-reviewed export path without exposing private app-data paths.
 
-## Later: governed workroom experiments
+## Later: governed adapter experiments
 
-- [ ] Test a readable workroom that supports returnability after interruption.
 - [ ] Evaluate whether a local record store can prove integrity, backup, restore, and export without turning derived views into hidden authorities.
-- [ ] Explore adapters and retrieval only through explicit capability, provenance, and consent boundaries.
+- [ ] Prove a loopback-only adapter against an already available local endpoint.
+- [ ] Add credential storage only after OS-keychain threat-model and failure-mode tests.
+- [ ] Explore hosted providers only through provider-specific capability, provenance, data, and cost gates.
+- [ ] Let evolution agents propose fixture or profile candidates without access to hidden baselines or promotion authority.
 
 ## Not on the immediate roadmap
 
