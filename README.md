@@ -1,8 +1,14 @@
-# Exocore Platform
+# Hearth & Code Workbench
 
-> **v0.0.1 pre-alpha.** Exocore Platform now contains one bounded, working agentic-harness slice: a local desktop profile-evaluation workroom with a deterministic mock adapter, task-scoped scoring, and receipts checked for internal consistency.
+> **v0.0.1 pre-alpha.** This repository contains one bounded, working Workbench slice: a local desktop profile-evaluation workroom with a deterministic mock adapter, task-scoped scoring, and append-only application receipts checked for internal consistency.
 
-Exocore Platform is exploring a local-first cognitive workbench for people who want durable context, visible agency, and a calmer route back into complex work.
+Hearth & Code Workbench is exploring a local-first software workroom for people who want durable context, visible agency, and a calmer route back into complex work.
+
+## Product and architecture names
+
+**Hearth & Code Workbench** is the provisional public product name. **Exocore** remains the internal architecture, compatibility namespace, and historical name used by this repository. To preserve working contracts and development continuity, the `exocore-platform` repository and package names, Rust crate, Tauri identifier, schema IDs, fixture IDs, worker namespace, and runtime paths remain unchanged in this initial display-name transition.
+
+The name transition does not change what the current proof can do. It has no live model or agent runtime, no provider call, no access to private Library or Hub material, and no authority over a person's files, credentials, profiles, or workflows.
 
 ## What runs today
 

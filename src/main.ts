@@ -99,11 +99,12 @@ function render(): void {
     <div class="app-shell">
       <header class="masthead">
         <div>
-          <p class="eyebrow">Exocore Platform · ${escapeHtml(RELEASE_LABEL)}</p>
+          <p class="eyebrow">Hearth &amp; Code Workbench · ${escapeHtml(RELEASE_LABEL)}</p>
           <h1>Profile Evaluation Workroom</h1>
           <p class="lede">Run a bounded profile fixture, inspect deterministic scoring, and verify an append-only application receipt.</p>
+          <p class="maturity-strip">Bounded local proof · deterministic mock · no provider call</p>
         </div>
-        <div class="release-mark" aria-label="Application version">
+        <div class="release-mark" role="group" aria-label="Application version">
           <span>v${escapeHtml(APP_VERSION)}</span>
           <strong>local only</strong>
         </div>
@@ -119,6 +120,7 @@ function render(): void {
           <div class="boundary-card">
             <h3>v0.0.1 boundary</h3>
             <ul>${PRODUCT_LIMITS.map((limit) => `<li>${escapeHtml(limit)}</li>`).join("")}</ul>
+            <p class="maturity-disclosure">This pre-alpha runs one synthetic, local profile-evaluation fixture through a Rust-controlled deterministic mock. It writes an application receipt and checks that receipt for internal consistency. It does not call a model or provider, access private work, or establish truth, safety, quality, or cognitive benefit.</p>
           </div>
         </aside>
 
@@ -136,6 +138,7 @@ function render(): void {
         <span>TypeScript workroom</span>
         <span>Optional Python worker protocol</span>
         <span>No provider call</span>
+        <span>Exocore architecture · compatibility identifiers retained</span>
       </footer>
     </div>
   `;
@@ -255,7 +258,7 @@ function renderEmptyReceipt(): string {
     <section class="panel empty-panel">
       <p class="step-label">02 · Inspect evidence</p>
       <h2>No run receipt yet</h2>
-      <p>Review the exact policy above, then run the deterministic local fixture. Exocore will write and verify the receipt through the Rust boundary.</p>
+      <p>Review the exact policy above, then run the deterministic local fixture. The Workbench will write and verify the receipt through the Rust boundary.</p>
     </section>
   `;
 }
