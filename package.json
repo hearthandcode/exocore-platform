@@ -8,6 +8,8 @@
     "dev": "vite --host 127.0.0.1 --port 1420",
     "build": "tsc && vite build",
     "check": "tsc --noEmit",
+    "validate:intake-registry": "node scripts/validate-intake-registry-projection.mjs",
+    "validate:artifact-surface": "node scripts/validate-artifact-surface-projection.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "tauri": "tauri"
   },

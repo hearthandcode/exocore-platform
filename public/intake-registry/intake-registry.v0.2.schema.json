@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hearthandcode.org/schemas/exocore/intake-registry-projection-v0.2.schema.json",
+  "title": "Exocore Intake Registry Public-Safe Projection v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "taxonomy",
+    "forms",
+    "definitions",
+    "workflow",
+    "projection",
+    "modules",
+    "taskCalendar"
+  ],
+  "properties": {
+    "contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projectionId",
+        "version",
+        "authorityEffect",
+        "canonical",
+        "syntheticOnly",
+        "sourceIdentity",
+        "sourceDigest",
+        "limits"
+      ],
+      "properties": {
+        "projectionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authorityEffect": {
+          "const": "derived-non-authoritative"
+        },
+        "canonical": {
+          "const": false
+        },
+        "syntheticOnly": {
+          "const": true
+        },
+        "sourceIdentity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceDigest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "limits": {
+          "type": "array",
+          "minItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "taxonomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cores",
+        "profiles",
+        "facets"
+      ],
+      "properties": {
+        "cores": {
+          "type": "array",
+          "minItems": 16,
+          "maxItems": 16,
+          "items": {
+            "type": "object"
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "object"
+          }
+        },
+        "facets": {
+          "type": "array",
+          "minItems": 7,
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "forms": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object"
+      }
+    },
+    "definitions": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {
+        "type": "object"
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statuses",
+        "reviewStates",
+        "readyForRouteMeaning",
+        "transitions",
+        "consequentialGates"
+      ],
+      "properties": {
+        "statuses": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "reviewStates": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "readyForRouteMeaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transitions": {
+          "type": "array",
+          "minItems": 11,
+          "maxItems": 11,
+          "items": {
+            "type": "object"
+          }
+        },
+        "consequentialGates": {
+          "type": "array",
+          "minItems": 8,
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "posture",
+        "databases",
+        "crosswalk",
+        "conflictPolicy",
+        "automaticWriteBack",
+        "silentOverwrite"
+      ],
+      "properties": {
+        "posture": {
+          "type": "string",
+          "minLength": 1
+        },
+        "databases": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object"
+          }
+        },
+        "crosswalk": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "items": {
+            "type": "object"
+          }
+        },
+        "conflictPolicy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "automaticWriteBack": {
+          "const": false
+        },
+        "silentOverwrite": {
+          "const": false
+        }
+      }
+    },
+    "modules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicationPosture",
+        "mountState",
+        "items",
+        "authorityPlanes",
+        "futureCortexPort",
+        "typescriptMayOwn",
+        "typescriptMustNotOwn"
+      ],
+      "properties": {
+        "applicationPosture": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mountState": {
+          "const": "unmounted-candidate"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "type": "object"
+          }
+        },
+        "authorityPlanes": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "object"
+          }
+        },
+        "futureCortexPort": {
+          "type": "object"
+        },
+        "typescriptMayOwn": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "typescriptMustNotOwn": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "taskCalendar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "posture",
+        "fields",
+        "humanSelectionRequired",
+        "prohibitedEffects"
+      ],
+      "properties": {
+        "posture": {
+          "const": "metadata-only-derived-view"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "humanSelectionRequired": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "prohibitedEffects": {
+          "type": "array",
+          "minItems": 9,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
