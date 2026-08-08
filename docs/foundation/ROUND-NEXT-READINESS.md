@@ -37,7 +37,7 @@ Handoff `HH-20260808-FOUNDATION-001` supplies the exact v1 contract and digests.
 
 ## Routed candidates
 
-- Queue next phase: dependency policy, durable config adapter, checkpoint automation, Hub downstream record.
+- Queue next phase: dependency policy, durable config adapter, checkpoint automation, Hub downstream record, local hook/commitlint tooling.
 - Research spike: authorization seam, deterministic contract generation, Context7 documentation integration.
 
 ## Recommended sequence

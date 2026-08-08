@@ -183,3 +183,30 @@ candidates:
     priority: high
     recommended_disposition: queue-next-phase
     human_decision_state: pending; active foundation lane authorizes no Hub write
+
+  - id: EXO-FOUNDATION-IC-008
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-E1
+    friction_opportunity: Formatting, lint, type, Rust, test, and Conventional Commit expectations exist, but the repository has no reviewed local hook runner or commitlint configuration.
+    evidence: CI and session commands now run Prettier, ESLint, tsc, rustfmt, clippy, and tests; both task commits were manually checked as Conventional Commits, while commitlint and pre-commit automation remained unconfigured.
+    affected_users_workflows: Contributors creating local commits and maintainers reviewing CI failures.
+    layer: developer-tooling
+    proposal: Evaluate a minimal reviewed hook runner and commitlint configuration that calls existing scripts without duplicating CI policy.
+    alternatives:
+      [
+        retain CI-only enforcement,
+        document manual commit checks,
+        defer until multiple contributors,
+      ]
+    value: Moves predictable feedback earlier without changing application behavior.
+    cost_range: small
+    architectural_impact: none in runtime; repository developer tooling only
+    security_impact: hook installation scripts and dependency supply chain require review
+    provenance_impact: hook and rule versions must remain lockfile-pinned and visible in CI
+    compatibility_impact: must not block emergency recovery or require network access during commit
+    reversibility: remove hook configuration and retain CI commands
+    dependencies: [tool and license review, contributor workflow decision]
+    confidence: high
+    priority: low
+    recommended_disposition: queue-next-phase
+    human_decision_state: pending; no hook installation authorized in this lane

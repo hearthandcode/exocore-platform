@@ -6,7 +6,7 @@
 
 ## 2. Branch
 
-`feat/exocore-foundation-structure`, based on `0a827ca1ce3d3458d924996661ad49191233bce0`. Implementation commit: `fb8c608987b00b976acabee1c0363bc1ea55bb64`, tree `fc825eb5af1d242bb89559f8d3e3c53b1adde345`. No main commit or history rewrite occurred.
+`feat/exocore-foundation-structure`, based on `0a827ca1ce3d3458d924996661ad49191233bce0`. Implementation commits: `fb8c608987b00b976acabee1c0363bc1ea55bb64` and completion commit `e66908977d295382d272333d8a72e917d54fdc3e`; final implementation tree `c685c3e71ec0f4828c840c9afb91f2ede04eb89a`. No main commit or history rewrite occurred.
 
 ## 3. Worktree
 
@@ -31,6 +31,7 @@ The source prompt assigned Kimi K3. Scott explicitly substituted the current Cod
 .github/workflows/ci.yml
 README.md
 contracts/foundation/check-boundaries.mjs
+contracts/foundation/default.config.json
 contracts/foundation/exocore.module-mount.v1.schema.json
 contracts/foundation/module-boundary-manifest.json
 docs/ARCHITECTURE.md
@@ -53,6 +54,7 @@ docs/foundation/checkpoints/2026-08-08-contract.md
 docs/foundation/checkpoints/2026-08-08-evaluation.md
 docs/foundation/checkpoints/2026-08-08-implementation.md
 docs/foundation/checkpoints/2026-08-08-orientation.md
+docs/foundation/corrections/2026-08-08-evaluation-correction-001.md
 docs/foundation/corrections/2026-08-08-gate-0-owned-paths-001.md
 eslint.config.js
 package-lock.json
@@ -83,11 +85,11 @@ src/main.ts
 
 ## 7. Tests and results
 
-Prettier, ESLint, TypeScript, 3 Vitest tests, 12-module boundary validation, Vite build, rustfmt, offline cargo check, clippy with warnings denied, 27 Rust tests, Python unittest/compile, npm audit, Tauri debug build, native 15-second launch observation, and diff checks passed as bounded in the Evaluation record. Seven original canary Rust tests remain unchanged and green.
+Prettier, ESLint, TypeScript, 3 Vitest tests, 12-module boundary validation, Vite build, rustfmt, offline cargo check, clippy with warnings denied, 29 Rust tests, Python unittest/compile, npm audit, Tauri debug build, native 15-second launch observation, and diff checks passed as bounded in the Evaluation record. Seven original canary Rust tests remain unchanged and green.
 
 ## 8. Unrun checks
 
-No remote CI run, production bundle/install, automated browser accessibility tree, screenshot comparison, real feature mount, real data, durable-store recovery, provider isolation, deployment, signing, publication, or independent-model review ran. These omissions are visible limitations, not implied passes.
+No remote CI run, production bundle/install, automated browser accessibility tree, screenshot comparison, real feature mount, real data, durable-store recovery, provider isolation, commitlint/local hook runner, deployment, signing, publication, or independent-model review ran. These omissions are visible limitations, not implied passes.
 
 ## 9. Dependencies
 
@@ -99,7 +101,7 @@ Controls cover deny-by-default capabilities, traversal, byte bounds, strict UTF-
 
 ## 11. Improvement candidates
 
-`IMPROVEMENT-CANDIDATES.yaml` contains seven valid 21-field records: dependency policy, durable configuration adapter, authorization seam, contract generation, checkpoint automation, Context7 documentation integration assessment, and a separately gated Hub downstream record. Recommended dispositions are queue-next-phase or research-spike; all human decision states are pending.
+`IMPROVEMENT-CANDIDATES.yaml` contains eight valid 21-field records: dependency policy, durable configuration adapter, authorization seam, contract generation, checkpoint automation, Context7 documentation integration assessment, a separately gated Hub downstream record, and local hook/commitlint tooling. Recommended dispositions are queue-next-phase or research-spike; all human decision states are pending.
 
 ## 12. Remaining gates
 

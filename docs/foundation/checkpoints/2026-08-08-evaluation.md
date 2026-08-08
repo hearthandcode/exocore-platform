@@ -12,13 +12,16 @@ governing_sources:
   - EXO-FOUNDATION-20260808-C1
   - EXO-FOUNDATION-20260808-I1
   - implementation commit fb8c608987b00b976acabee1c0363bc1ea55bb64
+  - completion commit e66908977d295382d272333d8a72e917d54fdc3e
+  - correction docs/foundation/corrections/2026-08-08-evaluation-correction-001.md
 source_digests:
-  implementation_tree: fc825eb5af1d242bb89559f8d3e3c53b1adde345
+  implementation_tree: c685c3e71ec0f4828c840c9afb91f2ede04eb89a
   orientation_report: f859fe4c5f2f59819b4a7f073afb0825218acfe4396c81e9559b207a46c10b65
   foundation_goal_prompt: 6af859127323f32ba0a47d723099dfb5f947f29a6c4fa00a0baf2d4f78a6c360
   mount_schema: c8ff2451fe5e66c953616d07bdf5be0dd0085bec3fee47aacea61161210f3a6d
   mount_guide: fda30ff35341439ec0e1ab4702a6abfe3ec789fd35b060a578c0b7bf62567703
   boundary_manifest: f70c903f3017a2d0a1244834e64bd217e43c37177046cc6cfdd490a476ae72b7
+  default_config: 7f0ff58400afda8738a6ce85e74a6e1b59ede1c84fafda994f11e53a542a18fa
 owned_paths:
   - implementation paths recorded at Gate 0 and correction 001
   - docs/foundation/FOUNDATION-EVALUATION-REVIEW-PACKET.md
@@ -71,7 +74,7 @@ verification_runs:
     proves: all Rust targets are warning-free
   - command: cargo test --manifest-path src-tauri/Cargo.toml --offline
     exit_status: 0
-    proves: 27 Rust tests pass, including all 7 canary tests
+    proves: 29 Rust tests pass, including all 7 canary tests
   - command: python3 -m unittest discover -s workers/profile-evaluation-python/tests -v
     exit_status: 0
     proves: existing development worker protocol tests pass
@@ -89,6 +92,7 @@ verification_runs:
     proves: no whitespace errors or matched high-confidence secret signatures
 artifacts:
   - implementation commit fb8c608987b00b976acabee1c0363bc1ea55bb64
+  - completion commit e66908977d295382d272333d8a72e917d54fdc3e
   - docs/foundation/FOUNDATION-FEATURE-PACKET.md
   - docs/foundation/FOUNDATION-EVALUATION-REVIEW-PACKET.md
   - docs/foundation/MOUNT-HANDOFF-FORM-INTAKE.md
@@ -112,6 +116,7 @@ improvement_candidates:
   - EXO-FOUNDATION-IC-005
   - EXO-FOUNDATION-IC-006
   - EXO-FOUNDATION-IC-007
+  - EXO-FOUNDATION-IC-008
 decision_required: Scott chooses accept, accept-with-queued-improvements, request-revision, adapt-contract, park, or reject-and-revert
 disposition: pass-with-followups
 rollback_route: reject and remove the isolated task branch/worktree; main and external state remain unchanged

@@ -3,8 +3,8 @@
 ## Evaluation identity
 
 - **Evaluation checkpoint:** `EXO-FOUNDATION-20260808-E1`
-- **Implementation commit:** `fb8c608987b00b976acabee1c0363bc1ea55bb64`
-- **Implementation tree:** `fc825eb5af1d242bb89559f8d3e3c53b1adde345`
+- **Implementation commits:** `fb8c608987b00b976acabee1c0363bc1ea55bb64` and completion commit `e66908977d295382d272333d8a72e917d54fdc3e`
+- **Final implementation tree:** `c685c3e71ec0f4828c840c9afb91f2ede04eb89a`
 - **Branch:** `feat/exocore-foundation-structure`
 - **Review type:** executing-model self-review and deterministic-tool review; same-model, not independent
 - **Outcome proposed to Scott:** `pass-with-followups`
@@ -80,7 +80,7 @@ For manual inspection use `npm run tauri dev`. The foundation card starts with i
 | rustfmt                                    | pass                                                    | Rust source is formatted                                               |
 | cargo check                                | pass                                                    | Rust library/application compile offline                               |
 | clippy `-D warnings`                       | pass                                                    | all Rust targets satisfy configured lint strictness                    |
-| cargo test                                 | 27/27 pass                                              | 20 foundation and 7 unchanged canary tests pass                        |
+| cargo test                                 | 29/29 pass                                              | 22 foundation and 7 unchanged canary tests pass                        |
 | Python unittest/compile                    | pass                                                    | existing development worker protocol remains healthy                   |
 | Tauri debug no-bundle build                | pass                                                    | native application builds and command registration compiles            |
 | Native launch                              | 15 seconds, timeout 124, zero log bytes, no panic/error | built desktop process remained alive for the observation window        |
@@ -94,7 +94,7 @@ Pi-lens reported two module-resolution errors in pre-existing `src/harness/api.t
 
 - Dependency directions are explicit and machine-readable.
 - A feature can mount generically without kernel edits when the v1 contract is sufficient.
-- Configuration replaces branching in the new foundation; no environment adapter is introduced.
+- Configuration replaces branching in the new foundation; package defaults and a named overlay share one typed validator, while no process-environment adapter is introduced.
 - Safe defaults are `deny`, empty source roots, strict UTF-8, local stdout events, and flags off.
 - The operator can inspect the structural proof without gaining filesystem, process, network, secret, provider, or Hub authority.
 - Foundation modules contain no intake, workroom-projection, memory, provider, or other feature logic.
@@ -105,13 +105,14 @@ Pi-lens reported two module-resolution errors in pre-existing `src/harness/api.t
 - Config and flag overrides are process-local demonstration state.
 - The actor proof uses one standard-library thread; it does not prove restart budgets or durable mailboxes.
 - The boundary validator checks declared paths and graph cycles; it does not parse every source import.
+- Commitlint and a local pre-commit hook runner are not configured; the two task commits were manually checked as Conventional Commits and CI runs the underlying checks.
 - Visual and accessibility behavior was compiled and structurally reviewed but not inspected with an automated browser accessibility tree.
 - No real feature, real data, durable store, provider, or production package was exercised.
 - The mount handoff becomes stale if any listed contract digest changes.
 
 ## 9. Improvement candidates
 
-Seven complete 21-field candidates are in `IMPROVEMENT-CANDIDATES.yaml`: dependency policy, durable config adapter, authorization seam, contract generation, checkpoint automation, Context7 documentation integration assessment, and a separately gated Hub downstream record. None authorizes follow-on work.
+Eight complete 21-field candidates are in `IMPROVEMENT-CANDIDATES.yaml`: dependency policy, durable config adapter, authorization seam, contract generation, checkpoint automation, Context7 documentation integration assessment, a separately gated Hub downstream record, and local hook/commitlint tooling. None authorizes follow-on work.
 
 ## 10. Approval gates
 

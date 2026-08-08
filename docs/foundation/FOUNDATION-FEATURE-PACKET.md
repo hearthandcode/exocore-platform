@@ -40,7 +40,7 @@ The existing profile-evaluation workroom remains primary. A separate foundation 
 
 ## 6. Technical design
 
-ADR-FOUNDATION-001 and `module-boundary-manifest.json` own topology. `exocore.module-mount.v1` owns registration. Rust validates all native boundaries. TypeScript uses `zustand/vanilla` for cross-cutting projections and XState for request lifecycle. One Tauri `Mutex<FoundationRuntime>` holds process-local registry/flag state; it has no external adapter. Contracts remain transport-neutral.
+ADR-FOUNDATION-001 and `module-boundary-manifest.json` own topology. `exocore.module-mount.v1` owns registration. Rust validates all native boundaries, loading package defaults from `default.config.json`, applying any explicitly named overlay through the same validator, and invoking feature-local config validation before atomic mount. TypeScript uses `zustand/vanilla` for cross-cutting projections and XState for request lifecycle. One Tauri `Mutex<FoundationRuntime>` holds process-local registry/flag state; it has no external adapter. Contracts remain transport-neutral.
 
 ## 7. Data, schema, and contract posture
 
