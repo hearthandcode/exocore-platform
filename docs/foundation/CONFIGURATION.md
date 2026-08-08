@@ -4,11 +4,11 @@
 
 The foundation uses typed configuration, not scattered environment branches. The initial proof loads:
 
-1. compiled safe defaults;
-2. one explicitly supplied JSON object from the native caller;
-3. validated feature-local config at mount.
+1. package defaults from `contracts/foundation/default.config.json`, embedded byte-for-byte into the native build;
+2. an optional named environment-overlay JSON object through the same recursive typed loader;
+3. validated feature-local config at atomic mount.
 
-No environment overlay is executed in this slice. A future environment adapter must map named values into the same typed loader and receive separate security review. Unknown fields, invalid types, and invalid enum values return `E_CONFIG`; startup or mount halts closed.
+No process environment variable is read directly in this slice. A future environment adapter must map an explicit allowlist into the named overlay and receive separate security review. Unknown fields, invalid types, unsafe values, and invalid feature-local config return `E_CONFIG`; startup or mount halts closed.
 
 ## Initial keys
 

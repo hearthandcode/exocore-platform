@@ -46,7 +46,30 @@ impl ModuleRegistry {
         manifest: ModuleManifest,
         correlation_id: &str,
     ) -> Result<ModuleHealth, TypedError> {
+        self.mount_with_config(manifest, &serde_json::json!({}), |_| true, correlation_id)
+    }
+
+    pub fn mount_with_config<F>(
+        &mut self,
+        manifest: ModuleManifest,
+        config: &serde_json::Value,
+        validate_config: F,
+        correlation_id: &str,
+    ) -> Result<ModuleHealth, TypedError>
+    where
+        F: FnOnce(&serde_json::Value) -> bool,
+    {
         self.validate_manifest(&manifest, correlation_id)?;
+        if !validate_config(config) {
+            return Err(TypedError::new(
+                ErrorCode::Config,
+                "exocore.module-mount.v1",
+                "module configuration does not satisfy its declared schema",
+                true,
+                "correct the feature-local configuration and retry the atomic mount",
+                correlation_id,
+            ));
+        }
         self.flags
             .register(manifest.flag_declaration.clone(), correlation_id)?;
         self.routes.extend(manifest.routes.iter().cloned());
@@ -287,6 +310,19 @@ mod tests {
         collision.contracts = vec!["exocore.sample-module.v1".into()];
         assert!(registry.mount(collision, "c").is_err());
         assert_eq!(registry.module_count(), 1);
+    }
+
+    #[test]
+    fn invalid_feature_config_is_rejected_without_partial_mount() {
+        let mut registry = ModuleRegistry::default();
+        let result = registry.mount_with_config(
+            manifest("sample-module"),
+            &serde_json::json!({"max_bytes": 0}),
+            |config| config["max_bytes"].as_u64().is_some_and(|value| value > 0),
+            "c",
+        );
+        assert_eq!(result.unwrap_err().code, "E_CONFIG");
+        assert_eq!(registry.module_count(), 0);
     }
 
     #[test]

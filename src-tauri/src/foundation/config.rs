@@ -91,6 +91,23 @@ pub struct FoundationConfig {
 }
 
 impl FoundationConfig {
+    pub fn from_layers(
+        package_defaults: &str,
+        environment_overlay: Option<&str>,
+        correlation_id: &str,
+    ) -> Result<Self, TypedError> {
+        let mut merged: serde_json::Value = serde_json::from_str(package_defaults)
+            .map_err(|_| config_parse_error(correlation_id))?;
+        if let Some(overlay) = environment_overlay {
+            let overlay: serde_json::Value =
+                serde_json::from_str(overlay).map_err(|_| config_parse_error(correlation_id))?;
+            merge_values(&mut merged, overlay);
+        }
+        let serialized =
+            serde_json::to_string(&merged).map_err(|_| config_parse_error(correlation_id))?;
+        Self::from_json(&serialized, correlation_id)
+    }
+
     pub fn from_json(value: &str, correlation_id: &str) -> Result<Self, TypedError> {
         let config: Self = serde_json::from_str(value).map_err(|_| {
             TypedError::new(
@@ -131,6 +148,28 @@ impl FoundationConfig {
     }
 }
 
+fn merge_values(base: &mut serde_json::Value, overlay: serde_json::Value) {
+    match (base, overlay) {
+        (serde_json::Value::Object(base), serde_json::Value::Object(overlay)) => {
+            for (key, value) in overlay {
+                merge_values(base.entry(key).or_insert(serde_json::Value::Null), value);
+            }
+        }
+        (base, overlay) => *base = overlay,
+    }
+}
+
+fn config_parse_error(correlation_id: &str) -> TypedError {
+    TypedError::new(
+        ErrorCode::Config,
+        "exocore.config.v1",
+        "foundation configuration layer is invalid",
+        false,
+        "correct the package defaults or named environment overlay before retrying",
+        correlation_id,
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -141,6 +180,24 @@ mod tests {
         assert_eq!(config.authority.default_posture, "deny");
         assert!(config.source.allowed_roots.is_empty());
         assert_eq!(config.telemetry.sink, "stdout");
+    }
+
+    #[test]
+    fn a_named_environment_overlay_uses_the_same_validation_path() {
+        let config = FoundationConfig::from_layers(
+            include_str!("../../../contracts/foundation/default.config.json"),
+            Some(r#"{"telemetry":{"level":"debug"}}"#),
+            "c",
+        )
+        .unwrap();
+        assert_eq!(config.telemetry.level, "debug");
+        assert_eq!(config.authority.default_posture, "deny");
+        assert!(FoundationConfig::from_layers(
+            include_str!("../../../contracts/foundation/default.config.json"),
+            Some(r#"{"authority":{"default_posture":"allow"}}"#),
+            "c",
+        )
+        .is_err());
     }
 
     #[test]

@@ -29,6 +29,10 @@ impl TraceEvent {
             detail: redact(detail),
         }
     }
+
+    pub fn to_json(&self) -> Result<String, serde_json::Error> {
+        serde_json::to_string(self)
+    }
 }
 
 fn redact(value: &str) -> String {
@@ -59,5 +63,8 @@ mod tests {
         let event = TraceEvent::local("test", "test.v1", "c", "ok", "token=abc safe");
         assert_eq!(event.detail, "[REDACTED] safe");
         assert!(!event.detail.contains("abc"));
+        let json = event.to_json().unwrap();
+        assert!(json.contains("exocore.trace-event.v1"));
+        assert!(!json.contains("abc"));
     }
 }

@@ -47,7 +47,11 @@ pub struct FoundationRuntime {
 impl FoundationRuntime {
     pub fn new() -> Result<Self, TypedError> {
         let correlation = correlation_id("exocore.foundation-runtime.v1", b"startup");
-        let config = FoundationConfig::from_json("{}", &correlation)?;
+        let config = FoundationConfig::from_layers(
+            include_str!("../../../contracts/foundation/default.config.json"),
+            None,
+            &correlation,
+        )?;
         let mut registry = ModuleRegistry::default();
         registry.mount(demonstration_manifest(), &correlation)?;
         Ok(Self { config, registry })
@@ -153,6 +157,17 @@ pub fn echo(request: FoundationEchoRequest) -> Result<FoundationEchoResponse, Ty
         "ok",
         "bounded actor response completed",
     );
+    let trace_json = trace.to_json().map_err(|_| {
+        TypedError::new(
+            ErrorCode::Internal,
+            "exocore.echo.v1",
+            "local trace serialization failed",
+            true,
+            "retry and inspect local diagnostics",
+            &correlation,
+        )
+    })?;
+    println!("{trace_json}");
     Ok(FoundationEchoResponse {
         schema: "exocore.echo-response.v1",
         message,
