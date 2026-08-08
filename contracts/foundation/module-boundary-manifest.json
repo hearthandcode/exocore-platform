@@ -1,0 +1,93 @@
+{
+  "schema": "exocore.module-boundaries.v1",
+  "deployable": "exocore-platform",
+  "modules": [
+    {
+      "id": "contracts",
+      "plane": "shared",
+      "path": "contracts/",
+      "may_depend_on": []
+    },
+    {
+      "id": "kernel-authority",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/authority.rs",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "kernel-source",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/source.rs",
+      "may_depend_on": ["contracts", "kernel-authority"]
+    },
+    {
+      "id": "kernel-identity",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/identity.rs",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "kernel-config",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/config.rs",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "kernel-flags",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/flags.rs",
+      "may_depend_on": ["contracts", "kernel-config"]
+    },
+    {
+      "id": "kernel-module-registry",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/module_registry.rs",
+      "may_depend_on": ["contracts", "kernel-config", "kernel-flags"]
+    },
+    {
+      "id": "kernel-ipc",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/ipc.rs",
+      "may_depend_on": [
+        "contracts",
+        "kernel-authority",
+        "kernel-config",
+        "kernel-flags",
+        "kernel-module-registry",
+        "kernel-telemetry"
+      ]
+    },
+    {
+      "id": "kernel-actors",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/actor.rs",
+      "may_depend_on": ["contracts", "kernel-telemetry"]
+    },
+    {
+      "id": "kernel-telemetry",
+      "plane": "rust",
+      "path": "src-tauri/src/foundation/telemetry.rs",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "presentation-foundation",
+      "plane": "typescript",
+      "path": "src/foundation/",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "profile-evaluation-canary",
+      "plane": "feature",
+      "path": "src-tauri/src/harness/",
+      "may_depend_on": ["contracts"]
+    }
+  ],
+  "rules": {
+    "feature_to_feature_private_imports": "denied",
+    "presentation_native_effects": "denied",
+    "cross_module_table_access": "denied",
+    "projection_writes_to_authority": "denied",
+    "dynamic_plugin_loading": "deferred",
+    "unknown_module_or_capability": "fail-closed"
+  }
+}

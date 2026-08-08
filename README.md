@@ -25,6 +25,8 @@ A [Tauri v2](https://v2.tauri.app/) desktop application renders a TypeScript pro
 
 A standard-library Python worker provides a development-only protocol-conformance proof. It is not required by the packaged desktop path and has no policy or release authority.
 
+The foundation branch also carries an exercised modular-monolith skeleton: deny-by-default authority and source boundaries, typed configuration and feature flags, an atomic module mount registry, typed IPC errors, a supervised Rust actor, local structured traces, and explicit Zustand/XState presentation boundaries. The demonstration route is off by default. This structure is not a released feature and does not change the canary's authority.
+
 ## Run it locally
 
 ### Prerequisites
@@ -61,15 +63,19 @@ A successful fixture run is evidence that this mock-only contract, scoring, pers
 ## Repository map
 
 ```text
-contracts/  Versioned public JSON Schema interchange contracts
-fixtures/   Synthetic public-safe evaluation fixtures
-src/        Browser-compatible TypeScript workroom
-src-tauri/  Rust Harness, Tauri commands, scoring, hashing, and receipts
-workers/    Optional development-only Python protocol worker
-docs/       Public project posture, boundaries, and roadmap
+contracts/              Versioned public interchange and foundation mount contracts
+fixtures/               Synthetic public-safe evaluation fixtures
+src/foundation/         TypeScript app-shell, route, store, machine, UI, and typed IPC boundaries
+src/harness/            Existing browser-compatible profile-evaluation canary
+src-tauri/src/foundation/ Rust authority, source, identity, config, flags, mount, IPC, actor, and telemetry modules
+src-tauri/src/harness/  Existing Rust profile-evaluation canary
+workers/                Optional development-only Python protocol worker
+docs/foundation/        Foundation ADR, operating contracts, checkpoints, and review evidence
 ```
 
 - [Architecture posture](docs/ARCHITECTURE.md)
+- [Foundation topology ADR](docs/foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md)
+- [Module mount contract](docs/foundation/MOUNT-CONTRACT.md)
 - [Governance posture](docs/GOVERNANCE.md)
 - [Public/private boundary](docs/PUBLIC-PRIVATE-BOUNDARY.md)
 - [Roadmap](docs/ROADMAP.md)

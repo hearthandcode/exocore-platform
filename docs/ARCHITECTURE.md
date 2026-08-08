@@ -18,13 +18,19 @@ The project is exploring a local-first cognitive workbench with five connected c
 
 ## Executing boundary
 
-| Layer | Owns | Does not own |
-|---|---|---|
-| Rust Harness | policy, fixture validation, deterministic adapter, scoring, token normalization, SHA-256 identities, append-only application receipt writing, internal consistency verification, Tauri commands | private sources, live-provider authority, profile promotion, public release decisions |
-| TypeScript workroom | visible fixture selection, policy preview, progress, score and receipt projections | filesystem, process, network, scoring, policy, or secret effects |
-| Python worker | a versioned development protocol-conformance response | desktop lifecycle, receipt acceptance, policy, credentials, baseline changes, or release state |
+| Layer               | Owns                                                                                                                                                                                            | Does not own                                                                                   |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Rust Harness        | policy, fixture validation, deterministic adapter, scoring, token normalization, SHA-256 identities, append-only application receipt writing, internal consistency verification, Tauri commands | private sources, live-provider authority, profile promotion, public release decisions          |
+| TypeScript workroom | visible fixture selection, policy preview, progress, score and receipt projections                                                                                                              | filesystem, process, network, scoring, policy, or secret effects                               |
+| Python worker       | a versioned development protocol-conformance response                                                                                                                                           | desktop lifecycle, receipt acceptance, policy, credentials, baseline changes, or release state |
 
 The default desktop execution path uses the Rust mock adapter. Python is not required to run the app.
+
+## Modular-monolith foundation
+
+The initial foundation is additive to the canary. Rust modules under `src-tauri/src/foundation/` own conservative authority, source-locator validation, identities, validated configuration, deny-by-default flags, atomic module registration, typed IPC, actor supervision, and local redacted trace events. TypeScript modules under `src/foundation/` own only the app-shell projection, route declarations, shared UI rendering, a Zustand vanilla projection store, an XState lifecycle machine, and typed IPC clients.
+
+Features mount through `exocore.module-mount.v1`; duplicate module, flag, config, route, command, or contract namespaces reject the entire mount. No feature reads another feature's private state. The demonstration module and skeleton route prove registration and flag behavior, but the route is off by default and carries no business feature. See [ADR-FOUNDATION-001](foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md) and the [mount contract](foundation/MOUNT-CONTRACT.md).
 
 ## Contract and receipt model
 
