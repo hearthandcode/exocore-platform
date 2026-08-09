@@ -1,0 +1,1968 @@
+{
+  "contract": {
+    "authorityEffect": "derived-non-authoritative",
+    "canonical": false,
+    "limits": [
+      "no-network",
+      "no-credentials",
+      "no-runtime-effects",
+      "no-canonical-write",
+      "no-approval",
+      "no-scheduling"
+    ],
+    "projectionId": "intake-registry-exocore-public-projection",
+    "sourceDigest": "787885c84ada570179e94d0ba2989457be76736f3e35b0a61c11c783606bb872",
+    "sourceIdentity": "hcc-intake-form-grammar-v0.2",
+    "syntheticOnly": true,
+    "version": "0.2.0-candidate.1"
+  },
+  "definitions": [
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "queue-state",
+        "domain",
+        "projection-kind"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "external-content",
+      "definition": "What external material is being offered for review, under which locator and rights basis?",
+      "definitionId": "hcc-intake-external-content-representative",
+      "eligibleFormRefs": [
+        "external-content-capture"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches external-content.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What external material is being offered for review, under which locator and rights basis?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only that a bounded source candidate was submitted with origin and rights context; it does not prove source truth, permission, or acceptance.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "a resolvable or explicitly opaque source locator",
+        "a capture scope or bounded excerpt",
+        "a rights basis or explicit unknown state"
+      ],
+      "title": "Bounded external source submission",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "domain-business-research"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "restricted-opt-in-self-report",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "ideas-reflections",
+      "definition": "What idea, reflection, hypothesis, or proposal is the human choosing to preserve?",
+      "definitionId": "hcc-intake-ideas-reflections-representative",
+      "eligibleFormRefs": [
+        "idea-reflection-capture"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches ideas-reflections.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What idea, reflection, hypothesis, or proposal is the human choosing to preserve?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only authored capture and stated context; it does not prove diagnosis, correctness, feasibility, or public authorship release.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "human-authored body or bounded summary",
+        "an explicit authorship marker",
+        "a privacy tier"
+      ],
+      "title": "Authored idea or reflection",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "queue-state",
+        "domain",
+        "projection-kind"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "knowledge-learning-research",
+      "definition": "What source-linked learning or research input should remain available for inquiry?",
+      "definitionId": "hcc-intake-knowledge-learning-research-representative",
+      "eligibleFormRefs": [
+        "external-content-capture"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches knowledge-learning-research.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What source-linked learning or research input should remain available for inquiry?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only that an input is available for bounded inquiry; it does not prove a claim, methodology, or research conclusion.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "source locator or experiment reference",
+        "a bounded research or learning question",
+        "provenance and uncertainty notes"
+      ],
+      "title": "Knowledge, learning, or research input",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "queue-state",
+        "domain",
+        "domain-business-research",
+        "projection-kind"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "restricted-opt-in-self-report",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "ai-assisted-insights",
+      "definition": "What AI-assisted candidate is worth reviewing, and which source material and uncertainty must remain attached?",
+      "definitionId": "hcc-intake-ai-assisted-insights-representative",
+      "eligibleFormRefs": [
+        "external-content-capture",
+        "idea-reflection-capture"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches ai-assisted-insights.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What AI-assisted candidate is worth reviewing, and which source material and uncertainty must remain attached?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only preservation of an AI-assisted candidate with provenance; it does not transfer human authorship or establish factual validity.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "model or agent provenance",
+        "source references or explicit source absence",
+        "an uncertainty statement"
+      ],
+      "title": "AI-assisted candidate insight",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "response-act"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "decisions",
+      "definition": "What choice did the authorized human make, within which scope and alternatives?",
+      "definitionId": "hcc-intake-decisions-representative",
+      "eligibleFormRefs": [
+        "decision-record",
+        "review-response"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches decisions.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What choice did the authorized human make, within which scope and alternatives?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only that a scoped human choice was recorded; it does not verify implementation, publication, or future applicability.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "human decision statement",
+        "decision scope and alternatives",
+        "decision timestamp and actor"
+      ],
+      "title": "Human decision",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "response-act"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "review-responses",
+      "definition": "What answer, dissent, omission, or unresolved point is returned to a named review prompt?",
+      "definitionId": "hcc-intake-review-responses-representative",
+      "eligibleFormRefs": [
+        "review-response"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches review-responses.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What answer, dissent, omission, or unresolved point is returned to a named review prompt?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only the response to a bounded prompt; it does not become a decision or verification seal unless separately designated.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "review prompt reference",
+        "human-authored response",
+        "disposition or unresolved marker"
+      ],
+      "title": "Human review response",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "response-act",
+        "governance-subtype"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "feedback-critique",
+      "definition": "What task-bounded finding or requested revision is being offered, and against which criterion?",
+      "definitionId": "hcc-intake-feedback-critique-representative",
+      "eligibleFormRefs": [
+        "evaluation-assurance",
+        "review-response"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches feedback-critique.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What task-bounded finding or requested revision is being offered, and against which criterion?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only a bounded finding against a stated criterion; it does not establish personal judgment, authority, or mandatory acceptance.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "target artifact or task reference",
+        "criterion or observed defect",
+        "requested revision or disposition"
+      ],
+      "title": "Bounded feedback or critique",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "domain-business-research",
+        "governance-subtype"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "restricted-opt-in-self-report",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "questions-research-prompts",
+      "definition": "What question, hypothesis prompt, or possible falsifier should guide the next inquiry?",
+      "definitionId": "hcc-intake-questions-research-prompts-representative",
+      "eligibleFormRefs": [
+        "idea-reflection-capture",
+        "project-intake"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches questions-research-prompts.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What question, hypothesis prompt, or possible falsifier should guide the next inquiry?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only a reviewable inquiry route; it does not authorize research execution or imply a settled claim.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "question or hypothesis text",
+        "scope and decision boundary",
+        "possible evidence or falsifier"
+      ],
+      "title": "Question or research prompt",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "queue-state",
+        "recurrence"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "restricted-opt-in-self-report",
+        "recurring-check-in"
+      ],
+      "coreRef": "check-ins-session-state",
+      "definition": "What current state and smallest next move does the human choose to preserve for return?",
+      "definitionId": "hcc-intake-check-ins-session-state-representative",
+      "eligibleFormRefs": [
+        "check-in-session-state"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches check-ins-session-state.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What current state and smallest next move does the human choose to preserve for return?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only an authored continuity marker at a point in time; it does not infer mood, diagnosis, capacity, attendance, or future state.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "human-authored state summary",
+        "return cue",
+        "smallest next action"
+      ],
+      "title": "Authored check-in or session state",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "domain-business-research",
+        "governance-subtype"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "private-agent-request",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "project-intake",
+      "definition": "What bounded project is proposed, with which purpose, scope, non-goals, and first action?",
+      "definitionId": "hcc-intake-project-intake-representative",
+      "eligibleFormRefs": [
+        "project-intake",
+        "agent-governance-request"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches project-intake.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What bounded project is proposed, with which purpose, scope, non-goals, and first action?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only that a project candidate is framed for review; it does not approve budget, task creation, execution, or publication.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "purpose and bounded scope",
+        "non-goals and owner",
+        "first action and required gate"
+      ],
+      "title": "Project candidate",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "response-act",
+        "governance-subtype"
+      ],
+      "compatibleProfileRefs": [
+        "software-development-and-architecture"
+      ],
+      "coreRef": "evaluation",
+      "definition": "What object is evaluated, against which method and evidence, with what uncertainty?",
+      "definitionId": "hcc-intake-evaluation-representative",
+      "eligibleFormRefs": [
+        "evaluation-assurance"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches evaluation.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What object is evaluated, against which method and evidence, with what uncertainty?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only a reproducible evaluation candidate; it does not grant approval, certification, or universal validity.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "evaluation target and version",
+        "method or criteria",
+        "observations and uncertainty"
+      ],
+      "title": "Evaluation candidate",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "governance-subtype",
+        "projection-kind"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "publishing-intake",
+      "definition": "What derivative is proposed for which audience, with what rights, privacy, and source lineage?",
+      "definitionId": "hcc-intake-publishing-intake-representative",
+      "eligibleFormRefs": [
+        "publishing-intake",
+        "provenance-retention-review"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches publishing-intake.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What derivative is proposed for which audience, with what rights, privacy, and source lineage?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only that publication is proposed with required boundary information; it does not authorize sending, uploading, or public release.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "target audience and derivative scope",
+        "rights and consent state",
+        "source lineage and review state"
+      ],
+      "title": "Publication proposal",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "response-act",
+        "governance-subtype",
+        "projection-kind"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "provenance-projection-integrity",
+      "definition": "Which source, transformation, digest, and derivative relationship must be checked or preserved?",
+      "definitionId": "hcc-intake-provenance-projection-integrity-representative",
+      "eligibleFormRefs": [
+        "publishing-intake",
+        "decision-record",
+        "provenance-retention-review"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches provenance-projection-integrity.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "Which source, transformation, digest, and derivative relationship must be checked or preserved?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only the stated lineage or integrity observation against named bytes; it does not make a projection authoritative or current forever.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "source locator and revision or digest",
+        "transformation description",
+        "target projection or integrity claim"
+      ],
+      "title": "Provenance or projection-integrity record",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "domain-business-research",
+        "response-act",
+        "governance-subtype",
+        "projection-kind"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "private-agent-request",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "privacy-consent-rights",
+      "definition": "Which handling boundary, consent state, or rights basis governs this candidate?",
+      "definitionId": "hcc-intake-privacy-consent-rights-representative",
+      "eligibleFormRefs": [
+        "project-intake",
+        "evaluation-assurance",
+        "publishing-intake",
+        "agent-governance-request",
+        "provenance-retention-review"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches privacy-consent-rights.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "Which handling boundary, consent state, or rights basis governs this candidate?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only the currently recorded handling basis and restriction; it does not create consent, legal advice, or publication permission.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "subject or material scope",
+        "privacy, consent, or rights state",
+        "required restriction or human gate"
+      ],
+      "title": "Privacy, consent, or rights record",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "domain",
+        "domain-business-research",
+        "response-act",
+        "governance-subtype"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "private-agent-request",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "agent-security-governance",
+      "definition": "What bounded agent or security action is proposed, under which authority and no-touch boundary?",
+      "definitionId": "hcc-intake-agent-security-governance-representative",
+      "eligibleFormRefs": [
+        "project-intake",
+        "evaluation-assurance",
+        "agent-governance-request"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches agent-security-governance.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What bounded agent or security action is proposed, under which authority and no-touch boundary?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only that a governed request is reviewable; it does not dispatch an agent, alter configuration, spend funds, or change runtime state.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "requested action and target",
+        "authority and human gate",
+        "no-touch boundary and threat consideration"
+      ],
+      "title": "Agent, security, or governance request",
+      "version": "0.2.0-candidate.1"
+    },
+    {
+      "authorityEffect": "candidate-definition-no-runtime-authority",
+      "compatibleFacetRefs": [
+        "queue-state",
+        "domain",
+        "recurrence",
+        "governance-subtype",
+        "projection-kind"
+      ],
+      "compatibleProfileRefs": [
+        "private-learning-research",
+        "restricted-opt-in-self-report",
+        "recurring-check-in",
+        "software-development-and-architecture"
+      ],
+      "coreRef": "archive-retention-continuity",
+      "definition": "What material should be preserved, retained, superseded, returned to, or considered for deletion?",
+      "definitionId": "hcc-intake-archive-retention-continuity-representative",
+      "eligibleFormRefs": [
+        "check-in-session-state",
+        "publishing-intake",
+        "provenance-retention-review"
+      ],
+      "exclusionRules": [
+        "Do not select this type solely from a filename, channel, domain, or renderer.",
+        "Do not use it to infer human intent, private state, or authority.",
+        "Do not treat candidate capture as acceptance, publication, execution, or verification."
+      ],
+      "inclusionRules": [
+        "The primary intake act matches archive-retention-continuity.",
+        "The evidence can satisfy this definition without borrowing authority from another core.",
+        "The human can distinguish this act from the listed exclusions."
+      ],
+      "intentQuestion": "What material should be preserved, retained, superseded, returned to, or considered for deletion?",
+      "overlapResolution": "Use the core matching the human intake act; record secondary cores only with explicit rationale and never substitute a profile or facet for a core.",
+      "proofBoundary": "Proves only a lifecycle candidate and its rationale; it does not delete, archive, migrate, or change retention policy automatically.",
+      "publicationDefault": "not-proposed",
+      "requiredEvidence": [
+        "record identity and lifecycle state",
+        "retention or continuity rationale",
+        "supersession, deletion, or return condition"
+      ],
+      "title": "Archive, retention, or continuity record",
+      "version": "0.2.0-candidate.1"
+    }
+  ],
+  "forms": [
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "external-content",
+        "knowledge-learning-research",
+        "ai-assisted-insights"
+      ],
+      "eligibleFacetRefs": [
+        "queue-state",
+        "domain",
+        "projection-kind"
+      ],
+      "eligibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "formId": "external-content-capture",
+      "newFormRationale": null,
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture a bounded external source, excerpt, or source-linked knowledge input without importing unrestricted content.",
+      "sections": [
+        "source",
+        "purpose",
+        "classification",
+        "provenance",
+        "privacy-rights",
+        "review"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "external-content"
+      ],
+      "submitState": "inbox",
+      "title": "External content capture"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "ideas-reflections",
+        "ai-assisted-insights",
+        "questions-research-prompts"
+      ],
+      "eligibleFacetRefs": [
+        "domain",
+        "domain-business-research"
+      ],
+      "eligibleProfileRefs": [
+        "private-learning-research",
+        "restricted-opt-in-self-report",
+        "software-development-and-architecture"
+      ],
+      "formId": "idea-reflection-capture",
+      "newFormRationale": null,
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture a human-authored idea, reflection, candidate insight, or bounded research question.",
+      "sections": [
+        "purpose",
+        "classification",
+        "privacy-rights",
+        "continuity"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "idea-capture"
+      ],
+      "submitState": "inbox",
+      "title": "Idea and reflection capture"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "project-intake",
+        "questions-research-prompts",
+        "privacy-consent-rights",
+        "agent-security-governance"
+      ],
+      "eligibleFacetRefs": [
+        "domain",
+        "domain-business-research",
+        "governance-subtype"
+      ],
+      "eligibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "formId": "project-intake",
+      "newFormRationale": null,
+      "publicationDefault": "not-proposed",
+      "purpose": "Frame a project candidate and related governance or research question without authorizing execution.",
+      "sections": [
+        "purpose",
+        "classification",
+        "privacy-rights",
+        "routing",
+        "continuity"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "project-start"
+      ],
+      "submitState": "inbox",
+      "title": "Project intake"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "check-ins-session-state",
+        "archive-retention-continuity"
+      ],
+      "eligibleFacetRefs": [
+        "recurrence",
+        "queue-state"
+      ],
+      "eligibleProfileRefs": [
+        "recurring-check-in",
+        "restricted-opt-in-self-report",
+        "private-learning-research"
+      ],
+      "formId": "check-in-session-state",
+      "newFormRationale": null,
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture authored returnability, recurring check-in, or continuity state without hidden activity inference.",
+      "sections": [
+        "purpose",
+        "classification",
+        "privacy-rights",
+        "continuity"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "daily-state"
+      ],
+      "submitState": "inbox",
+      "title": "Check-in and session state"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "evaluation",
+        "feedback-critique",
+        "privacy-consent-rights",
+        "agent-security-governance"
+      ],
+      "eligibleFacetRefs": [
+        "domain",
+        "governance-subtype",
+        "response-act"
+      ],
+      "eligibleProfileRefs": [
+        "software-development-and-architecture"
+      ],
+      "formId": "evaluation-assurance",
+      "newFormRationale": null,
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture bounded evaluation evidence, critique, rights review, or security assurance without producing an approval seal.",
+      "sections": [
+        "purpose",
+        "classification",
+        "provenance",
+        "privacy-rights",
+        "review",
+        "routing"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "evaluation"
+      ],
+      "submitState": "inbox",
+      "title": "Evaluation and assurance"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "publishing-intake",
+        "provenance-projection-integrity",
+        "privacy-consent-rights",
+        "archive-retention-continuity"
+      ],
+      "eligibleFacetRefs": [
+        "projection-kind",
+        "domain",
+        "governance-subtype"
+      ],
+      "eligibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "formId": "publishing-intake",
+      "newFormRationale": null,
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture a publication proposal with rights, provenance, privacy, and retention checks while publication remains separately gated.",
+      "sections": [
+        "source",
+        "purpose",
+        "classification",
+        "provenance",
+        "privacy-rights",
+        "review",
+        "routing"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "publishing"
+      ],
+      "submitState": "inbox",
+      "title": "Publishing intake"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "agent-security-governance",
+        "privacy-consent-rights",
+        "project-intake"
+      ],
+      "eligibleFacetRefs": [
+        "governance-subtype",
+        "domain"
+      ],
+      "eligibleProfileRefs": [
+        "private-agent-request",
+        "software-development-and-architecture"
+      ],
+      "formId": "agent-governance-request",
+      "newFormRationale": null,
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture a bounded agent request or security-governance question without dispatch, provider use, or runtime authority.",
+      "sections": [
+        "purpose",
+        "classification",
+        "privacy-rights",
+        "review",
+        "routing",
+        "continuity"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "agent-request"
+      ],
+      "submitState": "inbox",
+      "title": "Agent governance request"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "decisions",
+        "provenance-projection-integrity"
+      ],
+      "eligibleFacetRefs": [
+        "response-act",
+        "domain"
+      ],
+      "eligibleProfileRefs": [
+        "software-development-and-architecture"
+      ],
+      "formId": "decision-record",
+      "newFormRationale": "Splits the old combined form because a decision is a distinct authored act with a distinct authority boundary.",
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture a human-authored decision and its evidence without conflating the decision with a review response or verification seal.",
+      "sections": [
+        "purpose",
+        "classification",
+        "provenance",
+        "review",
+        "continuity"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "review-decision-response"
+      ],
+      "submitState": "inbox",
+      "title": "Decision record"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "review-responses",
+        "feedback-critique",
+        "decisions"
+      ],
+      "eligibleFacetRefs": [
+        "response-act",
+        "domain"
+      ],
+      "eligibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "formId": "review-response",
+      "newFormRationale": "Splits the old combined form so a review response does not silently become a decision.",
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture a human-authored answer, dissent, omission, critique, or requested revision tied to a review prompt.",
+      "sections": [
+        "purpose",
+        "classification",
+        "review",
+        "continuity"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [
+        "review-decision-response"
+      ],
+      "submitState": "inbox",
+      "title": "Review response"
+    },
+    {
+      "authorityEffect": "candidate-form-no-runtime-authority",
+      "eligibleCoreRefs": [
+        "provenance-projection-integrity",
+        "archive-retention-continuity",
+        "privacy-consent-rights",
+        "publishing-intake"
+      ],
+      "eligibleFacetRefs": [
+        "projection-kind",
+        "governance-subtype",
+        "domain"
+      ],
+      "eligibleProfileRefs": [
+        "private-learning-research",
+        "software-development-and-architecture"
+      ],
+      "formId": "provenance-retention-review",
+      "newFormRationale": "Adds an explicit governance review surface because no v0.1 form directly covered provenance and retention as the primary intake act.",
+      "publicationDefault": "not-proposed",
+      "purpose": "Capture a bounded lineage, projection-integrity, rights, or retention review without mutating source records.",
+      "sections": [
+        "source",
+        "purpose",
+        "classification",
+        "provenance",
+        "privacy-rights",
+        "review",
+        "continuity"
+      ],
+      "selectionRule": "explicit-human-or-form-binding-never-content-inference",
+      "sourceFormRefs": [],
+      "submitState": "inbox",
+      "title": "Provenance and retention review"
+    }
+  ],
+  "modules": {
+    "applicationPosture": "neutral-exocore-node-modular-monolith",
+    "authorityPlanes": [
+      {
+        "mustNotOwn": [
+          "Cortex source bodies",
+          "retrieval truth",
+          "external provider state"
+        ],
+        "owns": [
+          "intake grammar",
+          "classification semantics",
+          "legal transitions",
+          "HumanGates",
+          "operational receipt meaning"
+        ],
+        "plane": "harness"
+      },
+      {
+        "mustNotOwn": [
+          "intake classification",
+          "Harness transitions",
+          "HumanGate decisions",
+          "publication approval"
+        ],
+        "owns": [
+          "resource and representation lifecycle candidates",
+          "provenance evidence",
+          "retrieval candidates",
+          "bounded context candidates"
+        ],
+        "plane": "cortex"
+      },
+      {
+        "mustNotOwn": [
+          "Harness semantics",
+          "Cortex semantics",
+          "canonical Hub sources"
+        ],
+        "owns": [
+          "composition",
+          "presentation mounting",
+          "health aggregation"
+        ],
+        "plane": "exocore-application-shell"
+      },
+      {
+        "mustNotOwn": [
+          "domain mutation",
+          "human decisions",
+          "source authority"
+        ],
+        "owns": [
+          "rebuildable public-safe views",
+          "freshness and drift observations"
+        ],
+        "plane": "projection-runtime"
+      }
+    ],
+    "futureCortexPort": {
+      "direction": "harness-to-cortex-query",
+      "failureMode": "visible-unavailable-or-insufficient-evidence",
+      "mayAdvanceWorkflow": false,
+      "mayClassifyIntake": false,
+      "portId": "intake.evidence-context.query",
+      "returns": "cited-candidates-and-method-receipt",
+      "status": "deferred-contract-only"
+    },
+    "items": [
+      {
+        "capabilities": [
+          "filter",
+          "compare",
+          "inspect-definition"
+        ],
+        "moduleId": "registry-browser",
+        "presentationOwner": "typescript-workroom",
+        "semanticOwner": "harness",
+        "writesAuthority": false
+      },
+      {
+        "capabilities": [
+          "compose-synthetic",
+          "render",
+          "show-eligibility"
+        ],
+        "moduleId": "form-composer-renderer",
+        "presentationOwner": "typescript-workroom",
+        "semanticOwner": "harness",
+        "writesAuthority": false
+      },
+      {
+        "capabilities": [
+          "show-status",
+          "show-legal-transitions",
+          "show-human-gates"
+        ],
+        "moduleId": "workflow-human-gate-view",
+        "presentationOwner": "typescript-workroom",
+        "semanticOwner": "harness",
+        "writesAuthority": false
+      },
+      {
+        "capabilities": [
+          "filter-metadata",
+          "show-review-state",
+          "show-blocks"
+        ],
+        "moduleId": "bounded-review-queue",
+        "presentationOwner": "typescript-workroom",
+        "semanticOwner": "harness",
+        "writesAuthority": false
+      },
+      {
+        "capabilities": [
+          "compare-digests",
+          "show-drift",
+          "show-degradation"
+        ],
+        "moduleId": "round-trip-projection-inspector",
+        "presentationOwner": "typescript-workroom",
+        "semanticOwner": "integration",
+        "writesAuthority": false
+      }
+    ],
+    "mountState": "unmounted-candidate",
+    "typescriptMayOwn": [
+      "rendering",
+      "keyboard-interaction",
+      "filtering",
+      "comparison",
+      "synthetic-fixture-state",
+      "projection-validation"
+    ],
+    "typescriptMustNotOwn": [
+      "filesystem",
+      "network",
+      "scheduling",
+      "policy",
+      "secrets",
+      "canonical-write",
+      "approval",
+      "HumanGate-decision"
+    ]
+  },
+  "projection": {
+    "automaticWriteBack": false,
+    "conflictPolicy": "block-and-request-human-review",
+    "crosswalk": [
+      {
+        "oldDatabaseId": "inputs",
+        "targetDatabaseId": "inputs",
+        "treatment": "retained as typed input records"
+      },
+      {
+        "oldDatabaseId": "projects",
+        "targetDatabaseId": "projects",
+        "treatment": "retained as project identity projection"
+      },
+      {
+        "oldDatabaseId": "reviews-decisions",
+        "targetDatabaseId": "reviews-decisions",
+        "treatment": "retained with authored response and decision separation"
+      },
+      {
+        "oldDatabaseId": "sessions-activity",
+        "targetDatabaseId": "inputs",
+        "treatment": "absorbed as check-in and continuity record kinds"
+      },
+      {
+        "oldDatabaseId": "evaluation",
+        "targetDatabaseId": "inputs",
+        "treatment": "absorbed as evaluation input record kinds"
+      },
+      {
+        "oldDatabaseId": "publishing-queue",
+        "targetDatabaseId": "inputs",
+        "treatment": "absorbed as publication-proposal input records; no publishing effect"
+      },
+      {
+        "oldDatabaseId": "agents-automation",
+        "targetDatabaseId": "inputs",
+        "treatment": "absorbed as governed-request input records; no dispatch effect"
+      },
+      {
+        "oldDatabaseId": "taxonomy-schemas",
+        "targetDatabaseId": "provenance-sync",
+        "treatment": "absorbed only as immutable source-linked reference records; never mutable taxonomy authority"
+      },
+      {
+        "oldDatabaseId": "provenance-sync",
+        "targetDatabaseId": "provenance-sync",
+        "treatment": "retained for source digests, projection identities, freshness, conflicts, and receipts"
+      }
+    ],
+    "databases": [
+      {
+        "databaseId": "inputs",
+        "mutableAuthority": false,
+        "owner": "intake-registry",
+        "recordKinds": [
+          "input",
+          "check-in",
+          "evaluation",
+          "publication-proposal",
+          "governed-request"
+        ],
+        "sourceIdField": "intake_id",
+        "title": "Inputs"
+      },
+      {
+        "databaseId": "projects",
+        "mutableAuthority": false,
+        "owner": "project-source",
+        "recordKinds": [
+          "project-identity"
+        ],
+        "sourceIdField": "project_id",
+        "title": "Projects"
+      },
+      {
+        "databaseId": "reviews-decisions",
+        "mutableAuthority": false,
+        "owner": "human-authored-review-and-decision-sources",
+        "recordKinds": [
+          "review-response",
+          "decision"
+        ],
+        "sourceIdField": "review_or_decision_id",
+        "title": "Reviews & Decisions"
+      },
+      {
+        "databaseId": "provenance-sync",
+        "mutableAuthority": false,
+        "owner": "projection-lineage",
+        "recordKinds": [
+          "projection-receipt",
+          "source-reference",
+          "taxonomy-schema-reference"
+        ],
+        "sourceIdField": "projection_or_reference_id",
+        "title": "Provenance & Sync"
+      }
+    ],
+    "posture": "source-map-only-no-external-read-or-write",
+    "silentOverwrite": false
+  },
+  "taskCalendar": {
+    "fields": [
+      "next_review_at",
+      "review_rhythm",
+      "recurrence_rule",
+      "due_window",
+      "dependency_state",
+      "stale_indicator",
+      "overdue_indicator"
+    ],
+    "humanSelectionRequired": [
+      "due_window",
+      "recurrence_rule",
+      "review_rhythm"
+    ],
+    "posture": "metadata-only-derived-view",
+    "prohibitedEffects": [
+      "create-task",
+      "modify-task",
+      "create-calendar-event",
+      "modify-calendar-event",
+      "schedule-agent",
+      "activate-webhook",
+      "activate-poller",
+      "infer-urgency-from-personal-state",
+      "convert-due-window-to-obligation"
+    ]
+  },
+  "taxonomy": {
+    "cores": [
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Manual submission of an external source reference or bounded excerpt for review.",
+        "coreId": "external-content",
+        "defaultPrivacyTier": "internal",
+        "group": "capture",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "queue membership",
+          "publication authority",
+          "rights clearance"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "External content"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Human-authored idea, reflection, hypothesis, or proposal candidate.",
+        "coreId": "ideas-reflections",
+        "defaultPrivacyTier": "private",
+        "group": "capture",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "diagnostic inference",
+          "decision authority",
+          "research verification"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "Ideas and reflections"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Source, annotation, learning question, experiment note, or research input captured for bounded review.",
+        "coreId": "knowledge-learning-research",
+        "defaultPrivacyTier": "internal",
+        "group": "capture",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "domain classification as category",
+          "evaluation verdict",
+          "private self-report without profile"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "Knowledge, learning, and research inputs"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Bounded AI-assisted candidate insight with source reference and uncertainty retained.",
+        "coreId": "ai-assisted-insights",
+        "defaultPrivacyTier": "private",
+        "group": "capture",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "raw-session ingestion",
+          "human authorship",
+          "verified conclusion"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "AI-assisted insights"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "A human-authored choice or disposition with the decision context preserved.",
+        "coreId": "decisions",
+        "defaultPrivacyTier": "private",
+        "group": "human-response",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "review response",
+          "verification seal",
+          "agent-generated choice"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Decisions"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "A human-authored answer, dissent, omission, or unresolved choice tied to its review prompt.",
+        "coreId": "review-responses",
+        "defaultPrivacyTier": "private",
+        "group": "human-response",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "final decision unless explicitly designated",
+          "verification seal",
+          "feedback finding"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Review responses"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "A task-bounded finding, critique, requested revision, or disposition.",
+        "coreId": "feedback-critique",
+        "defaultPrivacyTier": "internal",
+        "group": "human-response",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "unbounded personal judgment",
+          "decision authority",
+          "mandatory scoring"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Feedback and critique"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "A question, hypothesis prompt, candidate falsifier, or bounded research prompt.",
+        "coreId": "questions-research-prompts",
+        "defaultPrivacyTier": "internal",
+        "group": "human-response",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "renderer instruction authority",
+          "settled claim",
+          "automatic research execution"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Questions and research prompts"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "An authored returnability or check-in record with current state and next move.",
+        "coreId": "check-ins-session-state",
+        "defaultPrivacyTier": "private",
+        "group": "workflow",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "calendar authority",
+          "hidden activity capture",
+          "diagnostic inference"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "Check-ins and session state"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "A project candidate framed by purpose, scope, non-goals, authority, risks, resources, and first action.",
+        "coreId": "project-intake",
+        "defaultPrivacyTier": "internal",
+        "group": "workflow",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "project approval",
+          "task execution",
+          "budget authorization"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "Project intake"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Task-bounded criteria, observations, optional scores, uncertainty, and verdict candidate.",
+        "coreId": "evaluation",
+        "defaultPrivacyTier": "internal",
+        "group": "workflow",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "universal ranking",
+          "human-worth judgment",
+          "automatic acceptance"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "Evaluation"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "A publication candidate with rights, privacy, claims, audience, review, and release checklist.",
+        "coreId": "publishing-intake",
+        "defaultPrivacyTier": "internal",
+        "group": "workflow",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "public release",
+          "source-record privacy change",
+          "rights clearance by inference"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "unreviewed",
+        "title": "Publishing intake"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Lineage, transformations, freshness, mapping, omissions, conflicts, return route, and review evidence.",
+        "coreId": "provenance-projection-integrity",
+        "defaultPrivacyTier": "internal",
+        "group": "governance",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "scalar truth score",
+          "source replacement by projection",
+          "external write authority"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Provenance and projection integrity"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Sensitivity, consent, rights basis, permitted use, retention reference, and deletion gate.",
+        "coreId": "privacy-consent-rights",
+        "defaultPrivacyTier": "restricted",
+        "group": "governance",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "legal judgment",
+          "inferred consent",
+          "publication authorization"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Privacy, consent, and rights"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Agent scope, tools, data boundary, budget, security findings, maintenance impact, and human gates.",
+        "coreId": "agent-security-governance",
+        "defaultPrivacyTier": "restricted",
+        "group": "governance",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "credential storage",
+          "runtime grant",
+          "automatic remediation"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Agent, automation, and security governance"
+      },
+      {
+        "authorityEffect": "candidate-category-no-runtime-authority",
+        "boundary": "Retention disposition, archive route, continuity context, return cues, recovery, and deletion gates.",
+        "coreId": "archive-retention-continuity",
+        "defaultPrivacyTier": "private",
+        "group": "governance",
+        "humanGateBefore": [
+          "ready-for-route",
+          "routed"
+        ],
+        "nonGoals": [
+          "retention execution",
+          "automatic archive",
+          "automatic deletion"
+        ],
+        "publicationDefault": "not-proposed",
+        "requiredReviewState": "human-reviewed",
+        "title": "Archive, retention, and continuity"
+      }
+    ],
+    "facets": [
+      {
+        "allowedValues": [
+          "not-queued",
+          "queued",
+          "deferred"
+        ],
+        "authorityEffect": "metadata-only",
+        "axis": "lifecycle-view",
+        "facetId": "queue-state",
+        "meaning": "Review-queue membership without changing category meaning."
+      },
+      {
+        "allowedValues": [
+          "learning",
+          "research",
+          "other-reviewed-domain"
+        ],
+        "authorityEffect": "metadata-only",
+        "axis": "domain",
+        "facetId": "domain",
+        "meaning": "Reviewed domain context without becoming a universal category."
+      },
+      {
+        "allowedValues": [
+          "business-research"
+        ],
+        "authorityEffect": "metadata-only",
+        "axis": "domain",
+        "facetId": "domain-business-research",
+        "meaning": "Business research context; the intake act still selects knowledge input or evaluation."
+      },
+      {
+        "allowedValues": [
+          "decision",
+          "review-response",
+          "learning-or-research-input",
+          "check-in-or-session-state"
+        ],
+        "authorityEffect": "classification-only",
+        "axis": "intake-act",
+        "facetId": "response-act",
+        "meaning": "Human-authored discriminator for split/profile mappings."
+      },
+      {
+        "allowedValues": [
+          "one-time",
+          "recurring"
+        ],
+        "authorityEffect": "metadata-only",
+        "axis": "interaction",
+        "facetId": "recurrence",
+        "meaning": "Recurrence metadata without scheduler authority."
+      },
+      {
+        "allowedValues": [
+          "agent-request",
+          "security-finding",
+          "maintenance-candidate"
+        ],
+        "authorityEffect": "classification-only",
+        "axis": "governance-subtype",
+        "facetId": "governance-subtype",
+        "meaning": "Preserves materially different governance content inside one bounded core category."
+      },
+      {
+        "allowedValues": [
+          "notion",
+          "tally",
+          "workbench",
+          "markdown",
+          "json",
+          "csv",
+          "other-reviewed-target"
+        ],
+        "authorityEffect": "metadata-only",
+        "axis": "projection-kind",
+        "facetId": "projection-kind",
+        "meaning": "Names the derivative target without granting provider or write authority."
+      }
+    ],
+    "profiles": [
+      {
+        "authorityEffect": "candidate-profile-no-runtime-authority",
+        "constraints": [
+          "does not infer personal meaning",
+          "does not expose private learning material",
+          "cannot reduce review or publication gates"
+        ],
+        "eligibleCoreRefs": [
+          "knowledge-learning-research"
+        ],
+        "privacyOverride": "private",
+        "profileId": "private-learning-research",
+        "profileKind": "handling",
+        "requiredFields": [
+          "authorship-state",
+          "source-ref",
+          "uncertainty"
+        ],
+        "selection": "explicit-human-or-form-binding"
+      },
+      {
+        "authorityEffect": "candidate-profile-no-runtime-authority",
+        "constraints": [
+          "no passive capture",
+          "no diagnosis",
+          "no capacity or attention inference",
+          "manual channel only",
+          "human review before routing"
+        ],
+        "eligibleCoreRefs": [
+          "knowledge-learning-research",
+          "check-ins-session-state"
+        ],
+        "privacyOverride": "restricted",
+        "profileId": "restricted-opt-in-self-report",
+        "profileKind": "handling",
+        "requiredFields": [
+          "opt-in-state",
+          "authored-self-report",
+          "handling-purpose",
+          "withdrawal-route"
+        ],
+        "selection": "explicit-human-only"
+      },
+      {
+        "authorityEffect": "candidate-profile-no-runtime-authority",
+        "constraints": [
+          "recurrence is metadata only",
+          "no task or calendar creation",
+          "no notification authority"
+        ],
+        "eligibleCoreRefs": [
+          "check-ins-session-state"
+        ],
+        "privacyOverride": "private",
+        "profileId": "recurring-check-in",
+        "profileKind": "interaction",
+        "requiredFields": [
+          "recurrence-rule",
+          "review-rhythm"
+        ],
+        "selection": "explicit-human-or-form-binding"
+      },
+      {
+        "authorityEffect": "candidate-profile-no-runtime-authority",
+        "constraints": [
+          "must not contain credentials",
+          "must not contain a security finding",
+          "cannot grant runtime capability",
+          "human review remains required"
+        ],
+        "eligibleCoreRefs": [
+          "agent-security-governance"
+        ],
+        "privacyOverride": "private",
+        "profileId": "private-agent-request",
+        "profileKind": "handling",
+        "requiredFields": [
+          "intent",
+          "scope",
+          "tools",
+          "data-boundary",
+          "budget",
+          "human-gates"
+        ],
+        "selection": "explicit-human-or-form-binding"
+      },
+      {
+        "authorityEffect": "candidate-profile-no-runtime-authority",
+        "constraints": [
+          "domain profile does not change category meaning",
+          "does not authorize code or Git effects",
+          "does not import Primitive Grammar family semantics"
+        ],
+        "eligibleCoreRefs": [
+          "ideas-reflections",
+          "knowledge-learning-research",
+          "decisions",
+          "review-responses",
+          "feedback-critique",
+          "questions-research-prompts",
+          "project-intake",
+          "evaluation",
+          "publishing-intake",
+          "provenance-projection-integrity",
+          "agent-security-governance"
+        ],
+        "privacyOverride": null,
+        "profileId": "software-development-and-architecture",
+        "profileKind": "domain",
+        "requiredFields": [
+          "software-artifact-type",
+          "system-scope",
+          "source-or-repository-ref"
+        ],
+        "selection": "explicit-human-or-form-binding"
+      }
+    ]
+  },
+  "workflow": {
+    "consequentialGates": [
+      {
+        "automatic": false,
+        "effectId": "publish",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      },
+      {
+        "automatic": false,
+        "effectId": "send",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      },
+      {
+        "automatic": false,
+        "effectId": "upload",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      },
+      {
+        "automatic": false,
+        "effectId": "delete",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      },
+      {
+        "automatic": false,
+        "effectId": "overwrite",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      },
+      {
+        "automatic": false,
+        "effectId": "merge-authoritative",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      },
+      {
+        "automatic": false,
+        "effectId": "export-restricted",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      },
+      {
+        "automatic": false,
+        "effectId": "activate-automation",
+        "humanAuthority": "action-specific-owner",
+        "unknownEffect": "block"
+      }
+    ],
+    "readyForRouteMeaning": "A human approved the proposed internal classification and destination for routing. It does not assert truth, verification, publication, policy acceptance, implementation, or external release.",
+    "reviewStates": [
+      "unreviewed",
+      "agent-reviewed",
+      "human-reviewed",
+      "approved",
+      "re-review-required",
+      "rejected"
+    ],
+    "statuses": [
+      "inbox",
+      "triage",
+      "needs-review",
+      "ready-for-route",
+      "routed",
+      "blocked",
+      "archived",
+      "rejected"
+    ],
+    "transitions": [
+      {
+        "actorClass": "agent-or-human",
+        "effectClass": "internal-candidate",
+        "from": "inbox",
+        "humanGate": false,
+        "to": "triage",
+        "transitionId": "classify",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "validator",
+        "effectClass": "internal-candidate",
+        "from": "inbox",
+        "humanGate": false,
+        "to": "blocked",
+        "transitionId": "block-invalid",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "agent-or-human",
+        "effectClass": "internal-candidate",
+        "from": "triage",
+        "humanGate": false,
+        "to": "needs-review",
+        "transitionId": "request-review",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "validator",
+        "effectClass": "internal-candidate",
+        "from": "triage",
+        "humanGate": false,
+        "to": "blocked",
+        "transitionId": "block-insufficient-provenance",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "human-owner",
+        "effectClass": "internal-routing-approval",
+        "from": "needs-review",
+        "humanGate": true,
+        "to": "ready-for-route",
+        "transitionId": "mark-ready-for-route",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "human-owner",
+        "effectClass": "human-disposition",
+        "from": "needs-review",
+        "humanGate": true,
+        "to": "rejected",
+        "transitionId": "reject",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "human-owner",
+        "effectClass": "internal-route",
+        "from": "ready-for-route",
+        "humanGate": true,
+        "to": "routed",
+        "transitionId": "route-internal",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "human-or-validator",
+        "effectClass": "internal-candidate",
+        "from": "ready-for-route",
+        "humanGate": false,
+        "to": "blocked",
+        "transitionId": "block-rights-or-privacy",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "human-owner",
+        "effectClass": "lifecycle-proposal",
+        "from": "routed",
+        "humanGate": true,
+        "to": "archived",
+        "transitionId": "archive-after-retention-review",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "human-owner",
+        "effectClass": "internal-correction",
+        "from": "blocked",
+        "humanGate": true,
+        "to": "triage",
+        "transitionId": "release-with-correction",
+        "unknownEffect": "block"
+      },
+      {
+        "actorClass": "human-owner",
+        "effectClass": "lifecycle-proposal",
+        "from": "rejected",
+        "humanGate": true,
+        "to": "archived",
+        "transitionId": "archive-rejection-papertrail",
+        "unknownEffect": "block"
+      }
+    ]
+  }
+}

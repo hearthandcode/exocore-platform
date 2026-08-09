@@ -1,0 +1,38 @@
+{
+  "checkpoint_id": "form-intake-registry.implementation.2026-08-08T23:10:00Z",
+  "feature_id": "form-intake-registry",
+  "feature_version": "0.1.0",
+  "lifecycle_state": "implementation",
+  "checkpoint_type": "implementation",
+  "governing_sources": ["intake-registry-orientation.json", "intake-registry-contract.json", "feature-packet.md", "mount-readiness.md"],
+  "source_digests": {
+    "src/form-intake-registry/module.ts": "sha256:1fe8f367dd05255a8f03499063067d9b528cb20bb392f5a18637e6f3367e2128",
+    "src/form-intake-registry/validation.ts": "sha256:e2c98ed3f60817e4259283fead5a074160f84b789520aa8f46af0ed4e70eea24",
+    "src/form-intake-registry/internal/adapters.ts": "sha256:4d2d65073f95ca0b4e0d503133817bcf222ba31b7cd2f5510d268780716d43b1",
+    "src/form-intake-registry/internal/store.ts": "sha256:e6fa07025dbf75634f16b2798b78d020ad3727e220e46d444a650d731478f922",
+    "src/form-intake-registry/internal/normalize.ts": "sha256:66e3c23fd0e386404fc42574bf5d734231e654d8743fcd1b13a291ba914b4fcd",
+    "src/form-intake-registry/projection.ts": "sha256:ee880bc2184874d18bac0afd9939878d43b4472cd74734aed8874a86ad644262"
+  },
+  "owned_paths": ["contracts/form-intake-registry/v1/", "fixtures/form-intake-registry/", "src/form-intake-registry/", "tests/form-intake-registry/", "docs/form-intake-registry/", "package.json", "package-lock.json"],
+  "excluded_paths": ["src/main.ts", "src/style.css", "index.html", "src-tauri/", "src/intake-registry/", "src/artifact-surface/", "Hub and form app", "foundation worktree"],
+  "entry_criteria": ["Contract Checkpoint frozen the isolated interfaces.", "No blocking source or ownership conflict exists.", "Foundation mount remains held."],
+  "acceptance_criteria": ["All six public operations exist.", "Both source adapters are read-only.", "Form-v3 parser and typed validation pass.", "Registry storage, dedupe, stable identity, supersession, projection, and verify pass.", "Restricted projection contains no raw body.", "Default-off behavior writes no state.", "No shell, native, Hub, form, or foundation path changed."],
+  "verification_runs": [
+    {"command":"npm run test","exit_status":0,"proves":"33 scoped assertions pass across adapters, contracts, validation, pipeline, store failure, projections, and fixture governance."},
+    {"command":"npm run check","exit_status":0,"proves":"The complete TypeScript source type-checks."},
+    {"command":"npm run validate:intake-registry","exit_status":0,"proves":"The adjacent IFG projection retains 34/34 passing checks."},
+    {"command":"npm run validate:artifact-surface","exit_status":0,"proves":"The adjacent Artifact Surface retains 43/43 passing checks."},
+    {"command":"npm run build","exit_status":0,"proves":"The unmounted application build succeeds and transforms the same eight mounted modules."},
+    {"command":"cargo fmt/check/clippy/test --offline","exit_status":0,"proves":"Untouched Rust foundation remains formatted, compilable, lint-clean, and test-clean."},
+    {"command":"python unittest + compileall for profile worker","exit_status":0,"proves":"The adjacent Python protocol proof retains its test and syntax baseline."},
+    {"command":"npm audit --audit-level=moderate","exit_status":0,"proves":"The current dependency tree reports zero known npm vulnerabilities after bounded transitive updates."}
+  ],
+  "artifacts": ["src/form-intake-registry/", "contracts/form-intake-registry/v1/", "fixtures/form-intake-registry/", "tests/form-intake-registry/", "docs/form-intake-registry/feature-packet.md", "docs/form-intake-registry/improvement-candidates.json"],
+  "observations": ["The pipeline demonstrably processes the synthetic form-v3 export into five candidates, including explicit unanswered n3.", "A 50-ingest identical storm leaves one record and one stable registry ID.", "A changed answer at the same source locator marks the old projection stale and creates a linked superseding record.", "Restricted records retain payload digest and feature-local locator while projections contain no answer values.", "Prompt-injection text remains inert data; bidi controls are removed with a diagnostic.", "The existing grammar projection and Artifact Surface remain distinct and green."],
+  "risks": ["The file-backed store is not a concurrent transaction proof.", "A restricted projection currently reports zero candidate details because the stored public record deliberately omits the payload; no raw data leaks.", "No real private export was exercised.", "Mount behavior remains untested because the attributed foundation contract is absent."],
+  "improvement_candidates": ["IC-FIR-001", "IC-FIR-002", "IC-FIR-003", "IC-FIR-004", "IC-FIR-005", "IC-FIR-006"],
+  "decision_required": "None before evaluation. Scott's decisions begin at the HumanGate after the Evaluation Checkpoint.",
+  "disposition": "implementation-complete-unmounted",
+  "rollback_route": "Delete only owned feature paths and revert package manifest/lock changes. No shell, native, Hub, form, provider, or deployment rollback is needed.",
+  "resume_route": "Run the full evaluation verification, inspect every fixture, assemble the operator packet and session receipt, write the Evaluation Checkpoint, and stop."
+}

@@ -12,6 +12,9 @@
     "format:check": "prettier --check \"src/foundation/**/*.ts\" src/main.ts package.json eslint.config.js .github/workflows/ci.yml \"contracts/foundation/**/*.{json,mjs}\" \"docs/foundation/**/*.{md,yaml}\" README.md docs/ARCHITECTURE.md",
     "lint": "eslint src/foundation src/main.ts vite.config.ts",
     "test": "vitest run",
+    "test:form-intake-registry": "vitest run tests/form-intake-registry",
+    "validate:intake-registry": "node scripts/validate-intake-registry-projection.mjs",
+    "validate:artifact-surface": "node scripts/validate-artifact-surface-projection.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "tauri": "tauri"
   },
@@ -22,11 +25,12 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",
+    "@types/node": "^26.2.0",
     "eslint": "^9.39.5",
     "prettier": "^3.9.6",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.66.0",
     "vite": "^7.0.4",
-    "vitest": "^3.2.7"
+    "vitest": "^4.1.10"
   }
 }
