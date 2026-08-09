@@ -1,0 +1,212 @@
+schema: exocore.improvement-candidates.v1
+candidates:
+  - id: EXO-FOUNDATION-IC-001
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-O1
+    friction_opportunity: Dependency advisories are visible but the repository has no reviewed vulnerability-management and update policy.
+    evidence: Initial npm install reported one moderate and one high transitive advisory; bounded lockfile remediation brought the final audit to zero, but no durable policy records how future findings are triaged.
+    affected_users_workflows: Maintainers reviewing dependency and release evidence.
+    layer: dependency-supply-chain
+    proposal: Define an audit cadence, severity disposition contract, SBOM route, and bounded update procedure.
+    alternatives:
+      [manual advisory review per lane, defer until release preparation]
+    value: Prevents either silent advisories or unsafe bulk upgrades.
+    cost_range: small-to-medium
+    architectural_impact: none unless an update changes selected libraries
+    security_impact: improves visibility; remediation still requires separate review
+    provenance_impact: audit evidence must identify lockfile digest and command date
+    compatibility_impact: policy only until a reviewed update is released
+    reversibility: fully reversible documentation and CI policy
+    dependencies: [release and security ownership decision]
+    confidence: high
+    priority: high
+    recommended_disposition: queue-next-phase
+    human_decision_state: pending
+
+  - id: EXO-FOUNDATION-IC-002
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-I1
+    friction_opportunity: Config and flag overrides are process-local structural proofs and do not survive restart.
+    evidence: FoundationRuntime owns an in-memory registry; no store is admitted in this lane.
+    affected_users_workflows: Future mounted features requiring reviewed durable configuration.
+    layer: infrastructure
+    proposal: Design one durable configuration adapter behind domain-owned ports when the first real feature supplies requirements.
+    alternatives:
+      [keep process-local, add file adapter, wait for PostgreSQL runtime store]
+    value: Provides recovery without prematurely selecting storage semantics.
+    cost_range: medium
+    architectural_impact: implements existing ports; must not move config semantics into infrastructure
+    security_impact: requires permissions, integrity, rollback, and secret-exclusion review
+    provenance_impact: configuration revisions need source and receipt identity
+    compatibility_impact: preserve current safe defaults and v1 key names
+    reversibility: adapter can be removed if no durable state is migrated
+    dependencies: [real feature requirement, storage topology release]
+    confidence: medium
+    priority: medium
+    recommended_disposition: queue-next-phase
+    human_decision_state: pending
+
+  - id: EXO-FOUNDATION-IC-003
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-E1
+    friction_opportunity: The authorization foundation demonstrates denial but does not implement the planned ABAC plus scope plus container policy.
+    evidence: AuthorityPolicy admits only two structural operations and denies effect capabilities.
+    affected_users_workflows: Future features that request scoped native capabilities.
+    layer: kernel-authority
+    proposal: Open a separately gated authorization-seam design using concrete feature capability cases.
+    alternatives:
+      [extend match statements, adopt a general policy engine now, defer]
+    value: Keeps capability decisions inspectable without overbuilding policy before evidence.
+    cost_range: medium-to-large
+    architectural_impact: potentially material; requires ADR amendment if extension points change
+    security_impact: high; default-deny and no ambient grants are invariant
+    provenance_impact: decisions and grant sources need durable receipts
+    compatibility_impact: typed error and capability identifiers must remain stable
+    reversibility: design reversible; migrated grants would require rollback design
+    dependencies: [accepted feature capability model, security review]
+    confidence: medium
+    priority: medium
+    recommended_disposition: research-spike
+    human_decision_state: pending
+
+  - id: EXO-FOUNDATION-IC-004
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-E1
+    friction_opportunity: Rust and TypeScript contract types are manually mirrored.
+    evidence: FoundationStatus, echo, trace, and typed-error shapes exist in both language trees.
+    affected_users_workflows: Feature authors maintaining cross-boundary compatibility.
+    layer: contract-engineering
+    proposal: Evaluate deterministic type generation from versioned JSON Schema with checked generated output.
+    alternatives:
+      [
+        manual mirrors with contract tests,
+        Rust-first generation,
+        TypeScript-first generation,
+      ]
+    value: Reduces drift while keeping schemas transport-neutral.
+    cost_range: medium
+    architectural_impact: generated code remains projection, schemas remain source
+    security_impact: generator supply chain and unknown-field posture require review
+    provenance_impact: generated output must record source schema digest and tool version
+    compatibility_impact: generation must preserve existing v1 wire forms
+    reversibility: retain manually reviewed generated output and generator removal route
+    dependencies: [tool evaluation, license review, deterministic CI proof]
+    confidence: high
+    priority: medium
+    recommended_disposition: research-spike
+    human_decision_state: pending
+
+  - id: EXO-FOUNDATION-IC-005
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-E1
+    friction_opportunity: Checkpoint records are repetitive and currently validated by ad hoc scripts.
+    evidence: Four foundation checkpoints repeat the 20-field contract and require manual YAML extraction.
+    affected_users_workflows: Goal sessions producing resumable Evaluation evidence.
+    layer: pi-integration-workflows
+    proposal: Create a Pi-level checkpoint skill or deterministic validator from the accepted checkpoint schema.
+    alternatives:
+      [retain manual templates, repository-local script, future Exocore feature]
+    value: Reduces omission and context-recovery cost without adding runtime authority.
+    cost_range: small-to-medium
+    architectural_impact: none in Exocore runtime; route to Pi integration layer
+    security_impact: validator must not infer approval or set verified true
+    provenance_impact: generated records must retain source and command evidence
+    compatibility_impact: schema version must be explicit and old records remain readable
+    reversibility: remove the helper; records remain plain YAML/Markdown
+    dependencies: [checkpoint schema acceptance, Pi skill charter]
+    confidence: high
+    priority: medium
+    recommended_disposition: queue-next-phase
+    human_decision_state: pending
+
+  - id: EXO-FOUNDATION-IC-006
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-E1
+    friction_opportunity: Coding sessions need current authoritative library documentation without repeatedly relying on model memory or broad web searches.
+    evidence: Scott requested an assessment of Context7 during the foundation goal; no Context7 provider or MCP configuration is currently part of this lane.
+    affected_users_workflows: Pi coding and review workflows that need version-specific implementation documentation.
+    layer: pi-integration-documentation
+    proposal: Run a source-grounded Context7 integration and pricing assessment, then propose a bounded read-only documentation route with citations, cache limits, and fallback to official docs.
+    alternatives:
+      [
+        official-doc web retrieval only,
+        local documentation mirrors,
+        defer provider integration,
+      ]
+    value: May improve implementation currency and reduce retrieval waste while retaining inspectable sources.
+    cost_range: unknown pending official pricing assessment
+    architectural_impact: none in Exocore runtime; provider belongs to Pi tooling
+    security_impact: review disclosure, authentication, prompt-injection, retention, and provider trust boundaries
+    provenance_impact: every retrieved passage needs library/version/source identity and retrieval date
+    compatibility_impact: workflows must function without Context7 and must not treat summaries as authority
+    reversibility: remove MCP/provider configuration and return to official-doc retrieval
+    dependencies:
+      [
+        official Context7 documentation review,
+        pricing decision,
+        provider/configuration gate,
+      ]
+    confidence: medium
+    priority: medium
+    recommended_disposition: research-spike
+    human_decision_state: pending; no purchase or configuration authorized
+
+  - id: EXO-FOUNDATION-IC-007
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-E1
+    friction_opportunity: Future Exocore decisions need a governed Hub orientation surface without treating the implementation repository as the only decision record.
+    evidence: Scott requested a consolidated feature- or scope-organized downstream record in exocore-ecosystem during the foundation Evaluation stage; the active lane keeps the Hub read-only.
+    affected_users_workflows: Scott and future Exocore planning, review, integration, and architecture sessions.
+    layer: hub-source-intake-and-projection
+    proposal: After the Human-Gate, run a separately governed source-intake task that records accepted topology, mount, checkpoint, security, dependency, and decision lineage under the configuration-resolved exocore-ecosystem route.
+    alternatives:
+      [
+        reference the platform repository directly,
+        create a minimal digest registry only,
+        defer until integration,
+      ]
+    value: Makes future decisions orientable in the Hub while preserving direct implementation evidence and repository authority.
+    cost_range: small-to-medium
+    architectural_impact: none unless Scott accepts an ADR or contract amendment through the Hub route
+    security_impact: requires public-private classification and a no-private-source copy check
+    provenance_impact: every Hub record must carry platform commit, path, digest, review state, and non-authority warning where applicable
+    compatibility_impact: source drift must mark Hub projections stale; repository contracts remain implementation source
+    reversibility: remove or supersede the Hub projection while preserving intake and papertrail records
+    dependencies:
+      [
+        Foundation Human-Gate decision,
+        Hub routing resolution,
+        destination local charter,
+        exact owned paths,
+      ]
+    confidence: high
+    priority: high
+    recommended_disposition: queue-next-phase
+    human_decision_state: pending; active foundation lane authorizes no Hub write
+
+  - id: EXO-FOUNDATION-IC-008
+    origin_feature: exocore-foundation
+    origin_checkpoint: EXO-FOUNDATION-20260808-E1
+    friction_opportunity: Formatting, lint, type, Rust, test, and Conventional Commit expectations exist, but the repository has no reviewed local hook runner or commitlint configuration.
+    evidence: CI and session commands now run Prettier, ESLint, tsc, rustfmt, clippy, and tests; both task commits were manually checked as Conventional Commits, while commitlint and pre-commit automation remained unconfigured.
+    affected_users_workflows: Contributors creating local commits and maintainers reviewing CI failures.
+    layer: developer-tooling
+    proposal: Evaluate a minimal reviewed hook runner and commitlint configuration that calls existing scripts without duplicating CI policy.
+    alternatives:
+      [
+        retain CI-only enforcement,
+        document manual commit checks,
+        defer until multiple contributors,
+      ]
+    value: Moves predictable feedback earlier without changing application behavior.
+    cost_range: small
+    architectural_impact: none in runtime; repository developer tooling only
+    security_impact: hook installation scripts and dependency supply chain require review
+    provenance_impact: hook and rule versions must remain lockfile-pinned and visible in CI
+    compatibility_impact: must not block emergency recovery or require network access during commit
+    reversibility: remove hook configuration and retain CI commands
+    dependencies: [tool and license review, contributor workflow decision]
+    confidence: high
+    priority: low
+    recommended_disposition: queue-next-phase
+    human_decision_state: pending; no hook installation authorized in this lane

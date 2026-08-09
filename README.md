@@ -25,18 +25,25 @@ A [Tauri v2](https://v2.tauri.app/) desktop application renders a TypeScript pro
 
 A standard-library Python worker provides a development-only protocol-conformance proof. It is not required by the packaged desktop path and has no policy or release authority.
 
+The current checkpoint also carries an exercised modular-monolith foundation and Persistence & Language Lab: deny-by-default authority and source boundaries, typed configuration and feature flags, an atomic module mount registry, generated taxonomy types, a transitory Tauri-app-data SQLite adapter, ordered migrations, generic records/events/relations/workflows, and a deliberate transactional proof with scoped reset. SQLite is not the forward authority: the contracts designate PostgreSQL for durable operational state and Qdrant/Neo4j as rebuildable projections. The retired one-off architecture form and its form-specific runtime proof are absent from the active surface.
+
 ## Run it locally
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) 20 or newer
 - [Rust](https://www.rust-lang.org/tools/install), including Cargo
+- Python 3 with `pip`, for contract and worker validation
 - Linux desktop prerequisites for Tauri, if you are on Linux. See the [Tauri prerequisites guide](https://v2.tauri.app/start/prerequisites/).
 
 ```bash
-npm ci
+python3 -m pip install --user -r requirements-dev.txt
+npm ci --include=dev
+npm run proof
 npm run tauri dev
 ```
+
+See the [Persistence Desktop Checkpoint](docs/integration/PERSISTENCE-DESKTOP-CHECKPOINT.md) for the module inventory, language/schema contracts, run/reset route, local stack, and evaluation checklist.
 
 For a production-style local package:
 
@@ -49,7 +56,9 @@ npm run tauri build -- --debug --bundles deb
 
 This pre-alpha intentionally does **not** implement:
 
-- general work items, a CoreStore, or a database
+- general work items or a production CoreStore
+- PostgreSQL cutover, synchronization, or production database authority
+- active vector/graph projectors, semantic retrieval, or automatic graph mutation
 - access to local Library files or Hub material
 - live agents, tool calls, models, provider accounts, or network adapters
 - automatic classification, adaptation, workflow changes, or telemetry
@@ -61,15 +70,30 @@ A successful fixture run is evidence that this mock-only contract, scoring, pers
 ## Repository map
 
 ```text
-contracts/  Versioned public JSON Schema interchange contracts
-fixtures/   Synthetic public-safe evaluation fixtures
-src/        Browser-compatible TypeScript workroom
-src-tauri/  Rust Harness, Tauri commands, scoring, hashing, and receipts
-workers/    Optional development-only Python protocol worker
-docs/       Public project posture, boundaries, and roadmap
+contracts/language/      Canonical vocabulary, taxonomy, and expression grammar
+contracts/persistence/   Logical model, SQLite/PostgreSQL DDL, module declarations, projection contracts
+contracts/foundation/    Module, workflow, identifier, and dependency contracts
+fixtures/                Synthetic public-safe evaluation fixtures
+src/foundation/          TypeScript app-shell, route, store, machine, UI, and typed IPC boundaries
+src/persistence/         Public TypeScript persistence contracts and client
+src/integration/         Human-reviewable proof compositions
+src/harness/             Existing browser-compatible profile-evaluation canary
+src-tauri/src/foundation/ Rust authority, flags, registry, IPC, actors, and telemetry
+src-tauri/src/persistence/ Rust SQLite boundary, migrations, transactions, status, and reset
+src-tauri/src/harness/   Existing Rust profile-evaluation canary
+deploy/compose/          Dedicated local PostgreSQL/Qdrant/Neo4j proof stack
+workers/                 Optional development-only Python protocol worker
+docs/archive/            Historical accepted/deprecated proof records
+docs/integration/        Current runnable checkpoint and limits
 ```
 
 - [Architecture posture](docs/ARCHITECTURE.md)
+- [Operational architecture charter](docs/architecture/EXOCORE-OPERATIONAL-CHARTER.md)
+- [Persistence and projection topology](docs/architecture/PERSISTENCE-AND-PROJECTION-TOPOLOGY.md)
+- [Exocore language reference](docs/architecture/EXOCORE-LANGUAGE-REFERENCE.md)
+- [Persistence desktop checkpoint](docs/integration/PERSISTENCE-DESKTOP-CHECKPOINT.md)
+- [Foundation topology ADR](docs/foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md)
+- [Module mount contract](docs/foundation/MOUNT-CONTRACT.md)
 - [Governance posture](docs/GOVERNANCE.md)
 - [Public/private boundary](docs/PUBLIC-PRIVATE-BOUNDARY.md)
 - [Roadmap](docs/ROADMAP.md)

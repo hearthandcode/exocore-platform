@@ -1,0 +1,57 @@
+{
+  "schema": "exocore.taxonomy.v1",
+  "version": "1.0.0",
+  "dimensions": {
+    "authority_class": [
+      "source",
+      "evidence",
+      "inference",
+      "hypothesis",
+      "proposal",
+      "plan",
+      "projection",
+      "receipt",
+      "historical"
+    ],
+    "lifecycle": ["draft", "active", "deprecated", "archived"],
+    "module_status": ["experimental", "active", "deprecated", "archived"],
+    "operation_kind": ["command", "query", "event"],
+    "persistence_role": [
+      "local-transitory",
+      "durable-authority",
+      "vector-projection",
+      "graph-projection"
+    ],
+    "record_kind": [
+      "artifact",
+      "decision",
+      "evidence",
+      "module-state",
+      "workflow-run",
+      "receipt"
+    ],
+    "relation_kind": [
+      "contains",
+      "depends-on",
+      "derives-from",
+      "supersedes",
+      "projects-to",
+      "correlated-with"
+    ],
+    "sensitivity": ["public-safe", "internal", "restricted"],
+    "workflow_status": [
+      "pending",
+      "running",
+      "completed",
+      "failed",
+      "cancelled"
+    ]
+  },
+  "rules": [
+    "projection records cannot use authority_class source",
+    "deprecated modules remain readable until an archived migration is recorded",
+    "qdrant and neo4j records are projections and must be rebuildable",
+    "sqlite local-transitory records require stable identifiers and content digests portable to postgresql",
+    "restricted payloads cannot enter vector or graph projections without a separately reviewed disclosure policy"
+  ]
+}

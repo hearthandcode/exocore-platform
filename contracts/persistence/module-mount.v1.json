@@ -1,0 +1,31 @@
+{
+  "schema": "exocore.module-mount.v1",
+  "module_id": "persistence",
+  "module_version": "0.1.0",
+  "register": "register",
+  "config_schema": "exocore.persistence.config.v1",
+  "flag_declaration": {
+    "flag_id": "persistence.enabled",
+    "default": false,
+    "owner": "persistence",
+    "enabled_behavior": "Allows deliberate local SQLite proof writes through typed persistence commands.",
+    "disabled_behavior": "Reports schema and adapter health but rejects state-changing proof commands."
+  },
+  "routes": ["exocore.persistence.review.v1"],
+  "commands": [
+    "exocore.persistence.status.v1",
+    "exocore.persistence.run-proof.v1",
+    "exocore.persistence.reset-proof.v1"
+  ],
+  "contracts": [
+    "exocore.persistence.v1",
+    "exocore.persistence.status.v1",
+    "exocore.persistence.proof.v1"
+  ],
+  "config_keys": [
+    "persistence.adapter",
+    "persistence.database_name",
+    "persistence.projection_targets"
+  ],
+  "health": "health"
+}

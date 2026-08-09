@@ -10,7 +10,21 @@ import {
   type RunPreview,
   type RunReceipt,
 } from "./harness/api";
-import { APP_VERSION, PRODUCT_LIMITS, RELEASE_LABEL } from "./harness/contracts";
+import {
+  APP_VERSION,
+  PRODUCT_LIMITS,
+  RELEASE_LABEL,
+} from "./harness/contracts";
+import {
+  bindFoundationInteractions,
+  foundationPanelHtml,
+  initializeFoundation,
+} from "./foundation";
+import {
+  bindPersistenceReviewInteractions,
+  initializePersistenceReview,
+  persistenceReviewPanelHtml,
+} from "./integration/persistence-review";
 
 interface WorkroomState {
   fixtures: FixtureSummary[];
@@ -40,8 +54,13 @@ const root: HTMLDivElement = rootElement;
 
 async function boot(): Promise<void> {
   render();
+  void initializeFoundation(render);
+  void initializePersistenceReview(render);
   try {
-    const [fixtures, latest] = await Promise.all([listFixtures(), loadLatestReceipt()]);
+    const [fixtures, latest] = await Promise.all([
+      listFixtures(),
+      loadLatestReceipt(),
+    ]);
     state.fixtures = fixtures;
     state.selectedFixtureId = fixtures[0]?.id ?? null;
     if (state.selectedFixtureId) {
@@ -133,6 +152,9 @@ function render(): void {
         </main>
       </div>
 
+      ${foundationPanelHtml()}
+      ${persistenceReviewPanelHtml()}
+
       <footer>
         <span>Rust control plane</span>
         <span>TypeScript workroom</span>
@@ -197,8 +219,13 @@ function renderPreview(preview: RunPreview): string {
   `;
 }
 
-function renderReceipt(receipt: RunReceipt, verification: ReceiptVerification | null): string {
-  const verificationLabel = verification?.valid ? "internal consistency verified" : "verification failed";
+function renderReceipt(
+  receipt: RunReceipt,
+  verification: ReceiptVerification | null,
+): string {
+  const verificationLabel = verification?.valid
+    ? "internal consistency verified"
+    : "verification failed";
   const verificationClass = verification?.valid ? "safe" : "danger";
   return `
     <section class="panel receipt-panel">
@@ -222,13 +249,17 @@ function renderReceipt(receipt: RunReceipt, verification: ReceiptVerification | 
       </div>
 
       <div class="score-components">
-        ${receipt.score.components.map((component) => `
+        ${receipt.score.components
+          .map(
+            (component) => `
           <div>
             <span>${escapeHtml(component.id)}</span>
             <strong>${component.awarded}/${component.possible}</strong>
             <small>${escapeHtml(component.evidence)}</small>
           </div>
-        `).join("")}
+        `,
+          )
+          .join("")}
       </div>
 
       <dl class="facts-grid receipt-facts">
@@ -240,14 +271,18 @@ function renderReceipt(receipt: RunReceipt, verification: ReceiptVerification | 
         ${fact("Bundle", receipt.bundlePath)}
       </dl>
 
-      ${verification ? `
+      ${
+        verification
+          ? `
         <details>
           <summary>Integrity checks</summary>
           <ul class="check-list">
             ${verification.checks.map((check) => `<li class="${check.passed ? "pass" : "fail"}"><strong>${escapeHtml(check.id)}</strong> ${escapeHtml(check.detail)}</li>`).join("")}
           </ul>
         </details>
-      ` : ""}
+      `
+          : ""
+      }
     </section>
   `;
 }
@@ -278,15 +313,21 @@ function renderError(message: string): string {
 }
 
 function bindInteractions(): void {
-  document.querySelectorAll<HTMLButtonElement>("[data-fixture-id]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const fixtureId = button.dataset.fixtureId;
-      if (fixtureId) void selectFixture(fixtureId);
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-fixture-id]")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const fixtureId = button.dataset.fixtureId;
+        if (fixtureId) void selectFixture(fixtureId);
+      });
     });
-  });
-  document.querySelector<HTMLButtonElement>("#run-fixture")?.addEventListener("click", () => {
-    void executeRun();
-  });
+  document
+    .querySelector<HTMLButtonElement>("#run-fixture")
+    ?.addEventListener("click", () => {
+      void executeRun();
+    });
+  bindFoundationInteractions(render);
+  bindPersistenceReviewInteractions(render);
 }
 
 function fact(label: string, value: string): string {

@@ -1,0 +1,56 @@
+{
+  "schema": "exocore.identifier-policy.v2",
+  "version": "2.0.0",
+  "vocabulary_contract": "exocore.vocabulary.v1",
+  "patterns": {
+    "module_id": "^[a-z][a-z0-9-]{1,62}$",
+    "stable_id": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+    "namespaced_id": "^exocore\\.[a-z][a-z0-9.-]*\\.v[1-9][0-9]*$",
+    "config_key": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9_.-]*$",
+    "diagnostic_code": "^E_[A-Z][A-Z0-9_]*$"
+  },
+  "primitive_vocabulary": [
+    "adapter",
+    "capability",
+    "checkpoint",
+    "command",
+    "event",
+    "extension",
+    "identifier",
+    "migration",
+    "module",
+    "policy",
+    "port",
+    "projection",
+    "query",
+    "receipt",
+    "record",
+    "relation",
+    "transition",
+    "workflow"
+  ],
+  "namespace_owners": {
+    "exocore.artifact-surface": "artifact-surface-projection",
+    "exocore.foundation": "foundation",
+    "exocore.intake-registry": "intake-registry-projection",
+    "exocore.persistence": "persistence"
+  },
+  "deprecated_namespaces": {
+    "exocore.form-export": {
+      "former_owner": "form-intake-registry",
+      "replacement": null,
+      "status": "archived"
+    },
+    "exocore.form-intake-proof": {
+      "former_owner": "form-intake-proof",
+      "replacement": "exocore.persistence",
+      "status": "archived"
+    },
+    "exocore.form-intake-registry": {
+      "former_owner": "form-intake-registry",
+      "replacement": null,
+      "status": "archived"
+    }
+  },
+  "unknown_identifier_effect": "fail-closed"
+}

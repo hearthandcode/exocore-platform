@@ -1,0 +1,92 @@
+{
+  "contract": {
+    "projectionId": "exocore-artifact-surface-v0.1",
+    "version": "0.1.0",
+    "authorityEffect": "derived-non-authoritative",
+    "canonical": false,
+    "syntheticOnly": true,
+    "readOnly": true,
+    "mountState": "unmounted-candidate",
+    "sourceIdentity": "intake-form-grammar-v0.2-source-candidate-revision-13",
+    "sourceSetDigest": "7af6fa4ff72bef850cbe25b01ff0d992b57eb6a4c98fb4d7cc81484d55a802a3",
+    "deniedEffects": [
+      "canonical-write",
+      "filesystem-scan",
+      "ingestion",
+      "workflow-transition",
+      "human-gate-decision",
+      "persistence",
+      "provider-call",
+      "network-access",
+      "credential-access",
+      "scheduling",
+      "publication",
+      "migration",
+      "deployment",
+      "git-mutation"
+    ],
+    "limits": [
+      "public-safe synthetic fixtures only",
+      "repository-relative example paths only",
+      "no live Hub reader",
+      "no canonical source write-back",
+      "unmounted application seam"
+    ]
+  },
+  "artifacts": [
+    {
+      "artifactId": "AR-PUBLIC-001",
+      "title": "Synthetic intake design note",
+      "summary": "A public-safe fixture showing how Exocore can display artifact identity, location, review state, provenance, bounded content, and graph relations.",
+      "artifactClass": "proposal",
+      "lifecycleState": "draft",
+      "reviewState": "unreviewed",
+      "sensitivity": "public",
+      "artifactPath": "examples/intake/synthetic-design-note.md",
+      "contentDigest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "provenance": {
+        "sourceLabel": "Artifact Surface synthetic fixture set",
+        "sourceKind": "synthetic-fixture",
+        "summary": "Constructed only to exercise the public projection contract. It is not copied from a private Hub artifact."
+      },
+      "contentPreview": {
+        "mediaType": "text/markdown",
+        "text": "# Synthetic intake design note\n\nThis fixture demonstrates a bounded content preview. It grants no authority and carries no live source data.",
+        "truncated": false
+      },
+      "relations": [
+        {
+          "kind": "relates-to",
+          "targetArtifactId": "AR-PUBLIC-002"
+        }
+      ]
+    },
+    {
+      "artifactId": "AR-PUBLIC-002",
+      "title": "Synthetic Artifact Surface implementation plan",
+      "summary": "A second fixture proving plan classification, review-state display, stable relative location, and closed graph references.",
+      "artifactClass": "plan",
+      "lifecycleState": "active",
+      "reviewState": "unreviewed",
+      "sensitivity": "public",
+      "artifactPath": "examples/plans/synthetic-artifact-surface-plan.md",
+      "contentDigest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "provenance": {
+        "sourceLabel": "Artifact Surface synthetic fixture set",
+        "sourceKind": "synthetic-fixture",
+        "summary": "Authored as public test data for the unmounted Exocore implementation seam."
+      },
+      "contentPreview": {
+        "mediaType": "text/markdown",
+        "text": "# Synthetic implementation plan\n\nRender two validated ArtifactReferences, expose their relation, and keep every effect denied.",
+        "truncated": false
+      },
+      "relations": [
+        {
+          "kind": "implements",
+          "targetArtifactId": "AR-PUBLIC-001"
+        }
+      ]
+    }
+  ]
+}

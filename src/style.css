@@ -202,6 +202,20 @@ details li { color: #9fb2ac; font-size: 0.82rem; line-height: 1.45; }
 .error-panel small { color: #b99a94; }
 .app-shell > footer { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; }
 .app-shell > footer span { color: #799089; font-size: 0.72rem; letter-spacing: 0.04em; }
+.app-shell > .boundary-card { border: 1px solid rgb(211 231 222 / 12%); border-radius: 1rem; padding: clamp(1.1rem, 3vw, 1.6rem); background: rgb(10 28 25 / 72%); }
+.app-shell > .boundary-card h2 { margin-bottom: 0.4rem; }
+.app-shell > .boundary-card dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0.65rem; }
+.app-shell > .boundary-card dl > div { border: 1px solid rgb(211 231 222 / 10%); border-radius: 0.65rem; padding: 0.65rem; }
+.proof-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; margin: 1rem 0; }
+.proof-actions button { border: 1px solid #e2b776; border-radius: 0.65rem; padding: 0.7rem 0.9rem; color: #142522; background: #e2b776; font-weight: 700; cursor: pointer; }
+.proof-actions button:disabled { cursor: not-allowed; opacity: 0.55; }
+.proof-steps { display: grid; gap: 0.4rem; color: #aebfba; }
+.proof-steps strong { color: #79c6a6; }
+.persistence-lab details { margin-top: 1rem; }
+.persistence-lab summary { cursor: pointer; font-weight: 700; }
+.review-checklist { display: grid; gap: 0.55rem; margin-top: 1rem; border: 1px solid rgb(211 231 222 / 14%); border-radius: 0.75rem; padding: 1rem; }
+.review-checklist label { display: flex; align-items: flex-start; gap: 0.55rem; }
+.review-checklist input { margin-top: 0.2rem; }
 @media (max-width: 58rem) {
   .workroom-grid { grid-template-columns: 1fr; }
   .sidebar { position: static; }

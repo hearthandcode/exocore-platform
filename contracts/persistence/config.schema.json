@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hearthandcode.example/contracts/exocore.persistence.config.v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["adapter", "database_name", "projection_targets"],
+  "properties": {
+    "adapter": { "const": "sqlite-local-transitory" },
+    "database_name": { "const": "exocore-local-v1.sqlite3" },
+    "projection_targets": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["qdrant", "neo4j"] },
+      "default": []
+    }
+  }
+}

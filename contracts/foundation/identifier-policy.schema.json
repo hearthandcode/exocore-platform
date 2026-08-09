@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hearthandcode.example/contracts/exocore.identifier-policy.v2.schema.json",
+  "title": "Exocore identifier, vocabulary, namespace, and deprecation policy v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "vocabulary_contract",
+    "patterns",
+    "primitive_vocabulary",
+    "namespace_owners",
+    "deprecated_namespaces",
+    "unknown_identifier_effect"
+  ],
+  "properties": {
+    "schema": { "const": "exocore.identifier-policy.v2" },
+    "version": { "const": "2.0.0" },
+    "vocabulary_contract": { "const": "exocore.vocabulary.v1" },
+    "patterns": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "module_id",
+        "stable_id",
+        "namespaced_id",
+        "config_key",
+        "diagnostic_code"
+      ],
+      "properties": {
+        "module_id": { "type": "string", "minLength": 1 },
+        "stable_id": { "type": "string", "minLength": 1 },
+        "namespaced_id": { "type": "string", "minLength": 1 },
+        "config_key": { "type": "string", "minLength": 1 },
+        "diagnostic_code": { "type": "string", "minLength": 1 }
+      }
+    },
+    "primitive_vocabulary": {
+      "type": "array",
+      "minItems": 18,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]+$" }
+    },
+    "namespace_owners": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^exocore\\.[a-z][a-z0-9.-]*$" },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]{1,62}$"
+      }
+    },
+    "deprecated_namespaces": {
+      "type": "object",
+      "propertyNames": { "pattern": "^exocore\\.[a-z][a-z0-9.-]*$" },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["former_owner", "replacement", "status"],
+        "properties": {
+          "former_owner": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{1,62}$"
+          },
+          "replacement": {
+            "type": ["string", "null"],
+            "pattern": "^exocore\\.[a-z][a-z0-9.-]*$"
+          },
+          "status": { "enum": ["deprecated", "archived"] }
+        }
+      }
+    },
+    "unknown_identifier_effect": { "const": "fail-closed" }
+  }
+}

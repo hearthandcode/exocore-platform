@@ -8,15 +8,32 @@
     "dev": "vite --host 127.0.0.1 --port 1420",
     "build": "tsc && vite build",
     "check": "tsc --noEmit",
+    "check:boundaries": "node contracts/foundation/check-boundaries.mjs",
+    "format:check": "prettier --check \"src/foundation/**/*.ts\" \"src/persistence/**/*.ts\" \"src/integration/**/*.ts\" src/main.ts \"tests/integration/**/*.ts\" package.json eslint.config.js .github/workflows/ci.yml \"contracts/foundation/**/*.{json,mjs}\" \"contracts/language/**/*.json\" \"contracts/persistence/**/*.json\" \"docs/foundation/**/*.{md,yaml}\" \"docs/architecture/**/*.md\" \"docs/archive/**/*.md\" \"docs/integration/**/*.md\" README.md docs/ARCHITECTURE.md",
+    "lint": "eslint src tests vite.config.ts",
+    "test": "vitest run",
+    "test:integration": "vitest run tests/integration",
+    "validate:intake-registry": "node scripts/validate-intake-registry-projection.mjs",
+    "validate:artifact-surface": "node scripts/validate-artifact-surface-projection.mjs",
+    "validate:language-persistence": "python3 scripts/validate_language_persistence.py",
+    "proof:quick": "node scripts/proof.mjs --quick",
+    "proof": "node scripts/proof.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "tauri": "tauri"
   },
   "dependencies": {
-    "@tauri-apps/api": "^2"
+    "@tauri-apps/api": "^2",
+    "xstate": "^5.32.5",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",
+    "@types/node": "^26.2.0",
+    "eslint": "^9.39.5",
+    "prettier": "^3.9.6",
     "typescript": "~5.8.3",
-    "vite": "^7.0.4"
+    "typescript-eslint": "^8.66.0",
+    "vite": "^7.0.4",
+    "vitest": "^4.1.10"
   }
 }

@@ -1,0 +1,38 @@
+{
+  "schema": "exocore.module-catalog.v1",
+  "modules": [
+    {
+      "module_id": "artifact-surface-projection",
+      "status": "active",
+      "declaration": null
+    },
+    { "module_id": "foundation", "status": "active", "declaration": null },
+    {
+      "module_id": "intake-registry-projection",
+      "status": "active",
+      "declaration": null
+    },
+    {
+      "module_id": "persistence",
+      "status": "experimental",
+      "declaration": "contracts/persistence/module.v2.json"
+    },
+    {
+      "module_id": "profile-evaluation-canary",
+      "status": "experimental",
+      "declaration": null
+    }
+  ],
+  "deprecated_modules": [
+    {
+      "module_id": "form-intake-proof",
+      "status": "archived",
+      "recovery_commit": "c913352b25b06deff99d0d5fcf3a0c2dbe3e33d5"
+    },
+    {
+      "module_id": "form-intake-registry",
+      "status": "archived",
+      "recovery_commit": "ae9a02c183253023b8789d54992a862dde466f9e"
+    }
+  ]
+}

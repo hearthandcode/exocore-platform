@@ -4,7 +4,7 @@
 
 Exocore Platform is at version `0.0.1` pre-alpha. The repository contains one complete profile-evaluation path in a Tauri v2 desktop application. It uses a browser-compatible TypeScript workroom, Rust control plane, and optional development-only Python worker protocol.
 
-The app stores only synthetic run receipts in its operating-system application-data directory. It has no authority over a person's Library, Hub, provider accounts, credentials, profiles, or workflow.
+The app stores only synthetic run receipts and Persistence Lab records in its operating-system application-data directory. It has no authority over a person's Library, Hub, provider accounts, credentials, profiles, or workflow.
 
 ## Direction
 
@@ -18,13 +18,22 @@ The project is exploring a local-first cognitive workbench with five connected c
 
 ## Executing boundary
 
-| Layer | Owns | Does not own |
-|---|---|---|
-| Rust Harness | policy, fixture validation, deterministic adapter, scoring, token normalization, SHA-256 identities, append-only application receipt writing, internal consistency verification, Tauri commands | private sources, live-provider authority, profile promotion, public release decisions |
-| TypeScript workroom | visible fixture selection, policy preview, progress, score and receipt projections | filesystem, process, network, scoring, policy, or secret effects |
-| Python worker | a versioned development protocol-conformance response | desktop lifecycle, receipt acceptance, policy, credentials, baseline changes, or release state |
+| Layer               | Owns                                                                                                                                                                                            | Does not own                                                                                    |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Rust Harness        | policy, fixture validation, deterministic adapter, scoring, token normalization, SHA-256 identities, append-only application receipt writing, internal consistency verification, Tauri commands | private sources, live-provider authority, profile promotion, public release decisions           |
+| Rust persistence    | SQLite migrations, transactions, generic record/event/relation/workflow mechanics, scoped proof reset, typed commands                                                                           | Hub authority, domain meaning, PostgreSQL cutover, vector/graph truth, or private form material |
+| TypeScript workroom | visible fixture selection, policy preview, progress, score and receipt projections                                                                                                              | filesystem, process, network, scoring, policy, or secret effects                                |
+| Python worker       | a versioned development protocol-conformance response                                                                                                                                           | desktop lifecycle, receipt acceptance, policy, credentials, baseline changes, or release state  |
 
 The default desktop execution path uses the Rust mock adapter. Python is not required to run the app.
+
+## Modular-monolith foundation
+
+The initial foundation is additive to the canary. Rust modules under `src-tauri/src/foundation/` own conservative authority, source-locator validation, identities, validated configuration, deny-by-default flags, atomic module registration, typed IPC, actor supervision, and local redacted trace events. TypeScript modules under `src/foundation/` own only the app-shell projection, route declarations, shared UI rendering, a Zustand vanilla projection store, an XState lifecycle machine, and typed IPC clients.
+
+Features mount through `exocore.module-mount.v1`; duplicate module, flag, config, route, command, or contract namespaces reject the entire mount. Module v2 adds lifecycle, ports, effects, migrations, extension points, deprecation, and proof declarations. No feature reads another feature's private state. The foundation and persistence modules register disabled. Status causes no database creation; a deliberate local action enables and runs the transactional SQLite proof, and reset removes only its namespace before disabling the module.
+
+The [operational architecture charter](architecture/EXOCORE-OPERATIONAL-CHARTER.md) defines the composability, computability, modularity, adaptability, evolvability, language/type, workflow, and proof constraints. The [language reference](architecture/EXOCORE-LANGUAGE-REFERENCE.md), [persistence topology](architecture/PERSISTENCE-AND-PROJECTION-TOPOLOGY.md), and [checkpoint guide](integration/PERSISTENCE-DESKTOP-CHECKPOINT.md) define the current executable direction. See also [ADR-FOUNDATION-001](foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md) and the [mount contract](foundation/MOUNT-CONTRACT.md).
 
 ## Contract and receipt model
 
@@ -34,10 +43,10 @@ Run IDs and timestamps are runtime metadata. The reproducibility hash excludes r
 
 ## What is not decided here
 
-This repository does not select a database, define a runtime CoreStore schema, publish a live-provider policy, admit credentials, or authorize background automation. Those remain future design and proof tasks.
+This repository now selects SQLite only as a transitory embedded adapter and formalizes PostgreSQL as the future durable operational authority with Qdrant/Neo4j projections. It does not claim a production CoreStore, synchronization, conflict resolution, PostgreSQL cutover, live-provider policy, credentials, or background automation. Those remain separately gated design and proof tasks.
 
 The current native proof demonstrates a denied external-capability policy, bounded local receipt creation, integrity verification, and recoverable close/reopen behavior for one synthetic fixture. It does not prove provider isolation or general agent behavior because no live provider or agent runtime is present.
 
 ## Technology boundary
 
-Tauri v2 pairs the browser-compatible TypeScript interface with the Rust control plane. Custom commands expose only the five profile-evaluation operations used by the workroom. The current capability file grants Tauri core defaults but no filesystem, shell, HTTP, updater, or credential plugin permission. Any future plugin or sidecar requires an explicit capability and threat-model amendment.
+Tauri v2 pairs the browser-compatible TypeScript interface with the Rust control plane. Custom commands expose the bounded profile-evaluation, foundation, and persistence operations used by the workroom. Persistence resolves only the Tauri application-data directory through Rust; browser code receives counts and typed evidence, not a filesystem path or database handle. The current capability file grants Tauri core defaults but no filesystem, shell, HTTP, updater, or credential plugin permission. Any future plugin or sidecar requires an explicit capability and threat-model amendment.

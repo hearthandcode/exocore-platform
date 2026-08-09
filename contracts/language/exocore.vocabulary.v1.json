@@ -1,0 +1,97 @@
+{
+  "schema": "exocore.vocabulary.v1",
+  "version": "1.0.0",
+  "namespace": "exocore",
+  "terms": [
+    {
+      "id": "adapter",
+      "category": "boundary",
+      "definition": "Replaceable implementation of a public port; owns mechanics, never domain meaning."
+    },
+    {
+      "id": "capability",
+      "category": "authority",
+      "definition": "Named, bounded ability requiring an explicit owner and grant route."
+    },
+    {
+      "id": "checkpoint",
+      "category": "evidence",
+      "definition": "Bounded state with exact sources, proof results, limits, and a next gate."
+    },
+    {
+      "id": "command",
+      "category": "operation",
+      "definition": "Requested state-changing operation with authority, idempotency, input, output, and typed failure."
+    },
+    {
+      "id": "event",
+      "category": "operation",
+      "definition": "Immutable notification of a committed fact with sequence and correlation identity."
+    },
+    {
+      "id": "extension",
+      "category": "evolution",
+      "definition": "Versioned optional contract point admitted by a named owner without private-boundary access."
+    },
+    {
+      "id": "identifier",
+      "category": "language",
+      "definition": "Stable machine identity governed by one grammar and namespace owner."
+    },
+    {
+      "id": "migration",
+      "category": "evolution",
+      "definition": "Ordered, reversible-or-bounded transformation between declared schema versions."
+    },
+    {
+      "id": "module",
+      "category": "composition",
+      "definition": "One semantic owner composed through manifests, public ports, operations, state, lifecycle, and proof."
+    },
+    {
+      "id": "policy",
+      "category": "authority",
+      "definition": "Declarative allow, deny, or require rule evaluated with stable diagnostics."
+    },
+    {
+      "id": "port",
+      "category": "boundary",
+      "definition": "Typed public dependency boundary owned by the domain that consumes it."
+    },
+    {
+      "id": "projection",
+      "category": "representation",
+      "definition": "Rebuildable derived view that never replaces or mutates its source authority."
+    },
+    {
+      "id": "query",
+      "category": "operation",
+      "definition": "Read-only bounded observation with source and disclosure constraints."
+    },
+    {
+      "id": "receipt",
+      "category": "evidence",
+      "definition": "Time- and scope-bounded execution evidence with inputs, checks, results, and non-proofs."
+    },
+    {
+      "id": "record",
+      "category": "data",
+      "definition": "Versioned values with identity, owner, authority class, lifecycle, provenance, and digest."
+    },
+    {
+      "id": "relation",
+      "category": "data",
+      "definition": "Typed directed connection between stable record identities."
+    },
+    {
+      "id": "transition",
+      "category": "workflow",
+      "definition": "Legal movement between declared states with guard, effect, authority, and recovery."
+    },
+    {
+      "id": "workflow",
+      "category": "workflow",
+      "definition": "Versioned composition of typed operations, transitions, gates, recovery, and receipts."
+    }
+  ]
+}

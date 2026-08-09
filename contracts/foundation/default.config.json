@@ -1,0 +1,15 @@
+{
+  "authority": {
+    "default_posture": "deny",
+    "fallback_class": "unknown"
+  },
+  "source": {
+    "allowed_roots": [],
+    "max_bytes": 1048576,
+    "utf8_policy": "strict"
+  },
+  "telemetry": {
+    "level": "info",
+    "sink": "stdout"
+  }
+}
