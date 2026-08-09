@@ -88,19 +88,25 @@
       "may_depend_on": ["contracts"]
     },
     {
-      "id": "form-intake-registry",
-      "plane": "feature",
-      "path": "src/form-intake-registry/",
+      "id": "native-persistence",
+      "plane": "rust",
+      "path": "src-tauri/src/persistence/",
+      "may_depend_on": ["contracts", "kernel-ipc"]
+    },
+    {
+      "id": "presentation-persistence",
+      "plane": "typescript",
+      "path": "src/persistence/",
       "may_depend_on": ["contracts"]
     },
     {
-      "id": "form-intake-proof",
+      "id": "persistence-review",
       "plane": "integration",
-      "path": "src/integration/form-intake-proof/",
+      "path": "src/integration/persistence-review/",
       "may_depend_on": [
         "contracts",
         "presentation-foundation",
-        "form-intake-registry"
+        "presentation-persistence"
       ]
     },
     {

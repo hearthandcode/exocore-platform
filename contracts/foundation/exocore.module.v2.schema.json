@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hearthandcode.example/contracts/exocore.module.v2.schema.json",
+  "title": "Exocore module declaration v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "module_id",
+    "module_version",
+    "status",
+    "owner",
+    "record_scope",
+    "flag",
+    "config_contract",
+    "dependencies",
+    "ports",
+    "operations",
+    "namespaces",
+    "extension_points",
+    "migrations",
+    "health",
+    "proof"
+  ],
+  "properties": {
+    "schema": { "const": "exocore.module.v2" },
+    "module_id": { "$ref": "#/$defs/moduleId" },
+    "module_version": { "$ref": "#/$defs/semver" },
+    "status": { "enum": ["experimental", "active", "deprecated", "archived"] },
+    "owner": { "$ref": "#/$defs/moduleId" },
+    "record_scope": { "type": "string", "minLength": 3 },
+    "flag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "default"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9_-]*$"
+        },
+        "default": { "const": false }
+      }
+    },
+    "config_contract": { "$ref": "#/$defs/namespacedId" },
+    "dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/moduleId" }
+    },
+    "ports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "direction", "contract", "required"],
+        "properties": {
+          "id": { "$ref": "#/$defs/namespacedId" },
+          "direction": { "enum": ["inbound", "outbound"] },
+          "contract": { "$ref": "#/$defs/namespacedId" },
+          "required": { "type": "boolean" }
+        }
+      }
+    },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "input_contract",
+          "output_contract",
+          "authority",
+          "effect",
+          "idempotent"
+        ],
+        "properties": {
+          "id": { "$ref": "#/$defs/namespacedId" },
+          "kind": { "enum": ["command", "query", "event"] },
+          "input_contract": { "$ref": "#/$defs/namespacedId" },
+          "output_contract": { "$ref": "#/$defs/namespacedId" },
+          "authority": { "type": "string", "minLength": 3 },
+          "effect": {
+            "enum": [
+              "none",
+              "local-read",
+              "local-write",
+              "external-read",
+              "external-write"
+            ]
+          },
+          "idempotent": { "type": "boolean" }
+        }
+      }
+    },
+    "namespaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commands", "contracts", "config", "diagnostics"],
+      "properties": {
+        "commands": { "$ref": "#/$defs/prefix" },
+        "contracts": { "$ref": "#/$defs/prefix" },
+        "config": { "$ref": "#/$defs/prefix" },
+        "diagnostics": { "$ref": "#/$defs/prefix" }
+      }
+    },
+    "extension_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "contract", "cardinality", "compatibility"],
+        "properties": {
+          "id": { "$ref": "#/$defs/namespacedId" },
+          "contract": { "$ref": "#/$defs/namespacedId" },
+          "cardinality": { "enum": ["zero-or-one", "zero-or-many", "one"] },
+          "compatibility": { "enum": ["same-major", "exact"] }
+        }
+      }
+    },
+    "migrations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "current_schema_version", "rollback"],
+      "properties": {
+        "strategy": { "enum": ["none", "ordered-sql", "versioned-transform"] },
+        "current_schema_version": { "type": "integer", "minimum": 0 },
+        "rollback": {
+          "enum": ["not-required", "restore-checkpoint", "forward-fix"]
+        }
+      }
+    },
+    "deprecation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["replacement", "removal_gate", "compatibility_until"],
+      "properties": {
+        "replacement": { "type": ["string", "null"] },
+        "removal_gate": { "type": "string", "minLength": 3 },
+        "compatibility_until": { "type": ["string", "null"] }
+      }
+    },
+    "health": { "$ref": "#/$defs/namespacedId" },
+    "proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["command", "fixtures", "reset_operation"],
+      "properties": {
+        "command": { "type": "string", "minLength": 3 },
+        "fixtures": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "reset_operation": { "$ref": "#/$defs/namespacedId" }
+      }
+    }
+  },
+  "$defs": {
+    "moduleId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,62}$" },
+    "namespacedId": {
+      "type": "string",
+      "pattern": "^exocore\\.[a-z][a-z0-9.-]*\\.v[1-9][0-9]*$"
+    },
+    "prefix": {
+      "type": "string",
+      "pattern": "^exocore\\.[a-z][a-z0-9.-]*\\.$"
+    },
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+  }
+}

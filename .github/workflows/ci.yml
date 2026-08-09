@@ -1,4 +1,4 @@
-name: Verify Exocore foundation and canary
+name: Verify Exocore persistence checkpoint
 
 on:
   pull_request:
@@ -29,7 +29,7 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: npm run check:boundaries
-      - run: npm run validate:integration-contracts
+      - run: npm run validate:language-persistence
       - run: npm run validate:intake-registry
       - run: npm run validate:artifact-surface
       - run: npm run build

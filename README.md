@@ -25,7 +25,7 @@ A [Tauri v2](https://v2.tauri.app/) desktop application renders a TypeScript pro
 
 A standard-library Python worker provides a development-only protocol-conformance proof. It is not required by the packaged desktop path and has no policy or release authority.
 
-The integration proof also carries an exercised modular-monolith foundation: deny-by-default authority and source boundaries, typed configuration and feature flags, an atomic module mount registry, typed IPC errors, a supervised Rust actor, local structured traces, and explicit Zustand/XState presentation boundaries. The Form Intake Registry is registered through `exocore.module-mount.v1` but disabled by default. A deliberate synthetic-only workflow can enable it, prove ingest/dedupe/projection/freshness/supersession behavior in memory, and reset it without exposing raw answers. This structure is not a released feature and does not change the canary's authority.
+The current checkpoint also carries an exercised modular-monolith foundation and Persistence & Language Lab: deny-by-default authority and source boundaries, typed configuration and feature flags, an atomic module mount registry, generated taxonomy types, a transitory Tauri-app-data SQLite adapter, ordered migrations, generic records/events/relations/workflows, and a deliberate transactional proof with scoped reset. SQLite is not the forward authority: the contracts designate PostgreSQL for durable operational state and Qdrant/Neo4j as rebuildable projections. The retired one-off architecture form and its form-specific runtime proof are absent from the active surface.
 
 ## Run it locally
 
@@ -43,7 +43,7 @@ npm run proof
 npm run tauri dev
 ```
 
-See [Foundation and Form Intake Registry Proof of Concept](docs/integration/FOUNDATION-INTAKE-POC.md) for the expected module inventory, workflow, reset route, and evaluation checklist.
+See the [Persistence Desktop Checkpoint](docs/integration/PERSISTENCE-DESKTOP-CHECKPOINT.md) for the module inventory, language/schema contracts, run/reset route, local stack, and evaluation checklist.
 
 For a production-style local package:
 
@@ -56,7 +56,9 @@ npm run tauri build -- --debug --bundles deb
 
 This pre-alpha intentionally does **not** implement:
 
-- general work items, a CoreStore, or a database
+- general work items or a production CoreStore
+- PostgreSQL cutover, synchronization, or production database authority
+- active vector/graph projectors, semantic retrieval, or automatic graph mutation
 - access to local Library files or Hub material
 - live agents, tool calls, models, provider accounts, or network adapters
 - automatic classification, adaptation, workflow changes, or telemetry
@@ -68,22 +70,28 @@ A successful fixture run is evidence that this mock-only contract, scoring, pers
 ## Repository map
 
 ```text
-contracts/              Versioned public interchange and foundation mount contracts
-fixtures/               Synthetic public-safe evaluation fixtures
+contracts/language/      Canonical vocabulary, taxonomy, and expression grammar
+contracts/persistence/   Logical model, SQLite/PostgreSQL DDL, module declarations, projection contracts
+contracts/foundation/    Module, workflow, identifier, and dependency contracts
+fixtures/                Synthetic public-safe evaluation fixtures
 src/foundation/          TypeScript app-shell, route, store, machine, UI, and typed IPC boundaries
-src/form-intake-registry/ Isolated form intake domain, ports, adapters, projections, and validation
-src/integration/          Public-port-only proof compositions
+src/persistence/         Public TypeScript persistence contracts and client
+src/integration/         Human-reviewable proof compositions
 src/harness/             Existing browser-compatible profile-evaluation canary
-src-tauri/src/foundation/ Rust authority, source, identity, config, flags, mount, IPC, actor, and telemetry modules
+src-tauri/src/foundation/ Rust authority, flags, registry, IPC, actors, and telemetry
+src-tauri/src/persistence/ Rust SQLite boundary, migrations, transactions, status, and reset
 src-tauri/src/harness/   Existing Rust profile-evaluation canary
+deploy/compose/          Dedicated local PostgreSQL/Qdrant/Neo4j proof stack
 workers/                 Optional development-only Python protocol worker
-docs/foundation/         Foundation ADR, operating contracts, checkpoints, and review evidence
-docs/integration/        Locally runnable integration proofs and limits
+docs/archive/            Historical accepted/deprecated proof records
+docs/integration/        Current runnable checkpoint and limits
 ```
 
 - [Architecture posture](docs/ARCHITECTURE.md)
 - [Operational architecture charter](docs/architecture/EXOCORE-OPERATIONAL-CHARTER.md)
-- [Foundation and Intake proof](docs/integration/FOUNDATION-INTAKE-POC.md)
+- [Persistence and projection topology](docs/architecture/PERSISTENCE-AND-PROJECTION-TOPOLOGY.md)
+- [Exocore language reference](docs/architecture/EXOCORE-LANGUAGE-REFERENCE.md)
+- [Persistence desktop checkpoint](docs/integration/PERSISTENCE-DESKTOP-CHECKPOINT.md)
 - [Foundation topology ADR](docs/foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md)
 - [Module mount contract](docs/foundation/MOUNT-CONTRACT.md)
 - [Governance posture](docs/GOVERNANCE.md)

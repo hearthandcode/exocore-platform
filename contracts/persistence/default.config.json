@@ -1,0 +1,5 @@
+{
+  "adapter": "sqlite-local-transitory",
+  "database_name": "exocore-local-v1.sqlite3",
+  "projection_targets": []
+}

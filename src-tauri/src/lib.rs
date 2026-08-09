@@ -1,6 +1,8 @@
 mod commands;
+mod contracts;
 pub mod foundation;
 mod harness;
+pub mod persistence;
 
 use commands::profile_evaluation::{
     list_profile_fixtures, load_latest_profile_receipt, preview_profile_run, run_profile_fixture,
@@ -9,6 +11,9 @@ use commands::profile_evaluation::{
 use foundation::ipc::{
     foundation_echo, foundation_set_module_enabled, foundation_set_skeleton_ui, foundation_status,
     FoundationRuntime,
+};
+use persistence::{
+    persistence_reset_review_fixture, persistence_run_review_fixture, persistence_status,
 };
 use std::sync::Mutex;
 
@@ -28,6 +33,9 @@ pub fn run() {
             foundation_set_skeleton_ui,
             foundation_set_module_enabled,
             foundation_echo,
+            persistence_status,
+            persistence_run_review_fixture,
+            persistence_reset_review_fixture,
         ])
         .run(tauri::generate_context!())
         .expect("error while running Exocore Platform");

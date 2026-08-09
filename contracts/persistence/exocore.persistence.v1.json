@@ -1,0 +1,125 @@
+{
+  "schema": "exocore.persistence.v1",
+  "version": "1.0.0",
+  "authority_model": {
+    "sqlite": "local-transitory",
+    "postgresql": "durable-authority",
+    "qdrant": "vector-projection",
+    "neo4j": "graph-projection"
+  },
+  "migration_contract": {
+    "identity": "portable text identifiers survive adapter migration",
+    "payload": "canonical JSON with SHA-256 content digest",
+    "sequence": "events are ordered per record by positive integer sequence",
+    "projection": "Qdrant and Neo4j rebuild only from committed records, relations, and outbox events",
+    "cutover": "SQLite remains writable only until an explicit PostgreSQL cutover checkpoint"
+  },
+  "entities": [
+    {
+      "name": "schema_migrations",
+      "primary_key": ["version"],
+      "columns": [
+        ["version", "integer", false],
+        ["name", "text", false],
+        ["applied_at", "timestamp", false],
+        ["checksum", "text", false]
+      ]
+    },
+    {
+      "name": "records",
+      "primary_key": ["record_id"],
+      "columns": [
+        ["record_id", "text", false],
+        ["namespace", "text", false],
+        ["kind", "text", false],
+        ["schema_id", "text", false],
+        ["schema_version", "integer", false],
+        ["owner_module", "text", false],
+        ["authority_class", "text", false],
+        ["lifecycle", "text", false],
+        ["sensitivity", "text", false],
+        ["payload_json", "json", false],
+        ["content_digest", "text", false],
+        ["created_at", "timestamp", false],
+        ["updated_at", "timestamp", false],
+        ["supersedes_id", "text", true]
+      ]
+    },
+    {
+      "name": "relations",
+      "primary_key": ["relation_id"],
+      "columns": [
+        ["relation_id", "text", false],
+        ["source_id", "text", false],
+        ["target_id", "text", false],
+        ["relation_kind", "text", false],
+        ["properties_json", "json", false],
+        ["created_at", "timestamp", false]
+      ]
+    },
+    {
+      "name": "events",
+      "primary_key": ["event_id"],
+      "columns": [
+        ["event_id", "text", false],
+        ["record_id", "text", false],
+        ["event_kind", "text", false],
+        ["sequence", "integer", false],
+        ["payload_json", "json", false],
+        ["occurred_at", "timestamp", false],
+        ["causation_id", "text", true],
+        ["correlation_id", "text", false]
+      ]
+    },
+    {
+      "name": "workflow_runs",
+      "primary_key": ["workflow_run_id"],
+      "columns": [
+        ["workflow_run_id", "text", false],
+        ["workflow_schema", "text", false],
+        ["status", "text", false],
+        ["input_digest", "text", false],
+        ["started_at", "timestamp", false],
+        ["completed_at", "timestamp", true]
+      ]
+    },
+    {
+      "name": "workflow_steps",
+      "primary_key": ["workflow_run_id", "step_id"],
+      "columns": [
+        ["workflow_run_id", "text", false],
+        ["step_id", "text", false],
+        ["sequence", "integer", false],
+        ["status", "text", false],
+        ["evidence_json", "json", false],
+        ["completed_at", "timestamp", true]
+      ]
+    },
+    {
+      "name": "projection_outbox",
+      "primary_key": ["outbox_id"],
+      "columns": [
+        ["outbox_id", "text", false],
+        ["aggregate_id", "text", false],
+        ["target", "text", false],
+        ["operation", "text", false],
+        ["payload_json", "json", false],
+        ["status", "text", false],
+        ["attempts", "integer", false],
+        ["available_at", "timestamp", false],
+        ["created_at", "timestamp", false]
+      ]
+    },
+    {
+      "name": "projection_checkpoints",
+      "primary_key": ["projector_id", "target"],
+      "columns": [
+        ["projector_id", "text", false],
+        ["target", "text", false],
+        ["last_event_id", "text", true],
+        ["last_sequence", "integer", false],
+        ["updated_at", "timestamp", false]
+      ]
+    }
+  ]
+}

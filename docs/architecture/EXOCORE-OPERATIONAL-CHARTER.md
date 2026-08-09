@@ -101,7 +101,7 @@ Duplicated patterns or enums require generation or a digest-bound conformance ch
 
 A consequential workflow declares its input/output contracts, owner, states, transitions, correlation and idempotency identity, authority at each step, timeout/retry/cancellation policy, failure state, recovery, receipt, and human-gated transitions.
 
-The initial form-intake proof is declared at `contracts/form-intake-registry/v1/proof.workflow.json`. Its user-start and reset transitions are deliberate human actions. Internal synthetic transformations do not promote review, disposition, publication, or verification state.
+The current persistence proof is declared through `contracts/persistence/module.v2.json` and its typed operations. Initialization and reset are deliberate human actions. Internal synthetic transactions do not promote review, disposition, publication, durable-authority cutover, projection delivery, or verification state.
 
 ## Local proof standard
 
@@ -124,7 +124,7 @@ npm run proof
 npm run tauri dev
 ```
 
-The desktop card can then run and reset the mounted Form Intake Registry proof. A passing proof is evidence only. It does not set `verified: true` or authorize release.
+The desktop lab can then initialize, inspect, repeat, and reset the mounted persistence proof. A passing proof is evidence only. It does not set `verified: true`, make SQLite permanent authority, complete PostgreSQL cutover, deliver projections, or authorize release.
 
 ## Change protocol
 

@@ -1,0 +1,21 @@
+{
+  "schema": "exocore.qdrant-collections.v1",
+  "authority_class": "projection",
+  "rebuild_source": "postgresql:exocore.records+exocore.projection_outbox",
+  "collections": [
+    {
+      "name": "exocore_records_v1",
+      "vectors": { "size": 384, "distance": "Cosine" },
+      "payload_indexes": [
+        "namespace",
+        "kind",
+        "owner_module",
+        "authority_class",
+        "lifecycle",
+        "sensitivity",
+        "content_digest"
+      ],
+      "restricted_payload_allowed": false
+    }
+  ]
+}

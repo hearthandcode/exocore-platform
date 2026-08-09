@@ -1,5 +1,0 @@
-{
-  "schema": "exocore.intake-registry.config.v1",
-  "fixture_mode": "synthetic-only",
-  "store_adapter": "memory"
-}

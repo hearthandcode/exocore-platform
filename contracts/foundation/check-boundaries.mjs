@@ -9,7 +9,7 @@ const identifiers = readJson("contracts/foundation/identifier-policy.json");
 if (manifest.schema !== "exocore.module-boundaries.v1") {
   throw new Error("E_SCHEMA: unsupported boundary manifest");
 }
-if (identifiers.schema !== "exocore.identifier-policy.v1") {
+if (identifiers.schema !== "exocore.identifier-policy.v2") {
   throw new Error("E_SCHEMA: unsupported identifier policy");
 }
 
@@ -54,17 +54,18 @@ for (const path of sourceFiles) {
   const source = readFileSync(path, "utf8");
   const local = relative(root, path).split("\\").join("/");
   if (
-    !local.startsWith("src/form-intake-registry/") &&
-    /form-intake-registry\/(?:internal|adapters|ports)/.test(source)
+    !local.startsWith("src/persistence/") &&
+    /(?:\.\.\/)+persistence\/(?:ipc|contracts)/.test(source)
   ) {
     throw new Error(
-      `E_PRIVATE_IMPORT: ${local} imports a form-intake private boundary`,
+      `E_PRIVATE_IMPORT: ${local} imports a persistence private boundary`,
     );
   }
   if (
     (local === "src/main.ts" ||
       local.startsWith("src/foundation/") ||
       local.startsWith("src/integration/") ||
+      local.startsWith("src/persistence/") ||
       local.startsWith("src/intake-registry/") ||
       local.startsWith("src/artifact-surface/")) &&
     /from\s+["']node:/.test(source)

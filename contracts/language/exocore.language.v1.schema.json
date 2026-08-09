@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hearthandcode.example/contracts/exocore.language.v1.schema.json",
+  "title": "Exocore language expression v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "expression_id",
+    "term",
+    "kind",
+    "module_id",
+    "version",
+    "authority_class",
+    "effect",
+    "input_contract",
+    "output_contract",
+    "extensions"
+  ],
+  "properties": {
+    "schema": { "const": "exocore.language.v1" },
+    "expression_id": { "$ref": "#/$defs/namespacedId" },
+    "term": {
+      "enum": [
+        "command",
+        "event",
+        "extension",
+        "migration",
+        "policy",
+        "projection",
+        "query",
+        "relation",
+        "transition",
+        "workflow"
+      ]
+    },
+    "kind": { "enum": ["command", "query", "event", "declaration"] },
+    "module_id": { "$ref": "#/$defs/moduleId" },
+    "version": { "$ref": "#/$defs/semver" },
+    "authority_class": {
+      "enum": [
+        "source",
+        "evidence",
+        "inference",
+        "hypothesis",
+        "proposal",
+        "plan",
+        "projection",
+        "receipt",
+        "historical"
+      ]
+    },
+    "effect": {
+      "enum": [
+        "none",
+        "local-read",
+        "local-write",
+        "external-read",
+        "external-write"
+      ]
+    },
+    "input_contract": { "$ref": "#/$defs/namespacedId" },
+    "output_contract": { "$ref": "#/$defs/namespacedId" },
+    "diagnostic_namespace": { "$ref": "#/$defs/namespacedId" },
+    "extensions": {
+      "type": "object",
+      "propertyNames": { "pattern": "^x-[a-z][a-z0-9-]{1,62}$" },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "moduleId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,62}$" },
+    "namespacedId": {
+      "type": "string",
+      "pattern": "^exocore\\.[a-z][a-z0-9.-]*\\.v[1-9][0-9]*$"
+    },
+    "semver": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+  }
+}

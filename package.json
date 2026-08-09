@@ -9,21 +9,19 @@
     "build": "tsc && vite build",
     "check": "tsc --noEmit",
     "check:boundaries": "node contracts/foundation/check-boundaries.mjs",
-    "format:check": "prettier --check \"src/foundation/**/*.ts\" src/form-intake-registry/index.ts src/form-intake-registry/module.ts src/form-intake-registry/types.ts src/form-intake-registry/internal/hash.ts src/form-intake-registry/internal/store.ts \"src/form-intake-registry/adapters/**/*.ts\" \"src/form-intake-registry/ports/**/*.ts\" \"src/integration/**/*.ts\" src/main.ts \"tests/integration/**/*.ts\" package.json eslint.config.js .github/workflows/ci.yml \"contracts/foundation/**/*.{json,mjs}\" contracts/form-intake-registry/v1/module-manifest.json contracts/form-intake-registry/v1/config.schema.json contracts/form-intake-registry/v1/default.config.json contracts/form-intake-registry/v1/proof.workflow.json \"docs/foundation/**/*.{md,yaml}\" docs/form-intake-registry/mount-readiness.md \"docs/architecture/**/*.md\" \"docs/integration/**/*.md\" README.md docs/ARCHITECTURE.md",
+    "format:check": "prettier --check \"src/foundation/**/*.ts\" \"src/persistence/**/*.ts\" \"src/integration/**/*.ts\" src/main.ts \"tests/integration/**/*.ts\" package.json eslint.config.js .github/workflows/ci.yml \"contracts/foundation/**/*.{json,mjs}\" \"contracts/language/**/*.json\" \"contracts/persistence/**/*.json\" \"docs/foundation/**/*.{md,yaml}\" \"docs/architecture/**/*.md\" \"docs/archive/**/*.md\" \"docs/integration/**/*.md\" README.md docs/ARCHITECTURE.md",
     "lint": "eslint src tests vite.config.ts",
     "test": "vitest run",
-    "test:form-intake-registry": "vitest run tests/form-intake-registry",
     "test:integration": "vitest run tests/integration",
     "validate:intake-registry": "node scripts/validate-intake-registry-projection.mjs",
     "validate:artifact-surface": "node scripts/validate-artifact-surface-projection.mjs",
-    "validate:integration-contracts": "python3 scripts/validate_integration_contracts.py",
+    "validate:language-persistence": "python3 scripts/validate_language_persistence.py",
     "proof:quick": "node scripts/proof.mjs --quick",
     "proof": "node scripts/proof.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "tauri": "tauri"
   },
   "dependencies": {
-    "@noble/hashes": "2.0.1",
     "@tauri-apps/api": "^2",
     "xstate": "^5.32.5",
     "zustand": "^5.0.14"

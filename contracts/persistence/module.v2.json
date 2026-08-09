@@ -1,0 +1,92 @@
+{
+  "schema": "exocore.module.v2",
+  "module_id": "persistence",
+  "module_version": "0.1.0",
+  "status": "experimental",
+  "owner": "persistence",
+  "record_scope": "Generic Exocore operational records, events, relations, workflows, and projection delivery state.",
+  "flag": { "id": "persistence.enabled", "default": false },
+  "config_contract": "exocore.persistence.config.v1",
+  "dependencies": ["foundation"],
+  "ports": [
+    {
+      "id": "exocore.persistence.repository.v1",
+      "direction": "inbound",
+      "contract": "exocore.persistence.v1",
+      "required": true
+    },
+    {
+      "id": "exocore.persistence.vector-projector.v1",
+      "direction": "outbound",
+      "contract": "exocore.projection.vector.v1",
+      "required": false
+    },
+    {
+      "id": "exocore.persistence.graph-projector.v1",
+      "direction": "outbound",
+      "contract": "exocore.projection.graph.v1",
+      "required": false
+    }
+  ],
+  "operations": [
+    {
+      "id": "exocore.persistence.status.v1",
+      "kind": "query",
+      "input_contract": "exocore.persistence.status-request.v1",
+      "output_contract": "exocore.persistence.status.v1",
+      "authority": "persistence",
+      "effect": "local-read",
+      "idempotent": true
+    },
+    {
+      "id": "exocore.persistence.run-proof.v1",
+      "kind": "command",
+      "input_contract": "exocore.persistence.proof-request.v1",
+      "output_contract": "exocore.persistence.proof.v1",
+      "authority": "operator-deliberate-local-proof",
+      "effect": "local-write",
+      "idempotent": true
+    },
+    {
+      "id": "exocore.persistence.reset-proof.v1",
+      "kind": "command",
+      "input_contract": "exocore.persistence.reset-request.v1",
+      "output_contract": "exocore.persistence.status.v1",
+      "authority": "operator-deliberate-local-proof",
+      "effect": "local-write",
+      "idempotent": true
+    }
+  ],
+  "namespaces": {
+    "commands": "exocore.persistence.",
+    "contracts": "exocore.persistence.",
+    "config": "exocore.persistence.",
+    "diagnostics": "exocore.persistence."
+  },
+  "extension_points": [
+    {
+      "id": "exocore.persistence.adapter-extension.v1",
+      "contract": "exocore.persistence.adapter.v1",
+      "cardinality": "zero-or-many",
+      "compatibility": "same-major"
+    },
+    {
+      "id": "exocore.persistence.projector-extension.v1",
+      "contract": "exocore.persistence.projector.v1",
+      "cardinality": "zero-or-many",
+      "compatibility": "same-major"
+    }
+  ],
+  "migrations": {
+    "strategy": "ordered-sql",
+    "current_schema_version": 1,
+    "rollback": "restore-checkpoint"
+  },
+  "deprecation": null,
+  "health": "exocore.persistence.health.v1",
+  "proof": {
+    "command": "npm run proof",
+    "fixtures": ["exocore.persistence.review-fixture.v1"],
+    "reset_operation": "exocore.persistence.reset-proof.v1"
+  }
+}

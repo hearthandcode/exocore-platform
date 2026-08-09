@@ -1,0 +1,78 @@
+name: exocore-local
+
+services:
+  postgres:
+    image: postgres:17.10-bookworm@sha256:4f736ae292687621d4dbe0d499ffd024a36bd2ee7d8ca6f2ccd4c800f047b394
+    env_file: [.env.local]
+    environment:
+      POSTGRES_DB: ${EXOCORE_POSTGRES_DATABASE}
+      POSTGRES_USER: ${EXOCORE_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${EXOCORE_POSTGRES_PASSWORD}
+    ports: ["127.0.0.1:25432:5432"]
+    volumes:
+      - exocore-postgres-data:/var/lib/postgresql/data
+      - ../../contracts/persistence/postgres/0001_initial.sql:/docker-entrypoint-initdb.d/0001_initial.sql:ro
+    networks: [exocore-local]
+    restart: "no"
+    mem_limit: 512m
+    memswap_limit: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${EXOCORE_POSTGRES_USER}\" -d \"$${EXOCORE_POSTGRES_DATABASE}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  qdrant:
+    image: qdrant/qdrant:v1.18.2@sha256:75eab8c4ba42096724fdcfde8b4de0b5713d529dde32f285a1f86fdcb2c9e50c
+    env_file: [.env.local]
+    environment:
+      QDRANT__SERVICE__API_KEY: ${EXOCORE_QDRANT_API_KEY}
+      QDRANT__TELEMETRY_DISABLED: "true"
+    ports: ["127.0.0.1:26333:6333"]
+    volumes: ["exocore-qdrant-data:/qdrant/storage"]
+    networks: [exocore-local]
+    restart: "no"
+    mem_limit: 768m
+    memswap_limit: 768m
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/6333' 2>/dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  neo4j:
+    image: neo4j:5.26.28-community-trixie@sha256:362542416de6c09a971484d1893878016cc3b5cdec166e54b1c824a220ecd6b9
+    env_file: [.env.local]
+    environment:
+      NEO4J_AUTH: neo4j/${EXOCORE_NEO4J_PASSWORD}
+      NEO4J_server_memory_heap_initial__size: 256m
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 256m
+    ports:
+      - "127.0.0.1:27474:7474"
+      - "127.0.0.1:27687:7687"
+    volumes: ["exocore-neo4j-data:/data"]
+    networks: [exocore-local]
+    restart: "no"
+    mem_limit: 1g
+    memswap_limit: 1g
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://127.0.0.1:7474 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+networks:
+  exocore-local:
+    name: exocore-local
+
+volumes:
+  exocore-postgres-data:
+    name: exocore-local-postgres-data
+  exocore-qdrant-data:
+    name: exocore-local-qdrant-data
+  exocore-neo4j-data:
+    name: exocore-local-neo4j-data

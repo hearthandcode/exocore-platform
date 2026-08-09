@@ -1,0 +1,14 @@
+{
+  "schema": "exocore.language.v1",
+  "expression_id": "exocore.persistence.reset-proof.v1",
+  "term": "command",
+  "kind": "command",
+  "module_id": "persistence",
+  "version": "1.0.0",
+  "authority_class": "evidence",
+  "effect": "local-write",
+  "input_contract": "exocore.persistence.reset-request.v1",
+  "output_contract": "exocore.persistence.status.v1",
+  "diagnostic_namespace": "exocore.persistence.diagnostic.v1",
+  "extensions": {}
+}

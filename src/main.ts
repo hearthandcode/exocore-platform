@@ -21,9 +21,10 @@ import {
   initializeFoundation,
 } from "./foundation";
 import {
-  bindFormIntakeProofInteractions,
-  formIntakeProofPanelHtml,
-} from "./integration/form-intake-proof";
+  bindPersistenceReviewInteractions,
+  initializePersistenceReview,
+  persistenceReviewPanelHtml,
+} from "./integration/persistence-review";
 
 interface WorkroomState {
   fixtures: FixtureSummary[];
@@ -54,6 +55,7 @@ const root: HTMLDivElement = rootElement;
 async function boot(): Promise<void> {
   render();
   void initializeFoundation(render);
+  void initializePersistenceReview(render);
   try {
     const [fixtures, latest] = await Promise.all([
       listFixtures(),
@@ -151,7 +153,7 @@ function render(): void {
       </div>
 
       ${foundationPanelHtml()}
-      ${formIntakeProofPanelHtml()}
+      ${persistenceReviewPanelHtml()}
 
       <footer>
         <span>Rust control plane</span>
@@ -325,7 +327,7 @@ function bindInteractions(): void {
       void executeRun();
     });
   bindFoundationInteractions(render);
-  bindFormIntakeProofInteractions(render);
+  bindPersistenceReviewInteractions(render);
 }
 
 function fact(label: string, value: string): string {

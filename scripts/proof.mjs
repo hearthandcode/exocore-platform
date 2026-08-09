@@ -11,7 +11,7 @@ const checks = [
   ["types", npm, ["run", "check"]],
   ["tests", npm, ["test"]],
   ["boundaries", npm, ["run", "check:boundaries"]],
-  ["contracts", npm, ["run", "validate:integration-contracts"]],
+  ["language-persistence", npm, ["run", "validate:language-persistence"]],
   ["intake-projection", npm, ["run", "validate:intake-registry"]],
   ["artifact-projection", npm, ["run", "validate:artifact-surface"]],
   ["web-build", npm, ["run", "build"]],

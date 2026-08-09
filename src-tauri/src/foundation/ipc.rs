@@ -63,7 +63,7 @@ impl FoundationRuntime {
         )?;
         let mut registry = ModuleRegistry::default();
         registry.mount(demonstration_manifest(), &correlation)?;
-        registry.mount(form_intake_manifest(&correlation)?, &correlation)?;
+        registry.mount(persistence_manifest(&correlation)?, &correlation)?;
         Ok(Self { config, registry })
     }
 
@@ -111,6 +111,18 @@ impl FoundationRuntime {
         self.registry
             .set_enabled(module_id, enabled, &correlation)?;
         self.status()
+    }
+
+    pub fn module_enabled(&self, module_id: &str) -> Result<bool, TypedError> {
+        let correlation =
+            correlation_id("exocore.foundation-module-health.v1", module_id.as_bytes());
+        Ok(self.registry.health(module_id, &correlation)?.enabled)
+    }
+
+    pub fn require_module_enabled(&self, module_id: &str) -> Result<(), TypedError> {
+        let correlation =
+            correlation_id("exocore.foundation-module-require.v1", module_id.as_bytes());
+        self.registry.require_enabled(module_id, &correlation)
     }
 }
 
@@ -231,17 +243,17 @@ fn runtime_lock_error(operation: &str) -> TypedError {
     )
 }
 
-fn form_intake_manifest(correlation_id: &str) -> Result<ModuleManifest, TypedError> {
+fn persistence_manifest(correlation_id: &str) -> Result<ModuleManifest, TypedError> {
     serde_json::from_str(include_str!(
-        "../../../contracts/form-intake-registry/v1/module-manifest.json"
+        "../../../contracts/persistence/module-mount.v1.json"
     ))
     .map_err(|_| {
         TypedError::new(
             ErrorCode::Validation,
             "exocore.module-mount.v1",
-            "embedded form-intake module manifest is invalid",
+            "embedded persistence module manifest is invalid",
             false,
-            "validate the manifest against the mounted Rust contract",
+            "validate the persistence manifest against the mounted Rust contract",
             correlation_id,
         )
     })
@@ -287,7 +299,7 @@ mod tests {
         assert!(status
             .modules
             .iter()
-            .any(|module| module.module_id == "form-intake-registry" && !module.enabled));
+            .any(|module| module.module_id == "persistence" && !module.enabled));
         assert!(!status.skeleton_ui_enabled);
         assert!(status.actor_healthy);
     }
@@ -302,27 +314,32 @@ mod tests {
     }
 
     #[test]
-    fn intake_module_mounts_disabled_and_can_be_toggled_deliberately() {
+    fn persistence_module_mounts_disabled_and_can_be_toggled_deliberately() {
         let mut runtime = FoundationRuntime::new().unwrap();
         let initial = runtime.status().unwrap();
         assert!(initial
             .modules
             .iter()
-            .any(|module| module.module_id == "form-intake-registry" && !module.enabled));
-        let enabled = runtime
-            .set_module_enabled("form-intake-registry", true)
-            .unwrap();
+            .any(|module| module.module_id == "persistence" && !module.enabled));
+        assert!(!runtime.module_enabled("persistence").unwrap());
+        assert_eq!(
+            runtime
+                .require_module_enabled("persistence")
+                .unwrap_err()
+                .code,
+            "E_DISABLED"
+        );
+        let enabled = runtime.set_module_enabled("persistence", true).unwrap();
         assert!(enabled
             .modules
             .iter()
-            .any(|module| module.module_id == "form-intake-registry" && module.enabled));
-        let disabled = runtime
-            .set_module_enabled("form-intake-registry", false)
-            .unwrap();
+            .any(|module| module.module_id == "persistence" && module.enabled));
+        assert!(runtime.require_module_enabled("persistence").is_ok());
+        let disabled = runtime.set_module_enabled("persistence", false).unwrap();
         assert!(disabled
             .modules
             .iter()
-            .any(|module| module.module_id == "form-intake-registry" && !module.enabled));
+            .any(|module| module.module_id == "persistence" && !module.enabled));
     }
 
     #[test]

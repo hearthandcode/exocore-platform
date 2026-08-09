@@ -14,7 +14,7 @@ const status: FoundationStatus = {
   modules: [
     { module_id: "foundation", registered: true, enabled: false },
     {
-      module_id: "form-intake-registry",
+      module_id: "persistence",
       registered: true,
       enabled: false,
     },
