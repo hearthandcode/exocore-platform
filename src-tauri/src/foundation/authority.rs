@@ -7,6 +7,7 @@ use super::{ErrorCode, TypedError};
 pub enum Capability {
     FoundationStatus,
     FoundationEcho,
+    FoundationModuleControl,
     SourceRead,
     Process,
     Network,
@@ -25,7 +26,9 @@ pub struct AuthorityPolicy;
 impl AuthorityPolicy {
     pub fn decide(&self, capability: Capability) -> Decision {
         match capability {
-            Capability::FoundationStatus | Capability::FoundationEcho => Decision::Allow,
+            Capability::FoundationStatus
+            | Capability::FoundationEcho
+            | Capability::FoundationModuleControl => Decision::Allow,
             Capability::SourceRead
             | Capability::Process
             | Capability::Network

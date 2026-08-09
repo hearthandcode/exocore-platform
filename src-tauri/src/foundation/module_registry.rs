@@ -169,6 +169,39 @@ impl ModuleRegistry {
         self.modules.len()
     }
 
+    pub fn health_all(&self, correlation_id: &str) -> Result<Vec<ModuleHealth>, TypedError> {
+        self.modules
+            .keys()
+            .map(|module_id| self.health(module_id, correlation_id))
+            .collect()
+    }
+
+    pub fn set_enabled(
+        &mut self,
+        module_id: &str,
+        enabled: bool,
+        correlation_id: &str,
+    ) -> Result<ModuleHealth, TypedError> {
+        let flag_id = self
+            .modules
+            .get(module_id)
+            .ok_or_else(|| {
+                TypedError::new(
+                    ErrorCode::Unregistered,
+                    "exocore.module-mount.v1",
+                    "module is not registered",
+                    true,
+                    "mount the module before changing its flag",
+                    correlation_id,
+                )
+            })?
+            .flag_declaration
+            .flag_id
+            .clone();
+        self.flags.set(&flag_id, enabled, correlation_id)?;
+        self.health(module_id, correlation_id)
+    }
+
     pub fn require_enabled(&self, module_id: &str, correlation_id: &str) -> Result<(), TypedError> {
         let health = self.health(module_id, correlation_id)?;
         if health.enabled {

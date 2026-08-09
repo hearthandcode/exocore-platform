@@ -2,6 +2,7 @@ export {
   bindFoundationInteractions,
   foundationPanelHtml,
   initializeFoundation,
+  setFeatureModuleEnabled,
 } from "./app-shell";
 export type {
   FoundationEchoResponse,

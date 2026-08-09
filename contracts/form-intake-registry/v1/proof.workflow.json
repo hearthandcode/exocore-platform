@@ -1,0 +1,93 @@
+{
+  "schema": "exocore.workflow.v1",
+  "workflow_id": "exocore.form-intake-proof.workflow.v1",
+  "workflow_version": "1.0.0",
+  "owner": "form-intake-proof",
+  "input_contract": "exocore.form-export.v1",
+  "output_contract": "exocore.form-intake-proof.v1",
+  "idempotency_key": "source_digest",
+  "states": ["idle", "running", "passed", "failed"],
+  "transitions": [
+    {
+      "from": "idle",
+      "to": "running",
+      "event": "exocore.form-intake-proof.start.v1",
+      "human_gate": true
+    },
+    {
+      "from": "running",
+      "to": "passed",
+      "event": "exocore.form-intake-proof.completed.v1",
+      "human_gate": false
+    },
+    {
+      "from": "running",
+      "to": "failed",
+      "event": "exocore.form-intake-proof.failed.v1",
+      "human_gate": false
+    },
+    {
+      "from": "passed",
+      "to": "idle",
+      "event": "exocore.form-intake-proof.reset.v1",
+      "human_gate": true
+    },
+    {
+      "from": "failed",
+      "to": "idle",
+      "event": "exocore.form-intake-proof.reset.v1",
+      "human_gate": true
+    }
+  ],
+  "steps": [
+    {
+      "step_id": "disabled",
+      "operation": "exocore.form-intake-registry.disabled-check.v1",
+      "authority_owner": "foundation",
+      "on_error": "fail"
+    },
+    {
+      "step_id": "enable",
+      "operation": "exocore.form-intake-registry.enable.v1",
+      "authority_owner": "foundation",
+      "on_error": "rollback"
+    },
+    {
+      "step_id": "ingest",
+      "operation": "exocore.form-intake-registry.ingest.v1",
+      "authority_owner": "form-intake-registry",
+      "on_error": "rollback"
+    },
+    {
+      "step_id": "dedupe",
+      "operation": "exocore.form-intake-registry.dedupe.v1",
+      "authority_owner": "form-intake-registry",
+      "on_error": "rollback"
+    },
+    {
+      "step_id": "project",
+      "operation": "exocore.form-intake-registry.project.v1",
+      "authority_owner": "form-intake-registry",
+      "on_error": "rollback"
+    },
+    {
+      "step_id": "verify",
+      "operation": "exocore.form-intake-registry.verify.v1",
+      "authority_owner": "form-intake-registry",
+      "on_error": "rollback"
+    },
+    {
+      "step_id": "stale",
+      "operation": "exocore.form-intake-registry.stale-check.v1",
+      "authority_owner": "form-intake-registry",
+      "on_error": "rollback"
+    },
+    {
+      "step_id": "supersede",
+      "operation": "exocore.form-intake-registry.supersede.v1",
+      "authority_owner": "form-intake-registry",
+      "on_error": "rollback"
+    }
+  ],
+  "failure_state": "failed"
+}

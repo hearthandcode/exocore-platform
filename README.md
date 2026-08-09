@@ -25,7 +25,7 @@ A [Tauri v2](https://v2.tauri.app/) desktop application renders a TypeScript pro
 
 A standard-library Python worker provides a development-only protocol-conformance proof. It is not required by the packaged desktop path and has no policy or release authority.
 
-The foundation branch also carries an exercised modular-monolith skeleton: deny-by-default authority and source boundaries, typed configuration and feature flags, an atomic module mount registry, typed IPC errors, a supervised Rust actor, local structured traces, and explicit Zustand/XState presentation boundaries. The demonstration route is off by default. This structure is not a released feature and does not change the canary's authority.
+The integration proof also carries an exercised modular-monolith foundation: deny-by-default authority and source boundaries, typed configuration and feature flags, an atomic module mount registry, typed IPC errors, a supervised Rust actor, local structured traces, and explicit Zustand/XState presentation boundaries. The Form Intake Registry is registered through `exocore.module-mount.v1` but disabled by default. A deliberate synthetic-only workflow can enable it, prove ingest/dedupe/projection/freshness/supersession behavior in memory, and reset it without exposing raw answers. This structure is not a released feature and does not change the canary's authority.
 
 ## Run it locally
 
@@ -33,12 +33,17 @@ The foundation branch also carries an exercised modular-monolith skeleton: deny-
 
 - [Node.js](https://nodejs.org/) 20 or newer
 - [Rust](https://www.rust-lang.org/tools/install), including Cargo
+- Python 3 with `pip`, for contract and worker validation
 - Linux desktop prerequisites for Tauri, if you are on Linux. See the [Tauri prerequisites guide](https://v2.tauri.app/start/prerequisites/).
 
 ```bash
-npm ci
+python3 -m pip install --user -r requirements-dev.txt
+npm ci --include=dev
+npm run proof
 npm run tauri dev
 ```
+
+See [Foundation and Form Intake Registry Proof of Concept](docs/integration/FOUNDATION-INTAKE-POC.md) for the expected module inventory, workflow, reset route, and evaluation checklist.
 
 For a production-style local package:
 
@@ -65,15 +70,20 @@ A successful fixture run is evidence that this mock-only contract, scoring, pers
 ```text
 contracts/              Versioned public interchange and foundation mount contracts
 fixtures/               Synthetic public-safe evaluation fixtures
-src/foundation/         TypeScript app-shell, route, store, machine, UI, and typed IPC boundaries
-src/harness/            Existing browser-compatible profile-evaluation canary
+src/foundation/          TypeScript app-shell, route, store, machine, UI, and typed IPC boundaries
+src/form-intake-registry/ Isolated form intake domain, ports, adapters, projections, and validation
+src/integration/          Public-port-only proof compositions
+src/harness/             Existing browser-compatible profile-evaluation canary
 src-tauri/src/foundation/ Rust authority, source, identity, config, flags, mount, IPC, actor, and telemetry modules
-src-tauri/src/harness/  Existing Rust profile-evaluation canary
-workers/                Optional development-only Python protocol worker
-docs/foundation/        Foundation ADR, operating contracts, checkpoints, and review evidence
+src-tauri/src/harness/   Existing Rust profile-evaluation canary
+workers/                 Optional development-only Python protocol worker
+docs/foundation/         Foundation ADR, operating contracts, checkpoints, and review evidence
+docs/integration/        Locally runnable integration proofs and limits
 ```
 
 - [Architecture posture](docs/ARCHITECTURE.md)
+- [Operational architecture charter](docs/architecture/EXOCORE-OPERATIONAL-CHARTER.md)
+- [Foundation and Intake proof](docs/integration/FOUNDATION-INTAKE-POC.md)
 - [Foundation topology ADR](docs/foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md)
 - [Module mount contract](docs/foundation/MOUNT-CONTRACT.md)
 - [Governance posture](docs/GOVERNANCE.md)

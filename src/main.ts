@@ -20,6 +20,10 @@ import {
   foundationPanelHtml,
   initializeFoundation,
 } from "./foundation";
+import {
+  bindFormIntakeProofInteractions,
+  formIntakeProofPanelHtml,
+} from "./integration/form-intake-proof";
 
 interface WorkroomState {
   fixtures: FixtureSummary[];
@@ -147,6 +151,7 @@ function render(): void {
       </div>
 
       ${foundationPanelHtml()}
+      ${formIntakeProofPanelHtml()}
 
       <footer>
         <span>Rust control plane</span>
@@ -320,6 +325,7 @@ function bindInteractions(): void {
       void executeRun();
     });
   bindFoundationInteractions(render);
+  bindFormIntakeProofInteractions(render);
 }
 
 function fact(label: string, value: string): string {

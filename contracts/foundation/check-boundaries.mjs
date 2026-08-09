@@ -1,25 +1,28 @@
-import { readFileSync, statSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { dirname, extname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const manifest = JSON.parse(
-  readFileSync(
-    resolve(root, "contracts/foundation/module-boundary-manifest.json"),
-    "utf8",
-  ),
-);
+const manifest = readJson("contracts/foundation/module-boundary-manifest.json");
+const identifiers = readJson("contracts/foundation/identifier-policy.json");
 
 if (manifest.schema !== "exocore.module-boundaries.v1") {
   throw new Error("E_SCHEMA: unsupported boundary manifest");
 }
+if (identifiers.schema !== "exocore.identifier-policy.v1") {
+  throw new Error("E_SCHEMA: unsupported identifier policy");
+}
 
+const moduleIdPattern = new RegExp(identifiers.patterns.module_id);
 const ids = new Set(manifest.modules.map((module) => module.id));
 if (ids.size !== manifest.modules.length) {
   throw new Error("E_DUPLICATE: module ids must be unique");
 }
 
 for (const module of manifest.modules) {
+  if (!moduleIdPattern.test(module.id)) {
+    throw new Error(`E_IDENTIFIER: invalid module id ${module.id}`);
+  }
   statSync(resolve(root, module.path));
   for (const dependency of module.may_depend_on) {
     if (!ids.has(dependency)) {
@@ -44,6 +47,44 @@ function visit(id) {
 }
 for (const id of ids) visit(id);
 
-console.log(
-  `boundary manifest valid: ${ids.size} modules, acyclic dependencies`,
+const sourceFiles = walk(resolve(root, "src")).filter((path) =>
+  [".ts", ".tsx"].includes(extname(path)),
 );
+for (const path of sourceFiles) {
+  const source = readFileSync(path, "utf8");
+  const local = relative(root, path).split("\\").join("/");
+  if (
+    !local.startsWith("src/form-intake-registry/") &&
+    /form-intake-registry\/(?:internal|adapters|ports)/.test(source)
+  ) {
+    throw new Error(
+      `E_PRIVATE_IMPORT: ${local} imports a form-intake private boundary`,
+    );
+  }
+  if (
+    (local === "src/main.ts" ||
+      local.startsWith("src/foundation/") ||
+      local.startsWith("src/integration/") ||
+      local.startsWith("src/intake-registry/") ||
+      local.startsWith("src/artifact-surface/")) &&
+    /from\s+["']node:/.test(source)
+  ) {
+    throw new Error(`E_NATIVE_EFFECT: ${local} imports a Node native effect`);
+  }
+}
+
+console.log(
+  `boundary manifest valid: ${ids.size} modules, acyclic dependencies, ${sourceFiles.length} TypeScript files scanned`,
+);
+
+function readJson(path) {
+  return JSON.parse(readFileSync(resolve(root, path), "utf8"));
+}
+
+function walk(path) {
+  return readdirSync(path, { withFileTypes: true }).flatMap((entry) => {
+    const child = resolve(path, entry.name);
+    if (entry.isDirectory()) return walk(child);
+    return [child];
+  });
+}

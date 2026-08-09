@@ -7,7 +7,7 @@ use super::authority::{AuthorityPolicy, Capability};
 use super::config::FoundationConfig;
 use super::flags::FlagDeclaration;
 use super::identity::correlation_id;
-use super::module_registry::{ModuleManifest, ModuleRegistry};
+use super::module_registry::{ModuleHealth, ModuleManifest, ModuleRegistry};
 use super::telemetry::TraceEvent;
 use super::{ErrorCode, TypedError};
 
@@ -18,6 +18,7 @@ pub struct FoundationStatus {
     pub default_authority: String,
     pub source_roots: usize,
     pub registered_modules: usize,
+    pub modules: Vec<ModuleHealth>,
     pub skeleton_ui_enabled: bool,
     pub actor_healthy: bool,
     pub mount_contract: &'static str,
@@ -38,6 +39,14 @@ pub struct FoundationEchoResponse {
     pub trace: TraceEvent,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct FoundationModuleFlagRequest {
+    pub schema: String,
+    pub module_id: String,
+    pub enabled: bool,
+}
+
 #[derive(Debug)]
 pub struct FoundationRuntime {
     config: FoundationConfig,
@@ -54,6 +63,7 @@ impl FoundationRuntime {
         )?;
         let mut registry = ModuleRegistry::default();
         registry.mount(demonstration_manifest(), &correlation)?;
+        registry.mount(form_intake_manifest(&correlation)?, &correlation)?;
         Ok(Self { config, registry })
     }
 
@@ -73,6 +83,7 @@ impl FoundationRuntime {
             default_authority: self.config.authority.default_posture.clone(),
             source_roots: self.config.source.allowed_roots.len(),
             registered_modules: self.registry.module_count(),
+            modules: self.registry.health_all(&correlation)?,
             skeleton_ui_enabled: health.enabled,
             actor_healthy: actor.is_healthy(),
             mount_contract: "exocore.module-mount.v1",
@@ -80,13 +91,25 @@ impl FoundationRuntime {
     }
 
     pub fn set_skeleton_ui(&mut self, enabled: bool) -> Result<FoundationStatus, TypedError> {
+        self.set_module_enabled("foundation", enabled)
+    }
+
+    pub fn set_module_enabled(
+        &mut self,
+        module_id: &str,
+        enabled: bool,
+    ) -> Result<FoundationStatus, TypedError> {
         let correlation = correlation_id(
-            "exocore.foundation-flag.v1",
-            if enabled { b"enabled" } else { b"disabled" },
+            "exocore.foundation-module-flag.v1",
+            format!("{module_id}:{enabled}").as_bytes(),
         );
+        AuthorityPolicy.require(
+            Capability::FoundationModuleControl,
+            "exocore.foundation-module-flag.v1",
+            &correlation,
+        )?;
         self.registry
-            .flags
-            .set("foundation.skeleton_ui", enabled, &correlation)?;
+            .set_enabled(module_id, enabled, &correlation)?;
         self.status()
     }
 }
@@ -110,6 +133,27 @@ pub fn foundation_set_skeleton_ui(
         .lock()
         .map_err(|_| runtime_lock_error("exocore.foundation-flag.v1"))?
         .set_skeleton_ui(enabled)
+}
+
+#[tauri::command]
+pub fn foundation_set_module_enabled(
+    request: FoundationModuleFlagRequest,
+    runtime: State<'_, Mutex<FoundationRuntime>>,
+) -> Result<FoundationStatus, TypedError> {
+    if request.schema != "exocore.foundation-module-flag-request.v1" {
+        return Err(TypedError::new(
+            ErrorCode::Validation,
+            "exocore.foundation-module-flag.v1",
+            "module flag request has an unsupported schema",
+            true,
+            "use exocore.foundation-module-flag-request.v1",
+            "presentation-boundary",
+        ));
+    }
+    runtime
+        .lock()
+        .map_err(|_| runtime_lock_error("exocore.foundation-module-flag.v1"))?
+        .set_module_enabled(&request.module_id, request.enabled)
 }
 
 #[tauri::command]
@@ -187,6 +231,22 @@ fn runtime_lock_error(operation: &str) -> TypedError {
     )
 }
 
+fn form_intake_manifest(correlation_id: &str) -> Result<ModuleManifest, TypedError> {
+    serde_json::from_str(include_str!(
+        "../../../contracts/form-intake-registry/v1/module-manifest.json"
+    ))
+    .map_err(|_| {
+        TypedError::new(
+            ErrorCode::Validation,
+            "exocore.module-mount.v1",
+            "embedded form-intake module manifest is invalid",
+            false,
+            "validate the manifest against the mounted Rust contract",
+            correlation_id,
+        )
+    })
+}
+
 fn demonstration_manifest() -> ModuleManifest {
     ModuleManifest {
         schema: "exocore.module-mount.v1".into(),
@@ -222,7 +282,12 @@ mod tests {
         assert_eq!(status.schema, "exocore.foundation-status.v1");
         assert_eq!(status.default_authority, "deny");
         assert_eq!(status.source_roots, 0);
-        assert_eq!(status.registered_modules, 1);
+        assert_eq!(status.registered_modules, 2);
+        assert_eq!(status.modules.len(), 2);
+        assert!(status
+            .modules
+            .iter()
+            .any(|module| module.module_id == "form-intake-registry" && !module.enabled));
         assert!(!status.skeleton_ui_enabled);
         assert!(status.actor_healthy);
     }
@@ -234,6 +299,30 @@ mod tests {
         assert!(runtime.set_skeleton_ui(true).unwrap().skeleton_ui_enabled);
         assert_eq!(runtime.status().unwrap().source_roots, 0);
         assert!(!runtime.set_skeleton_ui(false).unwrap().skeleton_ui_enabled);
+    }
+
+    #[test]
+    fn intake_module_mounts_disabled_and_can_be_toggled_deliberately() {
+        let mut runtime = FoundationRuntime::new().unwrap();
+        let initial = runtime.status().unwrap();
+        assert!(initial
+            .modules
+            .iter()
+            .any(|module| module.module_id == "form-intake-registry" && !module.enabled));
+        let enabled = runtime
+            .set_module_enabled("form-intake-registry", true)
+            .unwrap();
+        assert!(enabled
+            .modules
+            .iter()
+            .any(|module| module.module_id == "form-intake-registry" && module.enabled));
+        let disabled = runtime
+            .set_module_enabled("form-intake-registry", false)
+            .unwrap();
+        assert!(disabled
+            .modules
+            .iter()
+            .any(|module| module.module_id == "form-intake-registry" && !module.enabled));
     }
 
     #[test]

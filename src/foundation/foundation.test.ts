@@ -10,7 +10,15 @@ const status: FoundationStatus = {
   version: "0.1.0",
   default_authority: "deny",
   source_roots: 0,
-  registered_modules: 1,
+  registered_modules: 2,
+  modules: [
+    { module_id: "foundation", registered: true, enabled: false },
+    {
+      module_id: "form-intake-registry",
+      registered: true,
+      enabled: false,
+    },
+  ],
   skeleton_ui_enabled: false,
   actor_healthy: true,
   mount_contract: "exocore.module-mount.v1",

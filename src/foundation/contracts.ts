@@ -1,9 +1,16 @@
+export interface ModuleHealth {
+  module_id: string;
+  registered: boolean;
+  enabled: boolean;
+}
+
 export interface FoundationStatus {
   schema: "exocore.foundation-status.v1";
   version: string;
   default_authority: "deny";
   source_roots: number;
   registered_modules: number;
+  modules: ModuleHealth[];
   skeleton_ui_enabled: boolean;
   actor_healthy: boolean;
   mount_contract: "exocore.module-mount.v1";

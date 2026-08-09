@@ -1,0 +1,29 @@
+{
+  "schema": "exocore.module-mount.v1",
+  "module_id": "form-intake-registry",
+  "module_version": "0.1.0",
+  "register": "register",
+  "config_schema": "exocore.intake-registry.config.v1",
+  "flag_declaration": {
+    "flag_id": "form-intake-registry.enabled",
+    "default": false,
+    "owner": "form-intake-registry",
+    "enabled_behavior": "synthetic local intake proof operations are available through the integration adapter",
+    "disabled_behavior": "all intake proof operations return E_DISABLED and write no feature state"
+  },
+  "routes": ["exocore.form-intake-registry.proof.route.v1"],
+  "commands": [
+    "exocore.form-intake-registry.proof.command.v1",
+    "exocore.form-intake-registry.reset.command.v1"
+  ],
+  "contracts": [
+    "exocore.form-export.v1",
+    "exocore.intake-registry.v1",
+    "exocore.form-intake-proof.v1"
+  ],
+  "config_keys": [
+    "form-intake-registry.fixture-mode",
+    "form-intake-registry.store-adapter"
+  ],
+  "health": "health"
+}

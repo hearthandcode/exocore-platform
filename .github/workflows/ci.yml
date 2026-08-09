@@ -18,14 +18,22 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - uses: dtolnay/rust-toolchain@stable
+      - run: python3 -m pip install -r requirements-dev.txt
       - run: npm ci --include=dev
       - run: npm run format:check
       - run: npm run lint
       - run: npm run check
       - run: npm test
       - run: npm run check:boundaries
+      - run: npm run validate:integration-contracts
+      - run: npm run validate:intake-registry
+      - run: npm run validate:artifact-surface
       - run: npm run build
+      - run: npm audit --audit-level=low
       - run: cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
       - run: cargo check --manifest-path src-tauri/Cargo.toml
       - run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings

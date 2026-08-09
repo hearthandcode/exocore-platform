@@ -17,6 +17,12 @@ export function renderFoundationPanel(state: FoundationViewState): string {
           <div><dt>Mount contract</dt><dd>${escapeHtml(status.mount_contract)}</dd></div>
           <div><dt>Authority default</dt><dd>${escapeHtml(status.default_authority)}</dd></div>
           <div><dt>Registered modules</dt><dd>${status.registered_modules}</dd></div>
+          <div><dt>Module inventory</dt><dd>${status.modules
+            .map(
+              (module) =>
+                `${escapeHtml(module.module_id)}: ${module.enabled ? "enabled" : "disabled"}`,
+            )
+            .join(" · ")}</dd></div>
           <div><dt>Actor health</dt><dd>${status.actor_healthy ? "healthy" : "unavailable"}</dd></div>
           <div><dt>Skeleton route</dt><dd>${status.skeleton_ui_enabled ? "enabled" : "disabled (safe default)"}</dd></div>
         </dl>

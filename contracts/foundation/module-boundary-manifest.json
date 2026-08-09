@@ -76,6 +76,34 @@
       "may_depend_on": ["contracts"]
     },
     {
+      "id": "intake-registry-projection",
+      "plane": "feature",
+      "path": "src/intake-registry/",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "artifact-surface-projection",
+      "plane": "feature",
+      "path": "src/artifact-surface/",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "form-intake-registry",
+      "plane": "feature",
+      "path": "src/form-intake-registry/",
+      "may_depend_on": ["contracts"]
+    },
+    {
+      "id": "form-intake-proof",
+      "plane": "integration",
+      "path": "src/integration/form-intake-proof/",
+      "may_depend_on": [
+        "contracts",
+        "presentation-foundation",
+        "form-intake-registry"
+      ]
+    },
+    {
       "id": "profile-evaluation-canary",
       "plane": "feature",
       "path": "src-tauri/src/harness/",

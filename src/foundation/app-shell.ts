@@ -2,6 +2,7 @@ import type { TypedError } from "./contracts";
 import {
   echoThroughFoundation,
   getFoundationStatus,
+  setModuleEnabled,
   setSkeletonUi,
 } from "./ipc";
 import { foundationLifecycle } from "./machine";
@@ -29,6 +30,15 @@ export async function initializeFoundation(
 
 export function foundationPanelHtml(): string {
   return renderFoundationPanel(foundationStore.getState());
+}
+
+export async function setFeatureModuleEnabled(
+  moduleId: string,
+  enabled: boolean,
+): Promise<void> {
+  foundationStore
+    .getState()
+    .receiveStatus(await setModuleEnabled(moduleId, enabled));
 }
 
 export function bindFoundationInteractions(onChange: () => void): void {

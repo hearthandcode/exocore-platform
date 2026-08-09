@@ -4,9 +4,19 @@
 
 This repository is the public, runnable Exocore Platform implementation. The private Hearth & Code Hub remains the source home for research records, private profiles, architecture deliberation, and release decisions.
 
+## Start route
+
+Read this guide, `docs/architecture/EXOCORE-OPERATIONAL-CHARTER.md`, `docs/ARCHITECTURE.md`, the affected module manifest, and the nearest feature documentation before changing code. On every resumed session, explicitly apply the charter's **Resume orientation** checklist before relying on a summary or handoff.
+
 ## Current lane
 
-The current implementation target is a local-first Tauri desktop pre-alpha at version `0.0.1`. Rust owns native effects, policy, adapter supervision, deterministic scoring, and receipt consistency verification. Browser-compatible TypeScript owns presentation. Python is optional worker code behind a versioned Rust-supervised protocol.
+The current implementation target is a local-first Tauri desktop pre-alpha at version `0.0.1`. Rust owns native effects, policy, adapter supervision, deterministic scoring, module registration, and receipt consistency verification. Browser-compatible TypeScript owns presentation and deterministic domain workflows behind public module ports. Python is optional worker code behind a versioned Rust-supervised protocol.
+
+## Operational design law
+
+`docs/architecture/EXOCORE-OPERATIONAL-CHARTER.md` governs downstream implementation in this repository. Every module and workflow must preserve composability, computability, modularity, adaptability, evolvability, schema/grammar/vocabulary/language/type discipline, safe defaults, and deterministic local proof.
+
+A feature is not integrated because its files coexist. It must declare a versioned manifest, one semantic owner, typed public ports, dependencies, namespaces, lifecycle, default-off flag, failure behavior, fixtures, and conformance tests. If the active contract cannot express a requirement, propose a versioned amendment instead of bypassing the kernel or importing private feature code.
 
 ## Required boundaries
 
@@ -21,9 +31,10 @@ The current implementation target is a local-first Tauri desktop pre-alpha at ve
 
 ## Verification
 
-Before handing off a source change, run the applicable checks:
+Before handing off a source change, run the composed proof and any narrower diagnostic needed:
 
 ```text
+npm run proof
 npm run build
 cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
 cargo check --manifest-path src-tauri/Cargo.toml --offline

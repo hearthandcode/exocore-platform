@@ -30,7 +30,9 @@ The default desktop execution path uses the Rust mock adapter. Python is not req
 
 The initial foundation is additive to the canary. Rust modules under `src-tauri/src/foundation/` own conservative authority, source-locator validation, identities, validated configuration, deny-by-default flags, atomic module registration, typed IPC, actor supervision, and local redacted trace events. TypeScript modules under `src/foundation/` own only the app-shell projection, route declarations, shared UI rendering, a Zustand vanilla projection store, an XState lifecycle machine, and typed IPC clients.
 
-Features mount through `exocore.module-mount.v1`; duplicate module, flag, config, route, command, or contract namespaces reject the entire mount. No feature reads another feature's private state. The demonstration module and skeleton route prove registration and flag behavior, but the route is off by default and carries no business feature. See [ADR-FOUNDATION-001](foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md) and the [mount contract](foundation/MOUNT-CONTRACT.md).
+Features mount through `exocore.module-mount.v1`; duplicate module, flag, config, route, command, or contract namespaces reject the entire mount. No feature reads another feature's private state. The foundation and Form Intake Registry proof registers two modules at startup while both remain disabled. A deliberate local action enables an eight-step synthetic workflow through a public integration adapter and can reset it to the safe default.
+
+The [operational architecture charter](architecture/EXOCORE-OPERATIONAL-CHARTER.md) defines the composability, computability, modularity, adaptability, evolvability, language/type, workflow, and proof constraints. The [integration proof guide](integration/FOUNDATION-INTAKE-POC.md) names the exact contracts, commands, evaluation route, and limits. See also [ADR-FOUNDATION-001](foundation/adr/ADR-FOUNDATION-001-modular-monolith-foundation.md) and the [mount contract](foundation/MOUNT-CONTRACT.md).
 
 ## Contract and receipt model
 

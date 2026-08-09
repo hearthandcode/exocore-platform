@@ -1,15 +1,12 @@
-export type Result<T, E> =
-  | { ok: true; value: T }
-  | { ok: false; error: E };
+import type { TypedError } from "./errors";
+
+export type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 
 export type SourceKind = "form-export" | "hub-intake-candidate";
 export type Sensitivity = "public-safe" | "internal" | "restricted";
 export type ReviewState = "unreviewed" | "in-review" | "reviewed" | "deferred";
 export type DispositionState =
-  | "candidate"
-  | "accepted-proposal"
-  | "parked"
-  | "rejected";
+  "candidate" | "accepted-proposal" | "parked" | "rejected";
 export type AnswerType =
   | "text"
   | "textarea"
@@ -38,7 +35,7 @@ export interface AdapterDescriptor {
 export interface SourceAdapter {
   readonly id: string;
   readonly kind: SourceKind;
-  read(locator: string): Result<SourceBytes, import("./errors").TypedError>;
+  read(locator: string): Result<SourceBytes, TypedError>;
   describe(): AdapterDescriptor;
 }
 

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hearthandcode.example/contracts/exocore.intake-registry.config.v1.schema.json",
+  "title": "Form Intake Registry local proof configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "fixture_mode", "store_adapter"],
+  "properties": {
+    "schema": { "const": "exocore.intake-registry.config.v1" },
+    "fixture_mode": { "const": "synthetic-only" },
+    "store_adapter": { "const": "memory" }
+  }
+}

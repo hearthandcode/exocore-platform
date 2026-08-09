@@ -1,0 +1,34 @@
+{
+  "schema": "exocore.identifier-policy.v1",
+  "version": "1.0.0",
+  "patterns": {
+    "module_id": "^[a-z][a-z0-9-]{1,62}$",
+    "stable_id": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+    "namespaced_id": "^exocore\\.[a-z][a-z0-9.-]*\\.v[1-9][0-9]*$",
+    "config_key": "^[a-z][a-z0-9-]*\\.[a-z][a-z0-9_.-]*$",
+    "diagnostic_code": "^E_[A-Z][A-Z0-9_]*$"
+  },
+  "primitive_vocabulary": [
+    "identifier",
+    "value",
+    "record",
+    "command",
+    "query",
+    "event",
+    "port",
+    "adapter",
+    "policy",
+    "transition",
+    "projection",
+    "workflow",
+    "receipt"
+  ],
+  "namespace_owners": {
+    "exocore.foundation": "foundation",
+    "exocore.form-export": "form-intake-registry",
+    "exocore.intake-registry": "form-intake-registry",
+    "exocore.form-intake-registry": "form-intake-registry",
+    "exocore.form-intake-proof": "form-intake-proof"
+  },
+  "unknown_identifier_effect": "fail-closed"
+}

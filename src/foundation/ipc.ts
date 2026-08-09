@@ -9,6 +9,19 @@ export function setSkeletonUi(enabled: boolean): Promise<FoundationStatus> {
   return invoke<FoundationStatus>("foundation_set_skeleton_ui", { enabled });
 }
 
+export function setModuleEnabled(
+  moduleId: string,
+  enabled: boolean,
+): Promise<FoundationStatus> {
+  return invoke<FoundationStatus>("foundation_set_module_enabled", {
+    request: {
+      schema: "exocore.foundation-module-flag-request.v1",
+      module_id: moduleId,
+      enabled,
+    },
+  });
+}
+
 export function echoThroughFoundation(
   message: string,
 ): Promise<FoundationEchoResponse> {

@@ -7,7 +7,8 @@ use commands::profile_evaluation::{
     verify_profile_receipt,
 };
 use foundation::ipc::{
-    foundation_echo, foundation_set_skeleton_ui, foundation_status, FoundationRuntime,
+    foundation_echo, foundation_set_module_enabled, foundation_set_skeleton_ui, foundation_status,
+    FoundationRuntime,
 };
 use std::sync::Mutex;
 
@@ -25,6 +26,7 @@ pub fn run() {
             verify_profile_receipt,
             foundation_status,
             foundation_set_skeleton_ui,
+            foundation_set_module_enabled,
             foundation_echo,
         ])
         .run(tauri::generate_context!())
