@@ -8,6 +8,8 @@
     "dev": "vite --host 127.0.0.1 --port 1420",
     "build": "tsc && vite build",
     "check": "tsc --noEmit",
+    "check:modularity": "node scripts/check-modularity.mjs",
+    "test:modularity": "node --test scripts/check-modularity.test.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173",
     "tauri": "tauri"
   },

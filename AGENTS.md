@@ -19,11 +19,23 @@ The current implementation target is a local-first Tauri desktop pre-alpha at ve
 - Preserve unrelated changes. Stop on concurrent ownership of the same path.
 - Do not stage, commit, push, tag, publish, deploy, or rewrite history unless explicitly requested.
 
+## Modularity and file boundaries
+
+- Read `docs/development/implementation-checklist.md` before feature implementation and `docs/development/modularity-standard.md` before adding an extension point, shared type, or source file above the configured threshold.
+- Prefer many small, single-purpose files and modules over consolidated implementation files. Add a focused file when behavior has an independent reason to change.
+- Treat 200 logical lines as a review threshold, not a substitute for architectural judgment. Split the file or add a dated, owned exception in `config/modularity-policy.json`.
+- Keep types owned by the narrowest domain. A cohesive module `types.ts` is allowed; global type aggregation must be versioned, additive, and free of feature implementation dependencies.
+- Use explicit named exports and meaningful boundary barrels. Keep implementation out of `index.ts`, `mod.rs`, and `__init__.py` files.
+- Extend through versioned contracts, interfaces or traits, events, dependency injection, config, hooks, and reviewed mount points. Never reach into another feature's private internals.
+- Existing policy exceptions are visible refactor debt, not patterns for new work. Adding unrelated behavior to an excepted file requires decomposition first.
+
 ## Verification
 
 Before handing off a source change, run the applicable checks:
 
 ```text
+npm run check:modularity
+npm run test:modularity
 npm run build
 cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
 cargo check --manifest-path src-tauri/Cargo.toml --offline

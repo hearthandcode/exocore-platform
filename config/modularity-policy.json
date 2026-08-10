@@ -1,0 +1,33 @@
+{
+  "$schema": "./modularity-policy.schema.json",
+  "policy": "exocore.modularity-policy.v1",
+  "version": 1,
+  "preferredMaxLines": 200,
+  "boundaryMaxLines": 80,
+  "sourceExtensions": [".ts", ".tsx", ".rs", ".py"],
+  "excludedDirectories": [
+    ".git",
+    "node_modules",
+    "target",
+    "dist",
+    "build",
+    "coverage"
+  ],
+  "boundaryFiles": ["index.ts", "index.tsx", "mod.rs", "__init__.py"],
+  "exceptions": [
+    {
+      "path": "src/main.ts",
+      "owner": "desktop-shell-refactor",
+      "reason": "Pre-policy presentation canary combines rendering, event wiring, and workroom state.",
+      "splitPlan": "Separate view rendering, controller/event wiring, and workroom projection before adding unrelated UI behavior.",
+      "reviewBy": "2026-10-01"
+    },
+    {
+      "path": "src-tauri/src/harness/service.rs",
+      "owner": "harness-service-refactor",
+      "reason": "Pre-policy canary service combines orchestration, persistence coordination, and receipt verification.",
+      "splitPlan": "Extract orchestration, receipt persistence, and verification behind harness-owned interfaces before adding another operation.",
+      "reviewBy": "2026-10-01"
+    }
+  ]
+}
