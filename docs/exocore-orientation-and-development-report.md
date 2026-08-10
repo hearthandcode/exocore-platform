@@ -1,19 +1,22 @@
 ---
 type: doc
 title: "Exocore Orientation and Development Report (Repo Mirror)"
-status: mirror
-canonical: /home/cosmatrexis/devel/hearthandcode/internal/hearthandcode-hub/05-mechanism-annex--forge/exocore-harness/architecture/2026-08-08_exocore-orientation-and-development-report.md
+status: public-safe-pointer
+canonical: Hub-internal Exocore development report
 created: 2026-08-08
 ---
 
-# Exocore Orientation and Development Report (Repo Mirror)
+# Exocore Orientation and Development Report (Public Pointer)
 
-> **Canonical source:** `05-mechanism-annex--forge/exocore-harness/architecture/2026-08-08_exocore-orientation-and-development-report.md` (in the Hub).
->
-> This file is a supporting doc in the exocore-platform repo. It mirrors the canonical Hub report. Edits should be made in the Hub; this file is regenerated from the Hub.
+The canonical development report is an internal, review-required Hub record. This public file is only a boundary-safe pointer; it does not mirror private report content, Hub paths, or raw form responses.
 
-This mirror is intended for Exocore developers who work in the repo and want the development report at hand without switching contexts. It contains the same content as the canonical report.
+The architecture form and its public-repository response surface were retired after the accepted foundation checkpoint. Restricted source material remains outside public Git under its governed archive route.
 
-The canonical report is sourced from the v3 form responses (157/158 answered, captured 2026-08-08T13:39:40.871Z). The full responses JSON is at `exocore-platform/form/responses/2026-08-08T13-39-40_exocore-form-responses-v3.json`.
+For current implementation work, begin with:
 
-For the full report, see the canonical source in the Hub. For the raw form data, see the responses JSON in this repo.
+1. `docs/architecture/EXOCORE-OPERATIONAL-CHARTER.md`;
+2. `docs/architecture/PERSISTENCE-AND-PROJECTION-TOPOLOGY.md`;
+3. `docs/integration/NEXT-PARALLEL-STREAMS.md`; and
+4. the executable contracts, generated types, tests, and `npm run proof` result at the exact checked-out commit.
+
+A summary or internal projection does not replace repository source, current tests, or human release authority.
