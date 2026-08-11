@@ -1,0 +1,561 @@
+{
+  "schema": "exocore.agent-runtime.v1",
+  "version": "1.0.0",
+  "status": "experimental",
+  "verified": false,
+  "source_projection": {
+    "source_id": "hub-exocore-agent-runtime-v1",
+    "source_revision": 1,
+    "source_package_digest": "7666dd8a71589f9fc404f89619675c541b3c59a2c1753eada2ed3912c6ebe59b",
+    "authority": "non-authoritative-projection",
+    "warning": "Generated from a private Hub source digest. This projection is non-authoritative and may be stale."
+  },
+  "power_of_two_policy": {
+    "rule": "smallest-sufficient-semantic-scale",
+    "padding_forbidden": true,
+    "natural_cardinality_overrides_scale": true,
+    "bounded_defaults": {
+      "maximum_child_depth": 4,
+      "maximum_concurrent_children": 8,
+      "maximum_turns": 16,
+      "maximum_hook_calls_per_scope": 32
+    }
+  },
+  "modules": [
+    {
+      "id": "policy-runtime",
+      "owner": "policy-runtime",
+      "dependencies": [
+        "foundation"
+      ],
+      "default_enabled": false
+    },
+    {
+      "id": "run-ledger",
+      "owner": "run-ledger",
+      "dependencies": [
+        "foundation",
+        "persistence"
+      ],
+      "default_enabled": false
+    },
+    {
+      "id": "provider-registry",
+      "owner": "provider-registry",
+      "dependencies": [
+        "foundation",
+        "policy-runtime",
+        "run-ledger"
+      ],
+      "default_enabled": false
+    },
+    {
+      "id": "tool-runtime",
+      "owner": "tool-runtime",
+      "dependencies": [
+        "foundation",
+        "policy-runtime",
+        "run-ledger"
+      ],
+      "default_enabled": false
+    },
+    {
+      "id": "memory-runtime",
+      "owner": "memory-runtime",
+      "dependencies": [
+        "foundation",
+        "persistence",
+        "policy-runtime",
+        "run-ledger"
+      ],
+      "default_enabled": false
+    },
+    {
+      "id": "context-assembly",
+      "owner": "context-assembly",
+      "dependencies": [
+        "foundation",
+        "policy-runtime",
+        "memory-runtime",
+        "run-ledger"
+      ],
+      "default_enabled": false
+    },
+    {
+      "id": "agent-runtime",
+      "owner": "agent-runtime",
+      "dependencies": [
+        "foundation",
+        "policy-runtime",
+        "run-ledger",
+        "provider-registry",
+        "tool-runtime",
+        "context-assembly"
+      ],
+      "default_enabled": false
+    },
+    {
+      "id": "orchestration",
+      "owner": "orchestration",
+      "dependencies": [
+        "foundation",
+        "policy-runtime",
+        "run-ledger",
+        "agent-runtime"
+      ],
+      "default_enabled": false
+    }
+  ],
+  "context": {
+    "layers": [
+      "kernel-policy",
+      "operator-identity",
+      "hub-operational-governance",
+      "program-archetype",
+      "repository-project",
+      "directory-local",
+      "task-workflow",
+      "turn-runtime-injection"
+    ],
+    "source_types": [
+      "operational-charter",
+      "agents-guide",
+      "archetype",
+      "hub-intelligence",
+      "skill-methodology",
+      "task-workflow",
+      "memory-retrieval",
+      "runtime-injection"
+    ],
+    "cache_bands": [
+      "stable",
+      "session",
+      "turn",
+      "ephemeral"
+    ],
+    "content_modes": [
+      "inline",
+      "reference",
+      "summary",
+      "retrieval"
+    ],
+    "compile_outcomes": [
+      "included",
+      "excluded",
+      "summarized",
+      "stale",
+      "blocked",
+      "conflicted",
+      "missing",
+      "budget-exceeded"
+    ],
+    "source_required_fields": [
+      "source_id",
+      "source_type",
+      "locator",
+      "revision",
+      "digest",
+      "authority_class",
+      "sensitivity",
+      "disclosure",
+      "layer",
+      "precedence",
+      "cache_band",
+      "freshness",
+      "required",
+      "content_mode",
+      "token_budget",
+      "provenance"
+    ]
+  },
+  "lifecycle": {
+    "scopes": [
+      "session",
+      "run",
+      "turn",
+      "context-discovery",
+      "context-assembly",
+      "model-selection",
+      "provider-request",
+      "response-stream",
+      "message",
+      "tool-call",
+      "tool-execution",
+      "child-agent",
+      "aggregation",
+      "memory",
+      "checkpoint",
+      "settlement"
+    ],
+    "phases": [
+      "requested",
+      "started",
+      "updated",
+      "completed",
+      "failed",
+      "cancelled",
+      "blocked"
+    ],
+    "active_run_states": [
+      "accepted",
+      "orienting",
+      "assembling-context",
+      "selecting-model",
+      "invoking-model",
+      "awaiting-effects",
+      "processing-results",
+      "settling"
+    ],
+    "terminal_run_states": [
+      "completed",
+      "failed",
+      "cancelled",
+      "suspended"
+    ],
+    "child_states": [
+      "pending",
+      "starting",
+      "running",
+      "waiting",
+      "succeeded",
+      "failed",
+      "cancel-requested",
+      "cancelled"
+    ],
+    "event_required_fields": [
+      "schema",
+      "event_id",
+      "session_id",
+      "root_run_id",
+      "run_id",
+      "parent_run_id",
+      "correlation_id",
+      "causation_id",
+      "sequence",
+      "scope",
+      "phase",
+      "actor",
+      "source_module",
+      "visibility",
+      "payload_contract",
+      "payload_digest"
+    ]
+  },
+  "hooks": {
+    "points": [
+      "before",
+      "after",
+      "error",
+      "finally"
+    ],
+    "outcomes": [
+      "continue",
+      "append",
+      "patch",
+      "block",
+      "retry",
+      "redirect",
+      "suspend",
+      "terminate"
+    ],
+    "failure_modes": [
+      "fail-closed",
+      "fail-open-observability"
+    ],
+    "order": [
+      "scope-order",
+      "point-order",
+      "priority",
+      "dependency-order",
+      "owner",
+      "hook-id"
+    ],
+    "registration_required_fields": [
+      "hook_id",
+      "owner",
+      "scope",
+      "point",
+      "priority",
+      "dependencies",
+      "input_contract",
+      "output_contract",
+      "allowed_outcomes",
+      "effect",
+      "authority_requirement",
+      "timeout_ms",
+      "call_budget",
+      "idempotency",
+      "replay",
+      "failure_mode"
+    ]
+  },
+  "orchestration": {
+    "strategies": [
+      "sequential",
+      "parallel",
+      "map",
+      "reduce",
+      "supervisor",
+      "debate",
+      "handoff",
+      "quorum"
+    ],
+    "node_types": [
+      "agent-run",
+      "deterministic-transform",
+      "policy-gate",
+      "human-gate",
+      "tool-operation",
+      "aggregation",
+      "checkpoint",
+      "terminal-receipt"
+    ],
+    "edge_types": [
+      "dependency",
+      "structured-data",
+      "supervision",
+      "cancellation",
+      "evidence",
+      "handoff",
+      "compensation",
+      "aggregation"
+    ],
+    "child_required_fields": [
+      "child_run_id",
+      "root_run_id",
+      "parent_run_id",
+      "correlation_id",
+      "agent_spec_ref",
+      "archetype_ref",
+      "input_contract",
+      "output_contract",
+      "context_selectors",
+      "provider_constraints",
+      "allowed_tools",
+      "blocked_tools",
+      "capability_grants",
+      "disclosure_grants",
+      "effect_grants",
+      "budgets",
+      "timeout",
+      "retry_policy",
+      "cancellation_policy",
+      "result_route",
+      "terminal_owner"
+    ],
+    "attenuation_rules": {
+      "capabilities": "subset",
+      "tools": "subset",
+      "disclosure": "subset",
+      "effects": "subset",
+      "budget": "less-than-or-equal",
+      "lifetime": "bounded-by-parent"
+    }
+  },
+  "providers": {
+    "support_states": [
+      "native",
+      "emulated",
+      "unsupported",
+      "unknown"
+    ],
+    "capabilities": [
+      "streaming",
+      "tools",
+      "strict-tools",
+      "structured-output",
+      "reasoning",
+      "prompt-caching",
+      "files",
+      "images",
+      "audio",
+      "video",
+      "embeddings",
+      "batch",
+      "deferred-background",
+      "hosted-search",
+      "hosted-code-execution",
+      "stateful-continuation"
+    ],
+    "auth_modes": [
+      "api-key",
+      "oauth-pkce",
+      "oauth-device",
+      "subscription-key",
+      "interactive-subscription-session",
+      "workload-identity",
+      "routed-credential",
+      "local-none"
+    ],
+    "billing_modes": [
+      "metered-api",
+      "subscription-quota",
+      "routed-account",
+      "local-compute"
+    ],
+    "candidate_modules": [
+      "anthropic-api",
+      "claude-subscription",
+      "openai-api",
+      "codex-subscription",
+      "openrouter",
+      "minimax-api",
+      "minimax-token-plan",
+      "moonshot-kimi-api",
+      "kimi-code-subscription",
+      "deepseek",
+      "xai",
+      "gemini",
+      "huggingface-inference",
+      "ollama",
+      "nvidia-nim",
+      "mistral"
+    ],
+    "event_categories": [
+      "lifecycle",
+      "content",
+      "reasoning",
+      "tool",
+      "citation",
+      "usage",
+      "diagnostic",
+      "terminal"
+    ]
+  },
+  "tools": {
+    "stages": [
+      "proposal",
+      "schema-validation",
+      "policy-preflight",
+      "human-gate",
+      "execution-plan",
+      "execution",
+      "result-validation",
+      "receipt"
+    ],
+    "batch_modes": [
+      "sequential",
+      "parallel-safe",
+      "segmented",
+      "blocked"
+    ],
+    "effects": [
+      "none",
+      "local-read",
+      "local-write",
+      "external-read",
+      "external-write",
+      "send",
+      "spend",
+      "publish",
+      "deploy"
+    ]
+  },
+  "memory": {
+    "tiers": [
+      "turn",
+      "run",
+      "session",
+      "knowledge"
+    ],
+    "operations": [
+      "append-event",
+      "propose-candidate",
+      "get-record",
+      "query",
+      "link-provenance",
+      "admit",
+      "correct-or-revoke",
+      "checkpoint"
+    ],
+    "lifecycle": [
+      "candidate",
+      "admitted",
+      "corrected",
+      "superseded",
+      "expired",
+      "revoked",
+      "tombstoned",
+      "projected"
+    ],
+    "automatic_model_output_promotion": false
+  },
+  "contracts": {
+    "core": [
+      "exocore.agent-runtime.run.v1",
+      "exocore.agent-runtime.agent.v1",
+      "exocore.agent-runtime.context.v1",
+      "exocore.agent-runtime.model.v1",
+      "exocore.agent-runtime.event.v1",
+      "exocore.agent-runtime.hook.v1",
+      "exocore.agent-runtime.orchestration.v1",
+      "exocore.agent-runtime.memory.v1"
+    ],
+    "supporting": [
+      "exocore.agent-runtime.tool.v1",
+      "exocore.agent-runtime.child.v1",
+      "exocore.agent-runtime.policy.v1",
+      "exocore.agent-runtime.provider.v1",
+      "exocore.agent-runtime.usage.v1",
+      "exocore.agent-runtime.diagnostic.v1",
+      "exocore.agent-runtime.checkpoint.v1",
+      "exocore.agent-runtime.receipt.v1"
+    ]
+  },
+  "proof": {
+    "mode": "local-synthetic-default-off",
+    "workflow": "exocore.agent-runtime.synthetic-supervisor.v1",
+    "provider": "deterministic-synthetic",
+    "fixture": "fixtures/valid/synthetic-supervisor-run.json",
+    "prohibited_effects": [
+      "network",
+      "provider",
+      "credential",
+      "private-context",
+      "deployment",
+      "publication"
+    ],
+    "required_assertions": [
+      "disabled-zero-effect",
+      "structured-input-output",
+      "context-hierarchy-and-omission-receipt",
+      "deterministic-event-order",
+      "typed-hook-outcomes",
+      "capability-attenuation",
+      "bounded-fanout-and-cancellation",
+      "deterministic-terminal-receipt"
+    ]
+  },
+  "human_gates": [
+    {
+      "id": "AR-G1",
+      "purpose": "capability-contract-semantics",
+      "status": "pending"
+    },
+    {
+      "id": "AR-G2",
+      "purpose": "context-authority-disclosure",
+      "status": "pending"
+    },
+    {
+      "id": "AR-G3",
+      "purpose": "lifecycle-hooks-order-and-failure",
+      "status": "pending"
+    },
+    {
+      "id": "AR-G4",
+      "purpose": "multi-agent-attenuation-and-budgets",
+      "status": "pending"
+    },
+    {
+      "id": "AR-G5",
+      "purpose": "synthetic-proof-acceptance",
+      "status": "pending"
+    },
+    {
+      "id": "AR-G6",
+      "purpose": "live-effects-providers-credentials-and-release",
+      "status": "pending"
+    }
+  ]
+}

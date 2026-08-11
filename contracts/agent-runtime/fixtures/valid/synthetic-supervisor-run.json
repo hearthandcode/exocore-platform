@@ -1,0 +1,217 @@
+{
+  "schema": "exocore.agent-runtime.run.v1",
+  "run_id": "run-root-01",
+  "session": {
+    "session_id": "session-synthetic-01",
+    "root_run_id": "run-root-01",
+    "parent_run_id": null,
+    "correlation_id": "correlation-synthetic-01",
+    "idempotency_key": "synthetic-supervisor-run-01"
+  },
+  "agent": {
+    "agent_spec_ref": "exocore.agent-runtime.supervisor.v1",
+    "archetype_ref": "exocore.agent-runtime.synthetic-archetype.v1",
+    "objective": "Compile a public-safe structured candidate, critique it, and return a deterministic receipt.",
+    "orchestration": {
+      "strategy": "supervisor",
+      "nodes": [
+        {
+          "node_id": "supervisor",
+          "node_type": "agent-run",
+          "agent_spec_ref": "exocore.agent-runtime.supervisor.v1",
+          "input_contract": "exocore.agent-runtime.run.v1",
+          "output_contract": "exocore.agent-runtime.result.v1",
+          "capabilities": ["structured-output"],
+          "tools": ["submit-result"],
+          "disclosure": "public-safe",
+          "effects": ["none"],
+          "budget": 16,
+          "depends_on": ["worker", "critic"]
+        },
+        {
+          "node_id": "worker",
+          "node_type": "agent-run",
+          "agent_spec_ref": "exocore.agent-runtime.worker.v1",
+          "input_contract": "exocore.agent-runtime.task.v1",
+          "output_contract": "exocore.agent-runtime.candidate.v1",
+          "capabilities": ["structured-output"],
+          "tools": ["submit-result"],
+          "disclosure": "public-safe",
+          "effects": ["none"],
+          "budget": 8,
+          "depends_on": []
+        },
+        {
+          "node_id": "critic",
+          "node_type": "agent-run",
+          "agent_spec_ref": "exocore.agent-runtime.critic.v1",
+          "input_contract": "exocore.agent-runtime.candidate.v1",
+          "output_contract": "exocore.agent-runtime.critique.v1",
+          "capabilities": ["structured-output"],
+          "tools": ["submit-result"],
+          "disclosure": "public-safe",
+          "effects": ["none"],
+          "budget": 8,
+          "depends_on": ["worker"]
+        }
+      ],
+      "edges": [
+        { "from": "supervisor", "to": "worker", "kind": "supervision" },
+        { "from": "supervisor", "to": "critic", "kind": "supervision" },
+        { "from": "worker", "to": "critic", "kind": "structured-data" },
+        { "from": "critic", "to": "supervisor", "kind": "aggregation" }
+      ]
+    }
+  },
+  "model": {
+    "provider": "deterministic-synthetic",
+    "model": "fixture-model-v1",
+    "required_capabilities": ["structured-output"],
+    "provider_constraints": {
+      "network": false,
+      "credentials": false,
+      "retained_state": false,
+      "fallback": false
+    }
+  },
+  "context": {
+    "sources": [
+      {
+        "source_id": "operational-charter",
+        "source_type": "operational-charter",
+        "locator": "hub://exocore/operational-charter",
+        "revision": 4,
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "authority_class": "source",
+        "sensitivity": "public-safe",
+        "disclosure": "include",
+        "layer": "hub-operational-governance",
+        "precedence": 64,
+        "cache_band": "stable",
+        "freshness": "current",
+        "required": true,
+        "content_mode": "reference",
+        "token_budget": 1024,
+        "provenance": "synthetic public-safe charter descriptor"
+      },
+      {
+        "source_id": "project-agents",
+        "source_type": "agents-guide",
+        "locator": "repo://synthetic/AGENTS.md",
+        "revision": 1,
+        "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "authority_class": "source",
+        "sensitivity": "public-safe",
+        "disclosure": "include",
+        "layer": "repository-project",
+        "precedence": 32,
+        "cache_band": "session",
+        "freshness": "current",
+        "required": true,
+        "content_mode": "inline",
+        "token_budget": 1024,
+        "provenance": "synthetic repository guide"
+      },
+      {
+        "source_id": "synthetic-archetype",
+        "source_type": "archetype",
+        "locator": "hub://archetypes/synthetic",
+        "revision": 1,
+        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "authority_class": "proposal",
+        "sensitivity": "public-safe",
+        "disclosure": "summarize",
+        "layer": "program-archetype",
+        "precedence": 16,
+        "cache_band": "session",
+        "freshness": "current",
+        "required": false,
+        "content_mode": "summary",
+        "token_budget": 512,
+        "provenance": "synthetic archetype fixture"
+      },
+      {
+        "source_id": "task-packet",
+        "source_type": "task-workflow",
+        "locator": "fixture://synthetic/task",
+        "revision": 1,
+        "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "authority_class": "plan",
+        "sensitivity": "public-safe",
+        "disclosure": "include",
+        "layer": "task-workflow",
+        "precedence": 8,
+        "cache_band": "turn",
+        "freshness": "current",
+        "required": true,
+        "content_mode": "inline",
+        "token_budget": 512,
+        "provenance": "synthetic task fixture"
+      }
+    ],
+    "token_budget": 4096,
+    "disclosure": "public-safe",
+    "conflict_policy": "fail-closed",
+    "omission_receipt": true
+  },
+  "tools": {
+    "allow": ["submit-result"],
+    "block": ["network", "filesystem-write", "provider-call"],
+    "effects": ["none"],
+    "parallelism": 2
+  },
+  "policy": {
+    "enabled": true,
+    "max_turns": 16,
+    "max_child_depth": 4,
+    "max_concurrent_children": 8,
+    "hook_budget": 32,
+    "retry_limit": 2,
+    "timeout_ms": 65536,
+    "human_gates": [],
+    "hooks": [
+      {
+        "hook_id": "observe-context",
+        "owner": "run-ledger",
+        "scope": "context-assembly",
+        "point": "after",
+        "priority": 16,
+        "dependencies": [],
+        "input_contract": "exocore.agent-runtime.context.v1",
+        "output_contract": "exocore.agent-runtime.hook.v1",
+        "allowed_outcomes": ["continue", "append"],
+        "effect": "none",
+        "authority_requirement": "observe",
+        "timeout_ms": 1024,
+        "call_budget": 4,
+        "idempotency": "required",
+        "replay": "deterministic",
+        "failure_mode": "fail-open-observability"
+      },
+      {
+        "hook_id": "authorize-child",
+        "owner": "policy-runtime",
+        "scope": "child-agent",
+        "point": "before",
+        "priority": 8,
+        "dependencies": [],
+        "input_contract": "exocore.agent-runtime.child.v1",
+        "output_contract": "exocore.agent-runtime.hook.v1",
+        "allowed_outcomes": ["continue", "block", "suspend", "terminate"],
+        "effect": "none",
+        "authority_requirement": "policy",
+        "timeout_ms": 1024,
+        "call_budget": 8,
+        "idempotency": "required",
+        "replay": "deterministic",
+        "failure_mode": "fail-closed"
+      }
+    ]
+  },
+  "output": {
+    "contract": "exocore.agent-runtime.result.v1",
+    "strict": true,
+    "repair_attempts": 1,
+    "receipt_route": "exocore.agent-runtime.receipt.v1"
+  }
+}

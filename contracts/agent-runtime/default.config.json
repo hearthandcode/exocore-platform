@@ -1,0 +1,14 @@
+{
+  "schema": "exocore.agent-runtime.config.v1",
+  "enabled": false,
+  "provider_mode": "deterministic-synthetic",
+  "network": false,
+  "credentials": false,
+  "private_context": false,
+  "budgets": {
+    "max_turns": 16,
+    "max_child_depth": 4,
+    "max_concurrent_children": 8,
+    "max_hook_calls": 32
+  }
+}

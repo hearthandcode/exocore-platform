@@ -1,0 +1,37 @@
+{
+  "schema": "exocore.source-projection.v1",
+  "projection_id": "hub-exocore-agent-runtime-v1",
+  "source": {
+    "source_id": "hub-exocore-agent-runtime-v1",
+    "revision": 1,
+    "package_digest": "7666dd8a71589f9fc404f89619675c541b3c59a2c1753eada2ed3912c6ebe59b",
+    "review_state": "design-review-required",
+    "verified": false,
+    "disclosure": "public-safe-subset"
+  },
+  "projection": {
+    "base_commit": "b66451a9b4ab0dfad77ce9fd22d928e32122c4e3",
+    "authority_class": "projection-and-executable-derivative",
+    "automatic_writeback": false,
+    "warning": "Generated from a private Hub source digest. This projection is non-authoritative and may be stale.",
+    "transformations": [
+      "remove-private-locators",
+      "remove-machine-local-paths",
+      "remove-thread-and-work-item-references",
+      "remove-source-bodies",
+      "remove-review-notes",
+      "replace-hub-path-with-public-source-id",
+      "retain-source-package-digest",
+      "retain-review-and-verification-state",
+      "add-non-authority-warning"
+    ]
+  },
+  "runtime": {
+    "status": "inactive",
+    "mode": "local-synthetic-default-off",
+    "network": false,
+    "provider": false,
+    "credentials": false,
+    "private_context": false
+  }
+}

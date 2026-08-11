@@ -2,6 +2,11 @@
   "schema": "exocore.module-catalog.v1",
   "modules": [
     {
+      "module_id": "agent-runtime",
+      "status": "experimental",
+      "declaration": "contracts/agent-runtime/module.v2.json"
+    },
+    {
       "module_id": "artifact-surface-projection",
       "status": "active",
       "declaration": null

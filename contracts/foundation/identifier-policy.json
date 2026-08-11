@@ -30,6 +30,7 @@
     "workflow"
   ],
   "namespace_owners": {
+    "exocore.agent-runtime": "agent-runtime",
     "exocore.artifact-surface": "artifact-surface-projection",
     "exocore.foundation": "foundation",
     "exocore.intake-registry": "intake-registry-projection",

@@ -12,6 +12,7 @@ const checks = [
   ["tests", npm, ["test"]],
   ["boundaries", npm, ["run", "check:boundaries"]],
   ["language-persistence", npm, ["run", "validate:language-persistence"]],
+  ["agent-runtime-projection", python, ["scripts/validate_agent_runtime.py"]],
   ["intake-projection", npm, ["run", "validate:intake-registry"]],
   ["artifact-projection", npm, ["run", "validate:artifact-surface"]],
   ["web-build", npm, ["run", "build"]],

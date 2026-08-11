@@ -1,0 +1,99 @@
+{
+  "schema": "exocore.module.v2",
+  "module_id": "agent-runtime",
+  "module_version": "0.1.0",
+  "status": "experimental",
+  "owner": "agent-runtime",
+  "record_scope": "synthetic agent runs, lifecycle events, checkpoints, and execution receipts",
+  "flag": {
+    "id": "agent-runtime.enabled",
+    "default": false
+  },
+  "config_contract": "exocore.agent-runtime.config.v1",
+  "dependencies": ["foundation"],
+  "ports": [
+    {
+      "id": "exocore.agent-runtime.run.v1",
+      "direction": "inbound",
+      "contract": "exocore.agent-runtime.run.v1",
+      "required": true
+    },
+    {
+      "id": "exocore.agent-runtime.event.v1",
+      "direction": "outbound",
+      "contract": "exocore.agent-runtime.event.v1",
+      "required": true
+    },
+    {
+      "id": "exocore.agent-runtime.receipt.v1",
+      "direction": "outbound",
+      "contract": "exocore.agent-runtime.receipt.v1",
+      "required": true
+    }
+  ],
+  "operations": [
+    {
+      "id": "exocore.agent-runtime.status.v1",
+      "kind": "query",
+      "input_contract": "exocore.agent-runtime.status-input.v1",
+      "output_contract": "exocore.agent-runtime.status-output.v1",
+      "authority": "agent-runtime module health only",
+      "effect": "none",
+      "idempotent": true
+    },
+    {
+      "id": "exocore.agent-runtime.run-synthetic.v1",
+      "kind": "command",
+      "input_contract": "exocore.agent-runtime.run.v1",
+      "output_contract": "exocore.agent-runtime.result.v1",
+      "authority": "local synthetic proof records only",
+      "effect": "local-write",
+      "idempotent": true
+    },
+    {
+      "id": "exocore.agent-runtime.reset-proof.v1",
+      "kind": "command",
+      "input_contract": "exocore.agent-runtime.reset-input.v1",
+      "output_contract": "exocore.agent-runtime.reset-output.v1",
+      "authority": "agent-runtime synthetic proof namespace only",
+      "effect": "local-write",
+      "idempotent": true
+    }
+  ],
+  "namespaces": {
+    "commands": "exocore.agent-runtime.command.",
+    "contracts": "exocore.agent-runtime.contract.",
+    "config": "exocore.agent-runtime.config.",
+    "diagnostics": "exocore.agent-runtime.diagnostic."
+  },
+  "extension_points": [
+    {
+      "id": "exocore.agent-runtime.provider-adapter.v1",
+      "contract": "exocore.agent-runtime.provider.v1",
+      "cardinality": "zero-or-many",
+      "compatibility": "same-major"
+    },
+    {
+      "id": "exocore.agent-runtime.hook-registration.v1",
+      "contract": "exocore.agent-runtime.hook.v1",
+      "cardinality": "zero-or-many",
+      "compatibility": "same-major"
+    }
+  ],
+  "migrations": {
+    "strategy": "none",
+    "current_schema_version": 0,
+    "rollback": "not-required"
+  },
+  "deprecation": null,
+  "health": "exocore.agent-runtime.health.v1",
+  "proof": {
+    "command": "python3 scripts/validate_agent_runtime.py",
+    "fixtures": [
+      "contracts/agent-runtime/fixtures/valid/synthetic-supervisor-run.json",
+      "contracts/agent-runtime/fixtures/invalid/child-capability-escalation.json",
+      "contracts/agent-runtime/fixtures/invalid/unknown-hook-outcome.json"
+    ],
+    "reset_operation": "exocore.agent-runtime.reset-proof.v1"
+  }
+}

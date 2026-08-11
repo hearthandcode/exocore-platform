@@ -1,0 +1,10 @@
+{
+  "schema": "exocore.agent-runtime.invalid-fixture.v1",
+  "base_fixture": "fixtures/valid/synthetic-supervisor-run.json",
+  "mutation": {
+    "operation": "append",
+    "path": "/policy/hooks/0/allowed_outcomes",
+    "value": "mutate-anything"
+  },
+  "expected_diagnostic": "E_UNKNOWN_HOOK_OUTCOME"
+}

@@ -94,6 +94,12 @@
       "may_depend_on": ["contracts", "kernel-ipc"]
     },
     {
+      "id": "native-agent-runtime",
+      "plane": "rust",
+      "path": "src-tauri/src/agent_runtime/",
+      "may_depend_on": ["contracts"]
+    },
+    {
       "id": "presentation-persistence",
       "plane": "typescript",
       "path": "src/persistence/",

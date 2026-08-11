@@ -1,0 +1,10 @@
+{
+  "schema": "exocore.agent-runtime.invalid-fixture.v1",
+  "base_fixture": "fixtures/valid/synthetic-supervisor-run.json",
+  "mutation": {
+    "operation": "append",
+    "path": "/agent/orchestration/nodes/1/capabilities",
+    "value": "hosted-search"
+  },
+  "expected_diagnostic": "E_CHILD_CAPABILITY_ESCALATION"
+}

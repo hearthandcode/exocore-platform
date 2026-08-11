@@ -1,3 +1,4 @@
+pub mod agent_runtime;
 mod commands;
 mod contracts;
 pub mod foundation;

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hearthandcode/exocore-platform/blob/main/contracts/agent-runtime/config.schema.json",
+  "title": "Exocore agent runtime configuration v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "enabled", "provider_mode", "network", "credentials", "private_context", "budgets"],
+  "properties": {
+    "schema": { "const": "exocore.agent-runtime.config.v1" },
+    "enabled": { "const": false },
+    "provider_mode": { "const": "deterministic-synthetic" },
+    "network": { "const": false },
+    "credentials": { "const": false },
+    "private_context": { "const": false },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_turns", "max_child_depth", "max_concurrent_children", "max_hook_calls"],
+      "properties": {
+        "max_turns": { "const": 16 },
+        "max_child_depth": { "const": 4 },
+        "max_concurrent_children": { "const": 8 },
+        "max_hook_calls": { "const": 32 }
+      }
+    }
+  },
+  "x-source-projection": {
+    "source_id": "hub-exocore-agent-runtime-v1",
+    "source_revision": 1,
+    "source_package_digest": "7666dd8a71589f9fc404f89619675c541b3c59a2c1753eada2ed3912c6ebe59b",
+    "authority": "non-authoritative-projection"
+  }
+}
